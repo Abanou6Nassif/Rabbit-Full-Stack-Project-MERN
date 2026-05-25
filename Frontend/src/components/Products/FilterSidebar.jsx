@@ -53,12 +53,12 @@ export default function FilterSidebar() {
 
   const genders = ["Men", "Women"];
 
+  // let isParamsRetrieved = false
   useEffect(() => {
     /**
      *  updates the filters each time the search params changes
      */
     const params = Object.fromEntries([...searchParams]);
-
     setFilters({
       category: params.category || "",
       gender: params.gender || "",
