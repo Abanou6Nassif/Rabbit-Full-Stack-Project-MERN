@@ -49,6 +49,8 @@ const similarProducts = [
     images: [{ url: "https://picsum.photos/500/500?random=4" }],
   },
 ];
+
+const darkColors = ["black", "Black", "gray", "Gray"];
 const ProductDetails = () => {
   const [mianImage, setMainImage] = useState(selectedProduct.images[0].url);
   const [selectedSize, setSelectedSize] = useState("");
@@ -149,7 +151,7 @@ const ProductDetails = () => {
                     onClick={() => setSelectedColor(color)}
                     className={`w-8 h-8 rounded-full border ${
                       selectedColor === color
-                        ? `border-4 ${selectedColor === "Black" || selectedColor === "Gray" ? "border-white" : "border-black"}`
+                        ? `border-4 ${darkColors.some((color) => color === selectedColor) ? "border-white" : "border-black"}`
                         : " border-gray-300"
                     }`}
                     style={{
