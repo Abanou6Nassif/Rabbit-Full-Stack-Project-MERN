@@ -1,4 +1,3 @@
-import { required, string } from "joi";
 import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema(
@@ -7,6 +6,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      maxLength: 100,
     },
     description: {
       type: String,
@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema(
     },
     sku: {
       type: String,
-      unique: true,
+      unique: [true, "SKU should be unique"],
       required: true,
     },
     category: {
@@ -106,6 +106,5 @@ const productSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
-
 
 export default mongoose.model("Product", productSchema);

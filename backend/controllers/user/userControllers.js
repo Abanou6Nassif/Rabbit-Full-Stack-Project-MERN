@@ -1,7 +1,7 @@
-import userModel from "../models/User.js";
+import userModel from "../../models/User.js";
 import jwt from "jsonwebtoken";
-import catchError from "../utils/catchError.js";
-import AppError from "../utils/appError.js";
+import catchError from "../../utils/catchError.js";
+import AppError from "../../utils/appError.js";
 import { userValidationSchema } from "./userValidationSchema.js";
 
 /**
@@ -10,10 +10,14 @@ import { userValidationSchema } from "./userValidationSchema.js";
 const register = catchError(async (req, res) => {
   let { error, value } = userValidationSchema.validate(req.body, {
     allowUnknown: false,
-});
-console.log(value);
-  if (error) throw new AppError(error.details[0].message, 400);
-  
+  });
+  if (error) {
+    return res.status(400).json({
+      message: "Validation failed",
+      errors: error.details.map((detail) => detail.message),
+    });
+  }
+
   const { name, email, password } = value;
 
   let user = await userModel.findOne({ email });
@@ -26,11 +30,11 @@ console.log(value);
   try {
     const token = user.generateToken(res, payload);
   } catch (error) {
-    throw new AppError("Server Error", 500);
+    throw new AppError("Internal Server Error", 500);
   }
 
   res.status(201).json({
-    status: "Account created successfully",
+    message: "Account created successfully",
   });
 });
 
@@ -53,11 +57,11 @@ const login = catchError(async (req, res) => {
   try {
     const token = user.generateToken(res, payload);
   } catch (error) {
-    throw new AppError("Server Error", 500);
+    throw new AppError("Internal Server Error", 500);
   }
 
   res.status(201).json({
-    status: "Logged in Successfully",
+    message: "Logged in Successfully",
   });
 });
 
@@ -67,5 +71,7 @@ const login = catchError(async (req, res) => {
 const profile = catchError(async (req, res) => {
   res.status(200).json(req.user);
 });
+
+
 
 export { register, login, profile };

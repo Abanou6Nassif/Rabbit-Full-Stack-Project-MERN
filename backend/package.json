@@ -21,6 +21,7 @@
     "joi": "^18.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.6.2",
-    "rate-limiter-flexible": "^11.1.0"
+    "rate-limiter-flexible": "^11.1.0",
+    "uuid": "^14.0.0"
   }
 }
