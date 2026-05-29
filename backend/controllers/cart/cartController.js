@@ -18,6 +18,10 @@ const getCart = async (userId, guestId) => {
     return null;
   }
 };
+
+/**
+ * Adding product to cart for a guest or logged-in user
+ */
 export const addToCart = catchError(async (req, res) => {
   const { error, value } = cartValidationSchema.validate(req.body);
   if (error) {
@@ -26,7 +30,6 @@ export const addToCart = catchError(async (req, res) => {
       errors: error.details.map((detail) => detail.message),
     });
   }
-
 
   const { productId, size, color, quantity, guestId, userId } = value;
 
@@ -96,4 +99,50 @@ export const addToCart = catchError(async (req, res) => {
       );
     return res.status(201).json(newCart);
   }
+});
+
+/**
+ * Updating product quantity in the cart for a guest or logged-in user
+ */
+export const updateCartProductQty = catchError(async (req, res) => {
+  const { error, value } = cartValidationSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({
+      message: "Validation failed",
+      errors: error.details.map((detail) => detail.message),
+    });
+  }
+
+  const { productId, size, color, quantity, guestId, userId } = value;
+
+  let cart = await getCart(userId, guestId);
+  console.log(cart);
+
+  if (!cart) throw new AppError("Cart not found", 404);
+
+  const productIndex = cart.products.findIndex(
+    (prod) =>
+      prod.productId.toString() === productId &&
+      prod.color === color &&
+      prod.size === size,
+  );
+
+  if (productIndex > -1) {
+    if (quantity > 0) {
+      cart.products[productIndex].quantity = quantity;
+    } else {
+      cart.products.splice(productIndex, 1);
+    }
+  } else {
+    throw new AppError("Product not found", 404);
+  }
+
+  cart.totalPrice = cart.products.reduce((total, prod) => {
+    return total + prod.quantity * prod.price;
+  }, 0);
+
+  cart = await cart.save();
+  console.log(cart, "L147");
+
+  res.status(200).json(cart);
 });

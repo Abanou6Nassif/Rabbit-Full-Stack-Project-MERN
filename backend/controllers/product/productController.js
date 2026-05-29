@@ -102,7 +102,7 @@ const updateProduct = catchError(async (req, res) => {
   });
 
   if (!product) throw new AppError("The product not found", 404);
-  res.status(201).json(product);
+  res.status(200).json(product);
 });
 
 /**
@@ -111,7 +111,7 @@ const updateProduct = catchError(async (req, res) => {
 const deleteProduct = catchError(async (req, res) => {
   const product = await productModel.findByIdAndDelete(req.params.id);
   if (product) {
-    res.status(203).json({
+    res.status(204).json({
       message: `Product ${req.params.id} deleted successfully`,
     });
   } else {

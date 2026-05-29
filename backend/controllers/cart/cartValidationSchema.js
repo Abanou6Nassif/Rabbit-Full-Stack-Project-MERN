@@ -42,7 +42,7 @@ const cartValidation = Joi.object({
     .trim()
     .custom((color) => color.toLowerCase()),
 
-  quantity: Joi.number().integer().min(1).default(1),
+  quantity: Joi.number().integer().default(1),
 }).prefs({
   stripUnknown: { objects: true },
 });
