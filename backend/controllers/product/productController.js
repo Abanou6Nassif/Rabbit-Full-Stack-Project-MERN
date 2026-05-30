@@ -111,7 +111,7 @@ const updateProduct = catchError(async (req, res) => {
 const deleteProduct = catchError(async (req, res) => {
   const product = await productModel.findByIdAndDelete(req.params.id);
   if (product) {
-    res.status(204).json({
+    res.status(200).json({
       message: `Product ${req.params.id} deleted successfully`,
     });
   } else {

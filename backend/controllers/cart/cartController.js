@@ -146,3 +146,140 @@ export const updateCartProductQty = catchError(async (req, res) => {
 
   res.status(200).json(cart);
 });
+
+/**
+ * Deleting a product from the cart for a guest or logged-in user
+ */
+export const deleteCartProduct = catchError(async (req, res) => {
+  const { error, value } = cartValidationSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({
+      message: "Validation failed",
+      errors: error.details.map((detail) => detail.message),
+    });
+  }
+
+  const { productId, size, color, quantity, guestId, userId } = value;
+
+  let cart = await getCart(userId, guestId);
+  console.log(cart);
+
+  if (!cart) throw new AppError("Cart not found", 404);
+
+  const productIndex = cart.products.findIndex((prod) =>
+    prod.productId.toString(),
+  );
+
+  console.log(productIndex, "L176");
+
+  if (productIndex > -1) {
+    cart.products.splice(productIndex, 1);
+  } else {
+    throw new AppError("Product not found", 404);
+  }
+
+  cart.totalPrice = cart.products.reduce((total, prod) => {
+    return total + prod.quantity * prod.price;
+  }, 0);
+
+  cart = await cart.save();
+  console.log(cart, "L147");
+
+  res.status(200).json(cart);
+});
+
+/**
+ * Retrieve or get guest user's or logged-in user's Cart
+ */
+export const getCartDetails = catchError(async (req, res) => {
+  /**
+   * we are getting the guestId, userId from the Query params
+   */
+  const { error, value } = cartValidationSchema.validate(req.query);
+  if (error) {
+    return res.status(400).json({
+      message: "Validation failed",
+      errors: error.details.map((detail) => detail.message),
+    });
+  }
+
+  const { guestId, userId } = value;
+
+  let cart = await getCart(userId, guestId);
+  if (!cart) throw new AppError("Cart not found", 404);
+
+  res.status(200).json(cart);
+});
+
+/**
+ * Merge guest cart into user cart on login
+ */
+
+export const mergeCart = catchError(async (req, res) => {
+  const { error, value } = cartValidationSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({
+      message: "Validation failed",
+      errors: error.details.map((detail) => detail.message),
+    });
+  }
+  const { guestId } = value;
+  console.log(guestId, "L227");
+
+  //Find both the guest and user carts
+  const guestCart = await cartModel.findOne({ guestId });
+  console.log(guestCart);
+
+  const userCart = await cartModel.findOne({ user: req.user._id });
+
+  if (guestCart) {
+    if (guestCart.products.length === 0) {
+      throw new AppError("Guest cart is empty", 400);
+    }
+    if (userCart) {
+      guestCart.products.forEach((guestItem) => {
+        const productIndex = userCart.products.findIndex(
+          (item) =>
+            item.productId.toString() === guestItem.productId.toString() &&
+            item.size === guestItem.size &&
+            item.color === guestItem.color,
+        );
+
+        if (productIndex > -1) {
+          userCart.products[productIndex].quantity += guestItem.quantity;
+        } else {
+          userCart.products.push(guestItem);
+        }
+      });
+
+      userCart.totalPrice = userCart.products.reduce((total, item) => {
+        return total + item.quantity * item.price;
+      }, 0);
+
+      await userCart.save();
+
+      //Remove the guest cart after merging
+      await cartModel.findOneAndDelete({ guestId });
+
+      res.status(200).json(userCart);
+    } else {
+      //in the case of no user cart exist
+      //we just assign that user his own guest cart
+      //by assigning his id to user field in the cart
+      guestCart.user = req.user._id;
+      guestCart.guestId = undefined;
+
+      await guestCart.save();
+
+      res.status(200).json(guestCart);
+    }
+  } else {
+    //in case of no guest cart
+    //but there is a guest cart so just return the user cart
+    if (userCart) {
+      return res.status(200).json(userCart);
+    }
+
+    throw new AppError("Guest cart not found", 404);
+  }
+});
