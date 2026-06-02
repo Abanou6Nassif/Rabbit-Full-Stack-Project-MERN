@@ -15,10 +15,10 @@ const router = express.Router();
 //@access Public
 router.post("/", addToCart);
 
-//@route PUT /api/cart
+//@route PATCH /api/cart
 //@desc Updating product quantity in the cart for a guest or logged-in user
 //@access Public
-router.put("/", updateCartProductQty);
+router.patch("/", updateCartProductQty);
 
 //@route Delete /api/cart
 //@desc Deleting a product from the cart for a guest or logged-in user

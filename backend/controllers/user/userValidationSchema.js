@@ -32,3 +32,7 @@ export const userValidationSchema = Joi.object({
   // }),
   role: Joi.string().trim().valid("admin", "customer").default("customer"),
 });
+
+export const userUpdateValidation = userValidationSchema
+  .fork(["name", "email", "password", "role"], (schema) => schema.optional())
+  .prefs({ stripUnknown: true });

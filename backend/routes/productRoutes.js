@@ -20,10 +20,10 @@ const router = express.Router();
 //@access Private/Admin
 router.post("/", authenticate, authorize("admin"), addProduct);
 
-//@route PUT /api/products/:id
+//@route PATCH /api/products/:id
 //@desc Update an existing product ID
 //@access Private/Admin
-router.put("/:id", authenticate, authorize("admin"), updateProduct);
+router.patch("/:id", authenticate, authorize("admin"), updateProduct);
 
 //@route DELETE /api/products/:id
 //@desc Delete a product by its ID

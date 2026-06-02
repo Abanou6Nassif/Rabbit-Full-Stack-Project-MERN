@@ -1,6 +1,10 @@
 const catchError = (fn) => {
   return (req, res, next) => {
-    return fn(req, res, next).catch(next);
+    try {
+      return Promise.resolve(fn(req, res, next)).catch(next);
+    } catch (error) {
+      return next(error);
+    }
   };
 };
 

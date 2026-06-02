@@ -1,5 +1,5 @@
 import catchError from "../../utils/catchError.js";
-import { cartModel } from "../../models/Cart.js";
+import cartModel from "../../models/Cart.js";
 import productModel from "../../models/Product.js";
 import AppError from "../../utils/appError.js";
 import { v6 as uuidV6 } from "uuid";

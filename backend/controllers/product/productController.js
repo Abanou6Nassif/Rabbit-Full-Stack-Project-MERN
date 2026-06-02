@@ -99,6 +99,7 @@ const updateProduct = catchError(async (req, res) => {
 
   const product = await productModel.findByIdAndUpdate(req.params.id, value, {
     returnDocument: "after",
+    runValidators: true,
   });
 
   if (!product) throw new AppError("The product not found", 404);
