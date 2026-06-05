@@ -6,9 +6,13 @@ import {
   FaStore,
   FaSignOutAlt,
 } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../redux/authSlice.js";
 function AdminSidebar() {
   const navigate = useNavigate();
-  const handleLogout = () => {
+  const dispatch = useDispatch();
+  const handleLogout = async () => {
+    await dispatch(logoutUser());
     navigate("/");
   };
   return (

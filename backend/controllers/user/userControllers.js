@@ -35,6 +35,12 @@ const register = catchError(async (req, res) => {
 
   res.status(201).json({
     message: "Account created successfully",
+    user: {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    },
   });
 });
 
@@ -62,6 +68,12 @@ const login = catchError(async (req, res) => {
 
   res.status(201).json({
     message: "Logged in Successfully",
+    user: {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    },
   });
 });
 
@@ -72,6 +84,17 @@ const profile = catchError(async (req, res) => {
   res.status(200).json(req.user);
 });
 
-
-
-export { register, login, profile };
+/**
+ * logout controller
+ */
+const logout = catchError(async (req, res) => {
+  res.clearCookie("jwt", {
+    //   secure: true,         // enforce HTTPS in production
+    //   sameSite: "Strict"    // or "None" if you need cross-site
+    httpOnly: true,
+    secure: false,
+    sameSite: "Lax",
+  });
+  res.status(200).json({ message: "Logged out successfully" });
+});
+export { register, login, profile, logout };
