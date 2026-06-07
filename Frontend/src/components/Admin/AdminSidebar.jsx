@@ -7,7 +7,7 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { logoutUser } from "../../redux/authSlice.js";
+import { logoutUser } from "../../redux//slices/authSlice.js";
 function AdminSidebar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();

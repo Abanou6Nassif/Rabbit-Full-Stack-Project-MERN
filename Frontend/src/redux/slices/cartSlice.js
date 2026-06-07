@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { loginUser, logout, logoutUser } from "./authSlice.js";
 
 //Helper function to load cart from localStorage
 const loadCartFromStorage = () => {
@@ -26,7 +27,9 @@ export const fetchCart = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data || { message: error.message },
+      );
     }
   },
 );
@@ -53,7 +56,9 @@ export const addToCart = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data || { message: error.message },
+      );
     }
   },
 );
@@ -80,7 +85,9 @@ export const updateCartItemQuantity = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data || { message: error.message },
+      );
     }
   },
 );
@@ -92,22 +99,31 @@ export const removeFromCart = createAsyncThunk(
     { productId, size, color, quantity, guestId, userId },
     { rejectWithValue },
   ) => {
+    console.log(
+      { productId, size, color, quantity, guestId, userId },
+      "L102 CartSlice",
+    );
+
     try {
       const response = await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
         {
-          productId,
-          size,
-          color,
-          quantity,
-          guestId,
-          userId,
+          data: {
+            productId,
+            size,
+            color,
+            quantity,
+            guestId,
+            userId,
+          },
         },
       );
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data || { message: error.message },
+      );
     }
   },
 );
@@ -124,7 +140,9 @@ export const mergeCart = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data || { message: error.message },
+      );
     }
   },
 );
@@ -147,6 +165,18 @@ const cartSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+      .addCase(logout, (state) => {
+        state.cart = { products: [] };
+        state.loading = false;
+        state.error = null;
+        localStorage.removeItem("cart");
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.cart = { products: [] };
+        state.loading = false;
+        state.error = null;
+        localStorage.removeItem("cart");
+      })
       //fetch the cart
       .addCase(fetchCart.pending, (state) => {
         state.loading = true;
@@ -220,9 +250,9 @@ const cartSlice = createSlice({
       .addCase(mergeCart.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.message || "Failed to merge cart";
-      })
+      });
   },
 });
 
-export const {clearCart} = cartSlice.actions
-export default cartSlice.reducer
+export const { clearCart } = cartSlice.actions;
+export default cartSlice.reducer;

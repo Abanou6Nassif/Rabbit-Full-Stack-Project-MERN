@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import login from "../assets/login.webp";
-import { loginUser } from "../redux/authSlice.js";
-import { useDispatch } from "react-redux";
+import { loginUser } from "../redux/slices/authSlice.js";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart } from "../redux/slices/cartSlice.js";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-
+  const { guestId, user } = useSelector((state) => state.auth);
+  const userId = user?._id || null;
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("User Login", { email, password });
@@ -16,6 +18,12 @@ function Login() {
 
     dispatch(loginUser({ email, password }));
   };
+
+  useEffect(() => {
+    if (user?._id) {
+      dispatch(fetchCart({ guestId, userId }));
+    }
+  }, [dispatch, guestId, userId]);
   return (
     <div className="flex">
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 md:p-12">

@@ -50,7 +50,7 @@ const cartValidation = Joi.object({
 export const cartValidationSchema = cartValidation
   .fork(
     ["productId", "size", "color", "quantity", "guestId", "userId"],
-    (schema) => schema.optional(),
+    (schema) => schema.optional().empty(null),
   )
   .prefs({
     stripUnknown: { objects: true },

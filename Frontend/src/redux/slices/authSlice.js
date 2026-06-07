@@ -33,7 +33,9 @@ export const loginUser = createAsyncThunk(
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       return response.data.user; //Return the user object from the response
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data || { message: error.message },
+      );
     }
   },
 );
@@ -52,7 +54,9 @@ export const registerUser = createAsyncThunk(
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       return response.data.user; //Return the user object from the response
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data || { message: error.message },
+      );
     }
   },
 );
@@ -72,7 +76,9 @@ export const logoutUser = createAsyncThunk(
 
       return response.data.message; //Return the message from the response
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data || { message: error.message },
+      );
     }
   },
 );

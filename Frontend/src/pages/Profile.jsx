@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import MyOrdersPage from "./MyOrdersPage";
-import { logoutUser } from "../redux/authSlice.js";
+import { logoutUser } from "../redux/slices/authSlice.js";
 
 function Profile() {
   const dispatch = useDispatch();

@@ -106,17 +106,18 @@ export const addToCart = catchError(async (req, res) => {
  */
 export const updateCartProductQty = catchError(async (req, res) => {
   const { error, value } = cartValidationSchema.validate(req.body);
+  console.log(error, "cartController L109");
   if (error) {
     return res.status(400).json({
       message: "Validation failed",
       errors: error.details.map((detail) => detail.message),
     });
   }
-
   const { productId, size, color, quantity, guestId, userId } = value;
 
   let cart = await getCart(userId, guestId);
-  console.log(cart);
+
+  console.log(cart, userId, guestId, "cartController L121");
 
   if (!cart) throw new AppError("Cart not found", 404);
 
@@ -142,7 +143,6 @@ export const updateCartProductQty = catchError(async (req, res) => {
   }, 0);
 
   cart = await cart.save();
-  console.log(cart, "L147");
 
   res.status(200).json(cart);
 });
@@ -152,6 +152,8 @@ export const updateCartProductQty = catchError(async (req, res) => {
  */
 export const deleteCartProduct = catchError(async (req, res) => {
   const { error, value } = cartValidationSchema.validate(req.body);
+  console.log(value, "L155 cartController");
+
   if (error) {
     return res.status(400).json({
       message: "Validation failed",
@@ -162,15 +164,16 @@ export const deleteCartProduct = catchError(async (req, res) => {
   const { productId, size, color, quantity, guestId, userId } = value;
 
   let cart = await getCart(userId, guestId);
-  console.log(cart);
 
+  console.log(cart, userId, guestId, "cartController L168");
   if (!cart) throw new AppError("Cart not found", 404);
 
-  const productIndex = cart.products.findIndex((prod) =>
-    prod.productId.toString(),
+  const productIndex = cart.products.findIndex(
+    (prod) =>
+      prod.productId.toString() === productId &&
+      prod.color === color &&
+      prod.size === size,
   );
-
-  console.log(productIndex, "L176");
 
   if (productIndex > -1) {
     cart.products.splice(productIndex, 1);
@@ -183,7 +186,6 @@ export const deleteCartProduct = catchError(async (req, res) => {
   }, 0);
 
   cart = await cart.save();
-  console.log(cart, "L147");
 
   res.status(200).json(cart);
 });
@@ -224,11 +226,9 @@ export const mergeCart = catchError(async (req, res) => {
     });
   }
   const { guestId } = value;
-  console.log(guestId, "L227");
 
   //Find both the guest and user carts
   const guestCart = await cartModel.findOne({ guestId });
-  console.log(guestCart);
 
   const userCart = await cartModel.findOne({ user: req.user._id });
 

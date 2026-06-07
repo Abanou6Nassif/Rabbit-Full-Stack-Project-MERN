@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { act } from "react";
 
 //Async thunk to fetch products by collection and optional filters
 export const fetchProductsByFilters = createAsyncThunk(
@@ -42,7 +41,9 @@ export const fetchProductsByFilters = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data || { message: error.message },
+      );
     }
   },
 );
@@ -55,10 +56,12 @@ export const fetchProductDetails = createAsyncThunk(
       const response = await axios.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`,
       );
-
+      
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data || { message: error.message },
+      );
     }
   },
 );
@@ -75,7 +78,9 @@ export const updateProduct = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data || { message: error.message },
+      );
     }
   },
 );
@@ -90,7 +95,9 @@ export const fetchSimilarProducts = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(
+        error.response?.data || { message: error.message },
+      );
     }
   },
 );
@@ -100,8 +107,16 @@ const productSlice = createSlice({
   initialState: {
     products: [],
     selectedProduct: null,
+    similarProducts: [],
     loading: false,
     error: null,
+    // split loading/error by request type
+    loadingList: false,
+    errorList: null,
+    loadingSelected: false,
+    errorSelected: null,
+    loadingSimilar: false,
+    errorSimilar: null,
     filters: {
       category: "",
       size: "",
@@ -142,30 +157,30 @@ const productSlice = createSlice({
     builder
       //handle fetching products with filter
       .addCase(fetchProductsByFilters.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.loadingList = true;
+        state.errorList = null;
       })
       .addCase(fetchProductsByFilters.fulfilled, (state, action) => {
-        state.loading = false;
+        state.loadingList = false;
         state.products = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(fetchProductsByFilters.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload?.message;
+        state.loadingList = false;
+        state.errorList = action.payload?.message;
       })
 
       //handle fetching single product details
       .addCase(fetchProductDetails.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.loadingSelected = true;
+        state.errorSelected = null;
       })
       .addCase(fetchProductDetails.fulfilled, (state, action) => {
-        state.loading = false;
+        state.loadingSelected = false;
         state.selectedProduct = action.payload;
       })
       .addCase(fetchProductDetails.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload?.message;
+        state.loadingSelected = false;
+        state.errorSelected = action.payload?.message;
       })
 
       //handle updating product
@@ -190,20 +205,19 @@ const productSlice = createSlice({
 
       //handle fetch similar products
       .addCase(fetchSimilarProducts.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.loadingSimilar = true;
+        state.errorSimilar = null;
       })
       .addCase(fetchSimilarProducts.fulfilled, (state, action) => {
-        state.loading = false;
-        state.products = action.payload;
+        state.loadingSimilar = false;
+        state.similarProducts = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(fetchSimilarProducts.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload?.message;
+        state.loadingSimilar = false;
+        state.errorSimilar = action.payload?.message;
       });
   },
 });
 
-
-export const {setFilters, clearFilters} = productSlice.actions;
+export const { setFilters, clearFilters } = productSlice.actions;
 export default productSlice.reducer;

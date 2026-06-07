@@ -270,14 +270,14 @@ const getSimilarProducts = catchError(async (req, res) => {
   if (product) {
     const similarProducts = await productModel
       .find({
-        _id: { $ne: id },
+        _id: { $ne: product._id },
         gender: product.gender,
         category: product.category,
       })
       .limit(4);
 
     if (similarProducts && similarProducts.length > 0) {
-      res.status(200).res(similarProducts);
+      res.status(200).json(similarProducts);
     } else {
       throw new AppError("There are no similar products available", 404);
     }
@@ -290,7 +290,7 @@ const getSimilarProducts = catchError(async (req, res) => {
  * Get the product with the highest rating controller
  */
 const getBestSeller = catchError(async (req, res) => {
-  const product = await productModel.find().sort({ rating: -1 }).limit(1);
+  const product = await productModel.findOne().sort({ rating: -1 });
   if (!product) throw new AppError("No product found", 404);
 
   res.status(200).json(product);
