@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { loginUser, logout, logoutUser } from "./authSlice.js";
+import { logout, logoutUser } from "./authSlice.js";
 
 //Helper function to load cart from localStorage
 const loadCartFromStorage = () => {
@@ -165,18 +165,18 @@ const cartSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(logout, (state) => {
-        state.cart = { products: [] };
-        state.loading = false;
-        state.error = null;
-        localStorage.removeItem("cart");
-      })
-      .addCase(logoutUser.fulfilled, (state) => {
-        state.cart = { products: [] };
-        state.loading = false;
-        state.error = null;
-        localStorage.removeItem("cart");
-      })
+      // .addCase(logout, (state) => {
+      //   state.cart = { products: [] };
+      //   state.loading = false;
+      //   state.error = null;
+      //   localStorage.removeItem("cart");
+      // })
+      // .addCase(logoutUser.fulfilled, (state) => {
+      //   state.cart = { products: [] };
+      //   state.loading = false;
+      //   state.error = null;
+      //   localStorage.removeItem("cart");
+      // })
       //fetch the cart
       .addCase(fetchCart.pending, (state) => {
         state.loading = true;

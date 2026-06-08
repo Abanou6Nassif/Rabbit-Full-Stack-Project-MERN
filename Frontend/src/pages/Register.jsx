@@ -1,14 +1,49 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import register from "../assets/register.webp";
 import { registerUser } from "../redux/slices/authSlice.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart, mergeCart } from "../redux/slices/cartSlice.js";
 
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { cart } = useSelector((state) => state.cart);
+  const { guestId, user } = useSelector((state) => state.auth);
+  const userId = user?._id || null;
+
+  // Get the redirect parameter and check if it's checkout or something else
+  const redirect = new URLSearchParams(location.search).get("redirect") || "/";
+  const isCheckoutRedirect = redirect.includes("checkout");
+
+  useEffect(() => {
+    if (user) {
+      if (cart?.products.length > 0 && guestId) {
+        dispatch(mergeCart({ guestId, user })).then(() => {
+          navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
+        });
+      } else {
+        navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
+      }
+      if (user?._id) {
+        dispatch(fetchCart({ guestId, userId }));
+      }
+    }
+  }, [
+    user,
+    guestId,
+    cart,
+    navigate,
+    isCheckoutRedirect,
+    dispatch,
+    redirect,
+    userId,
+  ]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -88,7 +123,10 @@ function Register() {
 
           <p className="mt-6 text-center text-sm">
             Have an account?{" "}
-            <Link to="/login" className="text-blue-500">
+            <Link
+              to={`/login?redirect=${encodeURIComponent(redirect)}`}
+              className="text-blue-500"
+            >
               Login
             </Link>
           </p>

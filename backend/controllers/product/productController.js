@@ -212,6 +212,13 @@ const getAllProducts = catchError(async (req, res) => {
       $or: [
         { name: { $regex: search, $options: "i" } },
         { description: { $regex: search, $options: "i" } },
+        { category: { $regex: search, $options: "i" } },
+        { collection: { $regex: search, $options: "i" } },
+        { size: { $regex: search, $options: "i" } },
+        { color: { $regex: search, $options: "i" } },
+        { gender: { $regex: search, $options: "i" } },
+        { material: { $regex: search, $options: "i" } },
+        { brand: { $regex: search, $options: "i" } },
       ],
     });
   }

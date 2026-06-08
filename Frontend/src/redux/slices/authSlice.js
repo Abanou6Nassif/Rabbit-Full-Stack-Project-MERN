@@ -112,6 +112,8 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+        state.guestId = null;
+        localStorage.removeItem("guestId");
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -124,6 +126,8 @@ const authSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+        state.guestId = null;
+        localStorage.removeItem("guestId");
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;

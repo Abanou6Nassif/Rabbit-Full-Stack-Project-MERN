@@ -1,29 +1,53 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { use, useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import login from "../assets/login.webp";
 import { loginUser } from "../redux/slices/authSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCart } from "../redux/slices/cartSlice.js";
+import { fetchCart, mergeCart } from "../redux/slices/cartSlice.js";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { cart } = useSelector((state) => state.cart);
   const { guestId, user } = useSelector((state) => state.auth);
   const userId = user?._id || null;
+
+  // Get the redirect parameter and check if it's checkout or something else
+  const redirect = new URLSearchParams(location.search).get("redirect") || "/";
+  const isCheckoutRedirect = redirect.includes("checkout");
+
+  useEffect(() => {
+    if (user) {
+      if (cart?.products.length > 0 && guestId) {
+        dispatch(mergeCart({ guestId, user })).then(() => {
+          navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
+        });
+      } else {
+        navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
+      }
+      if (user?._id) {
+        dispatch(fetchCart({ guestId, userId }));
+      }
+    }
+  }, [
+    user,
+    guestId,
+    cart,
+    navigate,
+    isCheckoutRedirect,
+    dispatch,
+    redirect,
+    userId,
+  ]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("User Login", { email, password });
-    console.log(import.meta);
-
     dispatch(loginUser({ email, password }));
   };
 
-  useEffect(() => {
-    if (user?._id) {
-      dispatch(fetchCart({ guestId, userId }));
-    }
-  }, [dispatch, guestId, userId]);
   return (
     <div className="flex">
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 md:p-12">
@@ -82,7 +106,10 @@ function Login() {
 
           <p className="mt-6 text-center text-sm">
             Don't have an account?{" "}
-            <Link to="/register" className="text-blue-500">
+            <Link
+              to={`/register?redirect=${encodeURIComponent(redirect)}`}
+              className="text-blue-500"
+            >
               Register
             </Link>
           </p>
