@@ -21,19 +21,38 @@ function Register() {
   const redirect = new URLSearchParams(location.search).get("redirect") || "/";
   const isCheckoutRedirect = redirect.includes("checkout");
 
-  useEffect(() => {
+  const userCart = async () => {
+    console.log(userId);
+    console.log(guestId);
+    if (!user) return;
     if (user) {
-      if (cart?.products.length > 0 && guestId) {
-        dispatch(mergeCart({ guestId, user })).then(() => {
-          navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
-        });
+      if (guestId) {
+        await dispatch(mergeCart({ guestId }));
+        await dispatch(fetchCart({ userId: user._id }));
+        // navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
       } else {
-        navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
-      }
-      if (user?._id) {
-        dispatch(fetchCart({ guestId, userId }));
+        await dispatch(fetchCart({ userId: user._id }));
+        // navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
       }
     }
+  };
+  useEffect(() => {
+    const userCart = async () => {
+      if (!user) return;
+      if (user) {
+        if (guestId) {
+          console.log(userId);
+          console.log(guestId);
+          await dispatch(mergeCart({ guestId }));
+          await dispatch(fetchCart({ userId: user._id }));
+          // navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
+        } else {
+          await dispatch(fetchCart({ userId: user._id }));
+          // navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
+        }
+      }
+    };
+    userCart();
   }, [
     user,
     guestId,
@@ -45,7 +64,7 @@ function Register() {
     userId,
   ]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("User Registered", { name, email, password });
     dispatch(registerUser({ name, email, password }));

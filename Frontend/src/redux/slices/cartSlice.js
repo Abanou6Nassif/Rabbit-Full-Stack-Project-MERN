@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { logout, logoutUser } from "./authSlice.js";
+import axios from "../../axiosConfig.js";
 
 //Helper function to load cart from localStorage
 const loadCartFromStorage = () => {
@@ -19,7 +18,7 @@ export const fetchCart = createAsyncThunk(
   async ({ guestId, userId }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
+        `/api/cart`,
         {
           params: { guestId, userId },
         },
@@ -43,7 +42,7 @@ export const addToCart = createAsyncThunk(
   ) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
+        `/api/cart`,
         {
           productId,
           size,
@@ -72,7 +71,7 @@ export const updateCartItemQuantity = createAsyncThunk(
   ) => {
     try {
       const response = await axios.patch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
+        `/api/cart`,
         {
           productId,
           size,
@@ -106,7 +105,7 @@ export const removeFromCart = createAsyncThunk(
 
     try {
       const response = await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
+        `/api/cart`,
         {
           data: {
             productId,
@@ -134,10 +133,11 @@ export const mergeCart = createAsyncThunk(
   async ({ guestId }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/cart/merge`,
+        `/api/cart/merge`,
         { guestId },
       );
 
+      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -165,18 +165,6 @@ const cartSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      // .addCase(logout, (state) => {
-      //   state.cart = { products: [] };
-      //   state.loading = false;
-      //   state.error = null;
-      //   localStorage.removeItem("cart");
-      // })
-      // .addCase(logoutUser.fulfilled, (state) => {
-      //   state.cart = { products: [] };
-      //   state.loading = false;
-      //   state.error = null;
-      //   localStorage.removeItem("cart");
-      // })
       //fetch the cart
       .addCase(fetchCart.pending, (state) => {
         state.loading = true;

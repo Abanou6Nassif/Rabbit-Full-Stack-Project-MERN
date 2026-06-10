@@ -1,7 +1,7 @@
 // import { useState } from "react"
 import { IoMdClose } from "react-icons/io";
 import { CartContents } from "../Cart/CartContents";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export const CartDrawer = ({ drawerOpen, toggleCartDrawer }) => {

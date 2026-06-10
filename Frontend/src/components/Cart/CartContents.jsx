@@ -4,8 +4,11 @@ import {
   removeFromCart,
   updateCartItemQuantity,
 } from "../../redux/slices/cartSlice";
+import { useLocation } from "react-router-dom";
 
 export const CartContents = ({ userId, guestId }) => {
+  const params = useLocation();
+  console.log(params.pathname === "/checkout");
   const { cart } = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
@@ -63,6 +66,7 @@ export const CartContents = ({ userId, guestId }) => {
 
                 <div className="flex items-center mt-2">
                   <button
+                    disabled={params.pathname === "/checkout"}
                     onClick={() =>
                       handleAddToCart(
                         product.productId,
@@ -72,12 +76,13 @@ export const CartContents = ({ userId, guestId }) => {
                         product.color,
                       )
                     }
-                    className="rounded border px-2 py-1 text-xl font-medium min-w-7.75"
+                    className={`${params.pathname === "/checkout" ? "cursor-not-allowed bg-gray-200" : ""} rounded border px-2 py-1 text-xl font-medium min-w-7.75`}
                   >
                     -
                   </button>
                   <span className="mx-4">{product.quantity}</span>
                   <button
+                    disabled={params.pathname === "/checkout"}
                     onClick={() =>
                       handleAddToCart(
                         product.productId,
@@ -87,7 +92,7 @@ export const CartContents = ({ userId, guestId }) => {
                         product.color,
                       )
                     }
-                    className="rounded border px-2 py-1 text-xl font-medium min-w-7.75"
+                    className={`${params.pathname === "/checkout" ? "cursor-not-allowed bg-gray-200" : ""} rounded border px-2 py-1 text-xl font-medium min-w-7.75`}
                   >
                     +
                   </button>
@@ -98,6 +103,7 @@ export const CartContents = ({ userId, guestId }) => {
             <div>
               <p>$ {product.price.toLocaleString()}</p>
               <button
+                disabled={params.pathname === "/checkout"}
                 onClick={() => {
                   handleRemoveFromCart(
                     product.productId,
@@ -107,7 +113,7 @@ export const CartContents = ({ userId, guestId }) => {
                   );
                 }}
               >
-                <RiDeleteBin3Line className="h-6 w-6 mt-2 text-red-600" />
+                <RiDeleteBin3Line className={` ${params.pathname === "/checkout" ? "cursor-not-allowed" : ""} h-6 w-6 mt-2 text-red-600`}/>
               </button>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from "../../axiosConfig.js";
 import { v6 as uuidV6 } from "uuid";
 
 //Retrieve user info and from localStorage if available
@@ -8,7 +8,9 @@ const userFromStorage = localStorage.getItem("userInfo")
   : null;
 
 //Check for an existing guest ID in the localStorage or generate a new One
-const initialGuestId = localStorage.getItem("guestId") || `guest_${uuidV6()}`;
+const initialGuestId = localStorage.getItem("userInfo")
+  ? null
+  : localStorage.getItem("guestId") || `guest_${uuidV6()}`;
 localStorage.setItem("guestId", initialGuestId);
 
 //Initial state
@@ -25,7 +27,7 @@ export const loginUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/login`,
+        `/api/users/login`,
         userData,
       );
       console.log(response.data);
@@ -46,7 +48,7 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/register`,
+        `/api/users/register`,
         userData,
       );
       console.log(response.data);
@@ -67,7 +69,7 @@ export const logoutUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/logout`,
+        `/api/users/logout`,
       );
       console.log(response.data);
 
@@ -112,8 +114,8 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
-        state.guestId = null;
-        localStorage.removeItem("guestId");
+        // state.guestId = null;
+        // localStorage.removeItem("guestId");
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -126,8 +128,8 @@ const authSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
-        state.guestId = null;
-        localStorage.removeItem("guestId");
+        // state.guestId = null;
+        // localStorage.removeItem("guestId");
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;

@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import login from "../assets/login.webp";
 import { loginUser } from "../redux/slices/authSlice.js";
@@ -20,18 +20,27 @@ function Login() {
   const isCheckoutRedirect = redirect.includes("checkout");
 
   useEffect(() => {
-    if (user) {
-      if (cart?.products.length > 0 && guestId) {
-        dispatch(mergeCart({ guestId, user })).then(() => {
+    const userCart = async () => {
+      if (!user) return;
+      
+      if (user) {
+        if (guestId) {
+          console.log(guestId);
+          console.log(userId);
+
+          await dispatch(mergeCart({ guestId }));
+          await dispatch(fetchCart({ userId: user._id }));
           navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
-        });
-      } else {
-        navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
+        } else {
+          await dispatch(fetchCart({ userId: user._id }));
+          navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
+        }
       }
-      if (user?._id) {
-        dispatch(fetchCart({ guestId, userId }));
-      }
-    }
+    };
+
+    console.log(user);
+
+    userCart();
   }, [
     user,
     guestId,
@@ -43,7 +52,7 @@ function Login() {
     userId,
   ]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(loginUser({ email, password }));
   };

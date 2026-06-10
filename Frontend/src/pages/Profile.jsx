@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import MyOrdersPage from "./MyOrdersPage";
-import { logoutUser } from "../redux/slices/authSlice.js";
+import { logout, logoutUser } from "../redux/slices/authSlice.js";
 import { useEffect } from "react";
 import { clearCart } from "../redux/slices/cartSlice.js";
 
@@ -18,6 +18,7 @@ function Profile() {
 
   const handleLogout = async () => {
     await dispatch(logoutUser());
+    dispatch(logout())
     dispatch(clearCart());
     navigate("/login?redirect=profile");
   };

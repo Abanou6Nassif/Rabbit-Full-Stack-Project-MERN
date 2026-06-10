@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from "../../axiosConfig.js";
 
 // fetch all users (admin only)
 export const fetchUsers = createAsyncThunk(
@@ -7,7 +7,7 @@ export const fetchUsers = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin/users`,
+        `/api/admin/users`,
       );
 
       return response.data;
@@ -25,7 +25,7 @@ export const addUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin/users`,
+        `/api/admin/users`,
         userData,
       );
 
@@ -44,7 +44,7 @@ export const updateUser = createAsyncThunk(
   async ({ id, name, email, role }, { rejectWithValue }) => {
     try {
       const response = await axios.patch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin/users/${id}`,
+        `/api/admin/users/${id}`,
         {
           name,
           email,
@@ -67,7 +67,7 @@ export const deleteUser = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin/users/${id}`,
+        `/api/admin/users/${id}`,
       );
       return id;
     } catch (error) {

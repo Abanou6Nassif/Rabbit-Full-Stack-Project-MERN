@@ -8,6 +8,7 @@ import AppError from "../utils/appError.js";
  */
 export const authenticate = catchError(async (req, res, next) => {
   const token = req.cookies.jwt;
+  console.log(token);
 
   if (!token) throw new AppError("Please login first", 401);
 
@@ -16,6 +17,6 @@ export const authenticate = catchError(async (req, res, next) => {
   if (!decoded) throw new AppError("Not authenticated", 401);
   //Excluding the password to be not sended to the next middleware
   req.user = await userModel.findById(decoded.user.id).select("-password");
+  
   next();
 });
-

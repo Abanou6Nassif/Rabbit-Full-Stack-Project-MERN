@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from "../../axiosConfig.js";
 
 // Async thunk to creat checkout session
 export const createCheckout = createAsyncThunk(
@@ -7,7 +7,7 @@ export const createCheckout = createAsyncThunk(
   async (checkoutData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/checkout`,
+        `/api/checkout`,
         checkoutData,
       );
       return response.data;

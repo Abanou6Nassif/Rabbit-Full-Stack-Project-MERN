@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-const API_URL = import.meta.env.VITE_BACKEND_URL;
+import axios from "../../axiosConfig.js";
+// const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 // Fetch all orders (admin only)
 export const fetchAllOrders = createAsyncThunk(
   "adminOrders/fetchAllOrders",
   async ({ _DO_NOT_USE_ActionTypes }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}/api/admin/orders`);
+      const response = await axios.get(`/api/admin/orders`);
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -22,7 +22,7 @@ export const updateOrderStatus = createAsyncThunk(
   "adminOrders/updateOrderStatus",
   async ({ id, status }, { rejectWithValue }) => {
     try {
-      const response = await axios.patch(`${API_URL}/api/admin/orders/${id}`, {
+      const response = await axios.patch(`/api/admin/orders/${id}`, {
         status,
       });
       return response.data;
@@ -39,7 +39,7 @@ export const deleteOrder = createAsyncThunk(
   "adminOrders/deleteOrder",
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`${API_URL}/api/admin/orders/${id}`);
+      await axios.delete(`/api/admin/orders/${id}`);
       return id;
     } catch (error) {
       return rejectWithValue(

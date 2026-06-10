@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from "../../axiosConfig.js";
 
 //Async thunk to fetch products by collection and optional filters
 export const fetchProductsByFilters = createAsyncThunk(
@@ -37,7 +37,7 @@ export const fetchProductsByFilters = createAsyncThunk(
       if (limit) query.append("limit", limit);
 
       const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/products?${query.toString()}`,
+        `/api/products?${query.toString()}`,
       );
       return response.data;
     } catch (error) {
@@ -54,7 +54,7 @@ export const fetchProductDetails = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`,
+        `/api/products/${id}`,
       );
       
       return response.data;
@@ -72,7 +72,7 @@ export const updateProduct = createAsyncThunk(
   async ({ id, productData }, { rejectWithValue }) => {
     try {
       const response = await axios.patch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`,
+        `/api/products/${id}`,
         productData,
       );
 
@@ -91,7 +91,7 @@ export const fetchSimilarProducts = createAsyncThunk(
   async ({ id }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/products/similar/${id}`,
+        `/api/products/similar/${id}`,
       );
       return response.data;
     } catch (error) {

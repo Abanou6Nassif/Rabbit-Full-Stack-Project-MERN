@@ -66,6 +66,8 @@ const login = catchError(async (req, res) => {
     throw new AppError("Internal Server Error", 500);
   }
 
+  console.log(user);
+
   res.status(201).json({
     message: "Logged in Successfully",
     user: {

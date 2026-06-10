@@ -216,8 +216,9 @@ export const getCartDetails = catchError(async (req, res) => {
 /**
  * Merge guest cart into user cart on login
  */
-
 export const mergeCart = catchError(async (req, res) => {
+  console.log(req.user);
+
   const { error, value } = cartValidationSchema.validate(req.body);
   if (error) {
     return res.status(400).json({
@@ -226,11 +227,14 @@ export const mergeCart = catchError(async (req, res) => {
     });
   }
   const { guestId } = value;
+  console.log(guestId, "L228");
 
   //Find both the guest and user carts
-  const guestCart = await cartModel.findOne({ guestId });
+  let guestCart = await cartModel.findOne({ guestId });
+  console.log(guestCart, "L232");
 
-  const userCart = await cartModel.findOne({ user: req.user._id });
+  let userCart = await cartModel.findOne({ user: req.user._id });
+  console.log(guestCart, "L235");
 
   if (guestCart) {
     if (guestCart.products.length === 0) {
@@ -256,9 +260,18 @@ export const mergeCart = catchError(async (req, res) => {
         return total + item.quantity * item.price;
       }, 0);
 
-      await userCart.save();
-
       //Remove the guest cart after merging
+      // userCart.guestId = null
+      // await userCart.save();
+
+      userCart = await cartModel.findOneAndUpdate(
+        { guestId },
+        {
+          $set: { user: req.user._id },
+          $unset: { guestId: "" },
+        },
+        { returnDocument: "after" },
+      );
       await cartModel.findOneAndDelete({ guestId });
 
       res.status(200).json(userCart);
@@ -266,11 +279,21 @@ export const mergeCart = catchError(async (req, res) => {
       //in the case of no user cart exist
       //we just assign that user his own guest cart
       //by assigning his id to user field in the cart
-      guestCart.user = req.user._id;
-      guestCart.guestId = undefined;
+      // guestCart.user = req.user._id;
 
-      await guestCart.save();
+      // guestCart.guestId = undefined;
 
+      // await guestCart.save();
+      console.log(guestCart, "L286");
+
+      guestCart = await cartModel.findOneAndUpdate(
+        { guestId },
+        {
+          $set: { user: req.user._id },
+          $unset: { guestId: "" },
+        },
+        { returnDocument: "after" },
+      );
       res.status(200).json(guestCart);
     }
   } else {
