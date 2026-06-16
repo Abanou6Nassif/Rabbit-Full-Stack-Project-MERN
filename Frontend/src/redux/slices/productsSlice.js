@@ -72,7 +72,7 @@ export const updateProduct = createAsyncThunk(
   async ({ id, productData }, { rejectWithValue }) => {
     try {
       const response = await axios.patch(
-        `/api/products/${id}`,
+        `/api/admin/products/${id}`,
         productData,
       );
 

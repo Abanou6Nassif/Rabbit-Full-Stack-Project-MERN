@@ -10,7 +10,8 @@ import { userValidationSchema } from "./userValidationSchema.js";
 const register = catchError(async (req, res) => {
   let { error, value } = userValidationSchema.validate(req.body, {
     allowUnknown: false,
-  });
+  });  
+  console.log(error);
   if (error) {
     return res.status(400).json({
       message: "Validation failed",

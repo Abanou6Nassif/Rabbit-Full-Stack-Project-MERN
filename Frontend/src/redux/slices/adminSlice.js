@@ -6,9 +6,7 @@ export const fetchUsers = createAsyncThunk(
   "admin/fetchUsers",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `/api/admin/users`,
-      );
+      const response = await axios.get(`/api/admin/users`);
 
       return response.data;
     } catch (error) {
@@ -24,12 +22,9 @@ export const addUser = createAsyncThunk(
   "admin/addUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `/api/admin/users`,
-        userData,
-      );
+      const response = await axios.post(`/api/admin/users`, userData);
 
-      return response.data;
+      return response.data.user;
     } catch (error) {
       return rejectWithValue(
         error.response?.data || { message: error.message },
@@ -43,16 +38,13 @@ export const updateUser = createAsyncThunk(
   "admin/updateUser",
   async ({ id, name, email, role }, { rejectWithValue }) => {
     try {
-      const response = await axios.patch(
-        `/api/admin/users/${id}`,
-        {
-          name,
-          email,
-          role,
-        },
-      );
+      const response = await axios.patch(`/api/admin/users/${id}`, {
+        name,
+        email,
+        role,
+      });
 
-      return response.data;
+      return response.data.user;
     } catch (error) {
       return rejectWithValue(
         error.response?.data || { message: error.message },
@@ -66,9 +58,7 @@ export const deleteUser = createAsyncThunk(
   "admin/deleteUser",
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(
-        `/api/admin/users/${id}`,
-      );
+      await axios.delete(`/api/admin/users/${id}`);
       return id;
     } catch (error) {
       return rejectWithValue(
@@ -110,12 +100,13 @@ const adminSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.loading = false;
-        const upadteUser = action.payload;
+        const upadtedUser = action.payload;
+                
         const index = state.users.findIndex(
-          (user) => user._id === upadteUser._id,
+          (user) => user._id === upadtedUser._id,
         );
         if (index !== -1) {
-          state.users[index] = updateUser;
+          state.users[index] = upadtedUser;
         }
       })
       .addCase(updateUser.rejected, (state, action) => {

@@ -58,11 +58,11 @@ export default function Checkout() {
         },
       );
 
-      if (response.status === 200) {
-        await handleFinalizeCheckout(checkoutId); // Finalize the checkout if payment is successfull
-      } else {
-        console.error(error);
-      }
+      // if (response.status === 200) {
+      await handleFinalizeCheckout(checkoutId); // Finalize the checkout if payment is successfull
+      //   } else {
+      //     console.error(error);
+      //   }
     } catch (error) {
       console.error(error);
     }
@@ -74,11 +74,11 @@ export default function Checkout() {
         `${import.meta.env.VITE_BACKEND_URL}/api/checkout/${checkoutId}/finalize`,
       );
 
-      if (response.status === 200) {
+      // if (response.status === 200) {
         navigate("/order-confirmation");
-      } else {
-        console.error(error);
-      }
+      // } else {
+      //   console.error(error);
+      // }
     } catch (error) {
       console.error(error);
     }

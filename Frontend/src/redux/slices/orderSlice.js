@@ -10,6 +10,8 @@ export const fetchUserOrders = createAsyncThunk(
         `/api/orders/my-orders`,
       );
 
+      console.log(response.data);
+      
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -44,6 +46,8 @@ const orderSlice = createSlice({
     orders: [],
     error: null,
     loading: false,
+    errorDetails: null,
+    loadingDetails: false,
     totalOrders: 0,
     orderDetails: null,
   },
@@ -52,16 +56,16 @@ const orderSlice = createSlice({
     builder
       //fetch fetch order details by ID
       .addCase(fetchOrderDetails.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.loadingDetails = true;
+        state.errorDetails = null;
       })
       .addCase(fetchOrderDetails.fulfilled, (state, action) => {
-        state.loading = true;
+        state.loadingDetails = false;
         state.orderDetails = action.payload;
       })
       .addCase(fetchOrderDetails.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.errorDetails = action.payload.message;
       })
 
       //fetch user orders
@@ -70,7 +74,7 @@ const orderSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchUserOrders.fulfilled, (state, action) => {
-        state.loading = true;
+        state.loading = false;
         state.orders = action.payload;
         state.totalOrders = action.payload.length;
       })

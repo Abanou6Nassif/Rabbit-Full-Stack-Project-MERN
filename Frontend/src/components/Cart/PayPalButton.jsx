@@ -11,7 +11,7 @@ export default function PayPalButton({ amount, onSuccess, onError }) {
         style={{ layout: "vertical" }}
         createOrder={(data, actions) => {
           return actions.order.create({
-            purchase_units: [{ amount: { value: amount } }],
+            purchase_units: [{ amount: { value: parseFloat(amount) } }],
           });
         }}
         onApprove={(data, actions) => {

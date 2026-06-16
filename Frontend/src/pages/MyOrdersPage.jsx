@@ -1,48 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import { fetchUserOrders } from "../redux/slices/orderSlice.js";
 export default function MyOrdersPage() {
-  const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
-  useEffect(() => {
-    //Simulating fetching orders
-    setTimeout(() => {
-      const mockOrders = [
-        {
-          _id: "12345",
-          createAt: new Date(),
-          shippingAddress: { city: "New York", country: "USA" },
-          orderItems: [
-            {
-              name: "Product 1",
-              image: "https://picsum.photos/500/500?random=1",
-            },
-          ],
-          totalPrice: 100,
-          isPaid: true,
-        },
-        {
-          _id: "12585",
-          createAt: new Date(),
-          shippingAddress: { city: "New York", country: "USA" },
-          orderItems: [
-            {
-              name: "Product 2",
-              image: "https://picsum.photos/500/500?random=2",
-            },
-          ],
-          totalPrice: 100,
-          isPaid: true,
-        },
-      ];
+  const dispatch = useDispatch();
+  const { orders, loading, error } = useSelector((state) => state.orders);
 
-      setOrders(mockOrders);
-    }, 1000);
-  }, []);
+  useEffect(() => {
+    dispatch(fetchUserOrders());
+  }, [dispatch]);
 
   function handleRowClick(orderId) {
     navigate(`/order/${orderId}`);
   }
+
+  if(loading) return <p className="text-center">Loading...</p>;
+  if(error) return <p className="text-center">Error: {error}</p>;
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6">
       <h2 className="text-xl sm:text-2xl font-bold mb-6">My Orders</h2>
@@ -80,8 +54,8 @@ export default function MyOrdersPage() {
                   </td>
 
                   <td className="py-2 px-2 sm:py-4 sm:px-4">
-                    {new Date(order.createAt).toLocaleDateString()}{" "}
-                    {new Date(order.createAt).toLocaleTimeString()}
+                    {new Date(order.createdAt).toLocaleDateString()}{" "}
+                    {new Date(order.createdAt).toLocaleTimeString()}
                   </td>
 
                   <td className="py-2 px-2 sm:py-4 sm:px-4">

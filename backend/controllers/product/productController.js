@@ -87,8 +87,9 @@ const addProduct = catchError(async (req, res) => {
  * update an existing product controller
  */
 const updateProduct = catchError(async (req, res) => {
-  const { error, value } = updateProductSchema.validate(req.body);
+  const { error, value } = updateProductSchema.validate(req.body,{abortEarly: false});
   console.log(value);
+  console.log(error);
 
   if (error) {
     return res.status(400).json({
@@ -179,7 +180,7 @@ const getAllProducts = catchError(async (req, res) => {
    * Filter Functionality or logic
    */
   if (collection && collection !== "all") {
-    query.collections = { $in: [collections] };
+    query.collections = { $in: [collection] };
   }
 
   if (category && category.toLowerCase() !== "all") {

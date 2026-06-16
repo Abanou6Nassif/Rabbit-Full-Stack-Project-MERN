@@ -16,7 +16,7 @@ export const getAllOrers = catchError(async (req, res) => {
  * Update the order status
  */
 export const updateOrderStatus = catchError(async (req, res) => {
-  const order = await orderModel.findById(req.params.id);
+  const order = await orderModel.findById(req.params.id).populate("user", "name");
 
   if (order) {
     order.status = req.body.status || order.status;
@@ -26,6 +26,8 @@ export const updateOrderStatus = catchError(async (req, res) => {
       req.body.status === "Delivered" ? Date.now() : order.deliveredAt;
 
     const updatedOrder = await order.save();
+    console.log(updatedOrder);
+    
     res.status(200).json(updatedOrder);
   } else {
     throw new AppError("Order not found", 404);

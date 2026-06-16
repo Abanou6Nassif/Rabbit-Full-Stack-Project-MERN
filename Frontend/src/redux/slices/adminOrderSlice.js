@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../axiosConfig.js";
 // const API_URL = import.meta.env.VITE_BACKEND_URL;
-
+// { _DO_NOT_USE_ActionTypes }  
 // Fetch all orders (admin only)
 export const fetchAllOrders = createAsyncThunk(
   "adminOrders/fetchAllOrders",
-  async ({ _DO_NOT_USE_ActionTypes }, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(`/api/admin/orders`);
       return response.data;
@@ -70,6 +70,8 @@ const adminOrderSlice = createSlice({
       .addCase(fetchAllOrders.fulfilled, (state, action) => {
         state.loading = false;
         state.orders = action.payload;
+        console.log(action.payload);
+        
         state.totalOrders = action.payload.length;
 
         //calculate total sales
@@ -81,7 +83,9 @@ const adminOrderSlice = createSlice({
       })
       .addCase(fetchAllOrders.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        console.log(action.payload);
+        
+        state.error = action.payload?.message;
       })
 
       // Update order status

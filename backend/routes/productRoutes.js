@@ -15,25 +15,6 @@ import {
 
 const router = express.Router();
 
-//@route POST /api/products
-//@desc Create a new Product
-//@access Private/Admin
-router.post("/", authenticate, authorize("admin"), addProduct);
-
-//@route PATCH /api/products/:id
-//@desc Update an existing product ID
-//@access Private/Admin
-router.patch("/:id", authenticate, authorize("admin"), updateProduct);
-
-//@route DELETE /api/products/:id
-//@desc Delete a product by its ID
-//@access Private/Admin
-router.delete("/:id", authenticate, authorize("admin"), deleteProduct);
-
-//@route POST /api/products/addmany
-//@desc Delete a product by its ID
-//@access Private/Admin
-router.post("/addmany", authenticate, authorize("admin"), addManyProducts);
 
 //@route GET /api/products/best-seller
 //@desc Retrieve the product with the highest rating

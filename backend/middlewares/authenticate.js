@@ -8,7 +8,6 @@ import AppError from "../utils/appError.js";
  */
 export const authenticate = catchError(async (req, res, next) => {
   const token = req.cookies.jwt;
-  console.log(token);
 
   if (!token) throw new AppError("Please login first", 401);
 
