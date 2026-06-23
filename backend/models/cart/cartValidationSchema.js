@@ -23,8 +23,8 @@ const cartValidation = Joi.object({
   productId: objectId,
 
   size: xssValidator()
-  .custom((size) => size.toUpperCase())
-  .message("size must be a valid size"),
+    .custom((size) => size.toUpperCase())
+    .message("size must be a valid size"),
 
   color: xssValidator()
     .message("color must be a valid color")
@@ -42,5 +42,5 @@ export const cartValidationSchema = cartValidation
     (schema) => schema.optional().empty(null),
   )
   .prefs({
-    stripUnknown: { objects: true },
+    stripUnknown: true,
   });

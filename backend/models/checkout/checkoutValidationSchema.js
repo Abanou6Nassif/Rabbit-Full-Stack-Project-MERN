@@ -14,7 +14,7 @@ import { xssValidator } from "../../utils/commonValidators.js";
 import { orderItemSchema } from "../order/orderValidationSchema.js";
 
 // Shipping Address Schema
-const shippingAddressSchema = Joi.object({
+export const shippingAddressSchema = Joi.object({
   address: xssValidator().required(),
   city: xssValidator().required(),
   postalCode: xssValidator().required(),
@@ -27,7 +27,7 @@ export const checkoutValidationSchema = Joi.object({
   checkoutItems: Joi.array().items(orderItemSchema).min(1).required(),
   shippingAddress: shippingAddressSchema.required(),
   paymentMethod: xssValidator()
-    .valid("paypal", "stripe", "credit_card")
+    // .valid("Paypal", "stripe", "credit_card")
     .required(),
   totalPrice: Joi.number().min(0).required(),
   isPaid: Joi.boolean().default(false),
@@ -41,7 +41,7 @@ export const checkoutValidationSchema = Joi.object({
 }).prefs({ stripUnknown: true });
 
 //Update checkoutValidationSchema
-const UpdateCheckoutValidationSchema = checkoutValidationSchema.fork(
+export const UpdateCheckoutValidationSchema = checkoutValidationSchema.fork(
   [
     "user",
     "checkoutItems",
@@ -55,5 +55,5 @@ const UpdateCheckoutValidationSchema = checkoutValidationSchema.fork(
     "isFinalized",
     "finalizedAt",
   ],
-  (schema) => schema.optional().empty("").empty(null),
+  (schema) => schema.optional().empty("").empty(null).empty(undefined),
 );

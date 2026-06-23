@@ -4,13 +4,12 @@ import productModel from "../../models/product/Product.js";
 import orderModel from "../../models/order/Order.js";
 import catchError from "../../utils/catchError.js";
 import AppError from "../../utils/appError.js";
-import { checkoutValidationSchema, UpdateCheckoutValidationSchema } from "../../models/checkout/checkoutValidationSchema.js";
-
+import { UpdateCheckoutValidationSchema } from "../../models/checkout/checkoutValidationSchema.js";
 /**
  * Create a new checkout session
  */
 export const checkoutSession = catchError(async (req, res) => {
-  const { error, value } = UpdateCheckoutValidationSchema(req.body);  
+  const { error, value } = UpdateCheckoutValidationSchema.validate(req.body);  
   if (error) {
     return res.status(400).json({
       message: "Validation failed",
@@ -40,7 +39,7 @@ export const checkoutSession = catchError(async (req, res) => {
  * Update checkout to mark as paid after successful payment
  */
 export const updateCheckoutPayment = catchError(async (req, res) => {
-  const { error, value } = UpdateCheckoutValidationSchema(req.body);
+  const { error, value } = UpdateCheckoutValidationSchema.validate(req.body);
   if (error) {
     return res.status(400).json({
       message: "Validation failed",

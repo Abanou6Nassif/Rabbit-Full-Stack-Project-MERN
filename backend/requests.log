@@ -83030,3 +83030,35 @@
 [2026-06-23T12:20:05.523Z] <= END [0dd2827a-1e8a-43fa-90e5-7db4367a3dd7] POST /api/checkout | Status: 500 | 137ms
 [2026-06-23T12:22:14.343Z] => START [2d1063c8-ffd7-428b-8a23-28cf0a814c6f] POST /api/checkout
 [2026-06-23T12:22:14.448Z] <= END [2d1063c8-ffd7-428b-8a23-28cf0a814c6f] POST /api/checkout | Status: 500 | 105ms
+[2026-06-23T12:33:02.089Z] => START [d14be14e-5c65-4498-9b70-4afd909eaee7] GET /api/products/new-arrivals
+[2026-06-23T12:33:02.099Z] => START [3a89078f-0f3f-4834-8cd4-bb2875cfc296] GET /api/products?gender=Women&category=Bottom+Wear&limit=8
+[2026-06-23T12:33:02.104Z] => START [48a9bc11-7ff9-4834-9959-ad729ea8154d] GET /api/products/best-seller
+[2026-06-23T12:33:02.108Z] X ABORT [48a9bc11-7ff9-4834-9959-ad729ea8154d] GET /best-seller | Client disconnected 4ms
+[2026-06-23T12:33:02.109Z] => START [ff6efe9b-0399-4464-88e2-b11454f26125] GET /api/products/best-seller
+[2026-06-23T12:33:02.110Z] => START [58dcb9f3-af13-4aac-b981-300c6e9f01ec] GET /api/products/new-arrivals
+[2026-06-23T12:33:02.111Z] X ABORT [d14be14e-5c65-4498-9b70-4afd909eaee7] GET /new-arrivals | Client disconnected 22ms
+[2026-06-23T12:33:02.257Z] <= END [ff6efe9b-0399-4464-88e2-b11454f26125] GET /best-seller | Status: 200 | 148ms
+[2026-06-23T12:33:02.269Z] <= END [3a89078f-0f3f-4834-8cd4-bb2875cfc296] GET /?gender=Women&category=Bottom+Wear&limit=8 | Status: 304 | 170ms
+[2026-06-23T12:33:02.277Z] => START [a696926a-a98e-4fd0-83f0-31ae5e8869ee] GET /api/products/6a18c14fca00924bf4a4139b
+[2026-06-23T12:33:02.280Z] => START [402585f1-37ed-4081-9483-96eb0ce02f60] GET /api/products?gender=Women&category=Bottom+Wear&limit=8
+[2026-06-23T12:33:02.283Z] => START [5c98a931-c859-4820-8edd-de3a669da613] GET /api/products/similar/6a18c14fca00924bf4a4139b
+[2026-06-23T12:33:02.349Z] <= END [a696926a-a98e-4fd0-83f0-31ae5e8869ee] GET /6a18c14fca00924bf4a4139b | Status: 304 | 72ms
+[2026-06-23T12:33:02.353Z] <= END [402585f1-37ed-4081-9483-96eb0ce02f60] GET /?gender=Women&category=Bottom+Wear&limit=8 | Status: 304 | 73ms
+[2026-06-23T12:33:02.356Z] => START [62ae188a-0fd5-4588-872f-d897e7d39cbf] GET /api/products/6a18c14fca00924bf4a4139b
+[2026-06-23T12:33:02.452Z] <= END [5c98a931-c859-4820-8edd-de3a669da613] GET /similar/6a18c14fca00924bf4a4139b | Status: 304 | 169ms
+[2026-06-23T12:33:02.455Z] <= END [62ae188a-0fd5-4588-872f-d897e7d39cbf] GET /6a18c14fca00924bf4a4139b | Status: 304 | 99ms
+[2026-06-23T12:33:02.456Z] => START [f5acd1c5-09bb-4813-8fb5-dad537f2772b] GET /api/products/similar/6a18c14fca00924bf4a4139b
+[2026-06-23T12:33:02.656Z] <= END [f5acd1c5-09bb-4813-8fb5-dad537f2772b] GET /similar/6a18c14fca00924bf4a4139b | Status: 304 | 200ms
+[2026-06-23T12:33:02.760Z] <= END [58dcb9f3-af13-4aac-b981-300c6e9f01ec] GET /new-arrivals | Status: 200 | 650ms
+[2026-06-23T12:33:12.803Z] => START [681ec043-530f-49ed-ad99-456acf214e2f] POST /api/checkout
+[2026-06-23T12:33:12.895Z] <= END [681ec043-530f-49ed-ad99-456acf214e2f] POST /api/checkout | Status: 500 | 92ms
+[2026-06-23T12:33:26.025Z] => START [d89e6ab2-464f-4308-9408-283421c3d8ba] POST /api/checkout
+[2026-06-23T12:33:26.104Z] <= END [d89e6ab2-464f-4308-9408-283421c3d8ba] POST /api/checkout | Status: 500 | 79ms
+[2026-06-23T12:35:39.240Z] => START [2e946209-33da-4e4c-879f-09dc13869442] POST /api/checkout
+[2026-06-23T12:35:39.334Z] <= END [2e946209-33da-4e4c-879f-09dc13869442] POST /api/checkout | Status: 500 | 94ms
+[2026-06-23T12:35:59.988Z] => START [dd3a15a0-5a23-459b-a658-4f9a8291a73d] POST /api/checkout
+[2026-06-23T12:36:00.839Z] <= END [dd3a15a0-5a23-459b-a658-4f9a8291a73d] POST /api/checkout | Status: 500 | 851ms
+[2026-06-23T12:36:28.861Z] => START [14f7d9dd-71af-4300-ac57-c855bc24fb16] POST /api/checkout
+[2026-06-23T12:36:30.036Z] <= END [14f7d9dd-71af-4300-ac57-c855bc24fb16] POST / | Status: 400 | 1175ms
+[2026-06-23T12:39:01.348Z] => START [2d62e8e8-02af-4de1-b14b-2acea73dd717] POST /api/checkout
+[2026-06-23T12:39:01.492Z] <= END [2d62e8e8-02af-4de1-b14b-2acea73dd717] POST / | Status: 400 | 144ms
