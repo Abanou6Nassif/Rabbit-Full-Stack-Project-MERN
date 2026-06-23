@@ -1,8 +1,8 @@
-import userModel from "../../models/User.js";
+import userModel from "../../models/user/User.js";
 import jwt from "jsonwebtoken";
 import catchError from "../../utils/catchError.js";
 import AppError from "../../utils/appError.js";
-import { userValidationSchema } from "./userValidationSchema.js";
+import { userValidationSchema } from "../../models/user/userValidationSchema.js";
 
 /**
  * register controller

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { orderItemSchema } from "./Order.js";
+import { orderItemSchema } from "../order/Order.js";
 
 // const checkoutItemSchema = new mongoose.Schema(
 //   {

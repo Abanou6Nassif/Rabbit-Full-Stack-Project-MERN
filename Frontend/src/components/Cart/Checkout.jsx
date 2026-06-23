@@ -31,7 +31,11 @@ export default function Checkout() {
 
   const handleCreateCheckout = async (e) => {
     e.preventDefault();
+    console.log(cart);
+    
     if (cart && cart.products.length > 0) {
+          console.log(cart);
+
       const res = await dispatch(
         createCheckout({
           checkoutItems: cart.products,
@@ -41,6 +45,8 @@ export default function Checkout() {
         }),
       );
 
+      console.log(res);
+      
       if ((res.payload, res.payload._id)) {
         //Set checkout ID if checkout was successful
         setCheckoutId(res.payload._id);
@@ -50,7 +56,7 @@ export default function Checkout() {
 
   const handlePaymentSuccess = async (details) => {
     try {
-      const response = await axios.patch(
+      await axios.patch(
         `${import.meta.env.VITE_BACKEND_URL}/api/checkout/${checkoutId}/pay`,
         {
           paymentStatus: "paid",
@@ -70,7 +76,7 @@ export default function Checkout() {
 
   async function handleFinalizeCheckout(checkoutId) {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/checkout/${checkoutId}/finalize`,
       );
 

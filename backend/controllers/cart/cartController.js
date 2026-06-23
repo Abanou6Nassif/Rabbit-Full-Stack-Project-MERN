@@ -1,9 +1,9 @@
 import catchError from "../../utils/catchError.js";
-import cartModel from "../../models/Cart.js";
-import productModel from "../../models/Product.js";
+import cartModel from "../../models/cart/Cart.js";
+import productModel from "../../models/product/Product.js";
 import AppError from "../../utils/appError.js";
 import { v6 as uuidV6 } from "uuid";
-import { cartValidationSchema } from "./cartValidationSchema.js";
+import { cartValidationSchema } from "../../models/cart/cartValidationSchema.js";
 
 /**
  * creating the cart and adding to it or update an existing one

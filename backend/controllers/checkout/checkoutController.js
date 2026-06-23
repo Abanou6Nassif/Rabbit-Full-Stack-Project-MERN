@@ -1,16 +1,24 @@
-import checkoutModel from "../../models/Checkout.js";
-import cartModel from "../../models/Cart.js";
-import productModel from "../../models/Product.js";
-import orderModel from "../../models/Order.js";
+import checkoutModel from "../../models/checkout/Checkout.js";
+import cartModel from "../../models/cart/Cart.js";
+import productModel from "../../models/product/Product.js";
+import orderModel from "../../models/order/Order.js";
 import catchError from "../../utils/catchError.js";
 import AppError from "../../utils/appError.js";
+import { checkoutValidationSchema, UpdateCheckoutValidationSchema } from "../../models/checkout/checkoutValidationSchema.js";
 
 /**
  * Create a new checkout session
  */
 export const checkoutSession = catchError(async (req, res) => {
-  const { checkoutItems, shippingAddress, paymentMethod, totalPrice } =
-    req.body;
+  const { error, value } = UpdateCheckoutValidationSchema(req.body);  
+  if (error) {
+    return res.status(400).json({
+      message: "Validation failed",
+      errors: error.details.map((detail) => detail.message),
+    });
+  }
+  
+  const { checkoutItems, shippingAddress, paymentMethod, totalPrice } = value;
 
   if (!checkoutItems && checkoutItems.length === 0)
     throw new AppError("no items in checkout", 400);
@@ -32,7 +40,14 @@ export const checkoutSession = catchError(async (req, res) => {
  * Update checkout to mark as paid after successful payment
  */
 export const updateCheckoutPayment = catchError(async (req, res) => {
-  const { paymentStatus, paymentDetails } = req.body;
+  const { error, value } = UpdateCheckoutValidationSchema(req.body);
+  if (error) {
+    return res.status(400).json({
+      message: "Validation failed",
+      errors: error.details.map((detail) => detail.message),
+    });
+  }
+  const { paymentStatus, paymentDetails } = value;
 
   const checkout = await checkoutModel.findById(req.params.id);
   if (!checkout) throw new AppError("No checkout session is found", 404);

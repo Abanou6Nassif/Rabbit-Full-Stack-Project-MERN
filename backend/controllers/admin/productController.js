@@ -1,5 +1,5 @@
 import catchError from "../../utils/catchError.js";
-import productModel from "../../models/Product.js";
+import productModel from "../../models/product/Product.js";
 import AppError from "../../utils/appError";
 
 export const getAllProducts = catchError(async (req, res) => {

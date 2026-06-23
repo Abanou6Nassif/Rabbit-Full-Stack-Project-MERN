@@ -1,5 +1,5 @@
 import catchError from "../../utils/catchError.js";
-import orderModel from "../../models/Order.js";
+import orderModel from "../../models/order/Order.js";
 import AppError from "../../utils/appError.js";
 
 /**

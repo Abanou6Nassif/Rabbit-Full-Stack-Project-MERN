@@ -1,6 +1,6 @@
 import AppError from "../../utils/appError.js";
 import catchError from "../../utils/catchError.js";
-import subscriberModel from "../../models/Subscriber.js";
+import subscriberModel from "../../models/subscriber/Subscriber.js";
 
 export const subscribe = catchError(async (req, res) => {
   const { email } = req.body ?? {};

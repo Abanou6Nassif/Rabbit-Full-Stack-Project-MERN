@@ -1,11 +1,11 @@
 import catchError from "../../utils/catchError.js";
 import AppError from "../../utils/appError.js";
-import productModel from "../../models/Product.js";
+import productModel from "../../models/product/Product.js";
 import {
   productValidationSchema,
   updateProductSchema,
   queryValidationSchema,
-} from "./productValidationSchema.js";
+} from "../../models/product/productValidationSchema.js";
 
 /**
  * Adding new product controller

@@ -1,10 +1,10 @@
-import userModel from "../../models/User.js";
+import userModel from "../../models/user/User.js";
 import AppError from "../../utils/appError.js";
 import catchError from "../../utils/catchError.js";
 import {
   userUpdateValidation,
   userValidationSchema,
-} from "../user/userValidationSchema.js";
+} from "../../models/user/userValidationSchema.js";
 
 /**
  * Get all users
