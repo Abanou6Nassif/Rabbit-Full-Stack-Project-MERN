@@ -7,17 +7,18 @@ import {
 } from "../controllers/user/userControllers.js";
 import { authenticate } from "../middlewares/authenticate.js";
 import { authorize } from "../middlewares/authorize.js";
+import { authLimiterMiddleware } from "../middlewares/rateLimiter.js";
 const router = express.Router();
 
 //@route POST /api/users/register
 //@desc Register a new user
 //@access Public
-router.post("/register", register);
+router.post("/register", authLimiterMiddleware, register);
 
 //@route POST /api/users/login
 //@desc Login user
 //@access Public
-router.post("/login", login);
+router.post("/login", authLimiterMiddleware, login);
 
 //@route GET /api/users/profile
 //@desc Get logged-in user's profile (Protected Route)

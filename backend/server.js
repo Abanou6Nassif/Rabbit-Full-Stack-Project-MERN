@@ -16,6 +16,8 @@ import AppError from "./utils/appError.js";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import { logMiddleware } from "./middlewares/logMiddleware.js";
+import { makeLimiterMiddleware } from "./middlewares/rateLimiter.js";
+import { globalLimiter } from "./middlewares/rateLimiter.js";
 
 dotenv.config();
 const app = express();
@@ -33,6 +35,7 @@ connectDB();
 
 //logMiddleware
 app.use(logMiddleware);
+app.use(makeLimiterMiddleware(globalLimiter, (request) => request.ip));
 
 //API routes
 //user routes
