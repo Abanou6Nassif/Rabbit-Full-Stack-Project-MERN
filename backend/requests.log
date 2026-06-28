@@ -83088,3 +83088,7 @@
 [2026-06-28T08:19:38.070Z] <= END [d6846b45-5621-47be-81c8-5f239b889cb1] GET /6a18c14fca00924bf4a4139b | Status: 304 | 110ms
 [2026-06-28T08:19:38.230Z] <= END [a38385d7-ec0a-4878-a634-7f83e3cd7ef4] GET /similar/6a18c14fca00924bf4a4139b | Status: 304 | 165ms
 [2026-06-28T08:19:38.264Z] <= END [60443708-9498-4267-999a-69aad53ea4c8] GET /new-arrivals | Status: 200 | 663ms
+[2026-06-28T10:03:09.762Z] => START [61f22c06-d653-4400-ac41-063d5f6e53d0] GET /api/products?collection=all&gender=Women
+[2026-06-28T10:03:09.935Z] <= END [61f22c06-d653-4400-ac41-063d5f6e53d0] GET /?collection=all&gender=Women | Status: 200 | 174ms
+[2026-06-28T10:03:09.937Z] => START [e2658720-1127-46fa-becd-892d8bf078b6] GET /api/products?collection=all&gender=Women
+[2026-06-28T10:03:10.040Z] <= END [e2658720-1127-46fa-becd-892d8bf078b6] GET /?collection=all&gender=Women | Status: 304 | 103ms
