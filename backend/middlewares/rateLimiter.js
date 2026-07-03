@@ -34,7 +34,7 @@ const createLimiter = ({ keyPrefix, points, duration, blockDuration }) => {
 
 export const authLimiter = createLimiter({
   keyPrefix: "auth",
-  points: 1,
+  points: 5,
   duration: 60 * 15,
   blockDuration: 60 * 15,
 });
