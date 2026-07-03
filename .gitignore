@@ -1,5 +1,8 @@
 node_modules
-.env*
+.env
+.env.local
+.env.*.local
+!.env.example
 NotesForMe
 # logs
 logs
@@ -10,7 +13,7 @@ frontend/node_modules/
 backend/node_modules/
 
 backend/.env
-backend/.env
+backend/requests.log
 
 .DS_Store
 

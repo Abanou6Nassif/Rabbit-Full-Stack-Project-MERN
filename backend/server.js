@@ -21,12 +21,13 @@ import { globalLimiter } from "./middlewares/rateLimiter.js";
 
 dotenv.config();
 const app = express();
+
+app.set("trust proxy", 1);
+
 const allowedOrigins = (process.env.FRONTEND_ORIGIN || "http://localhost:5173")
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
-
-console.log(allowedOrigins, "hiiii");
 
 app.use(
   cors({
@@ -40,53 +41,41 @@ app.use(
     credentials: true,
   }),
 );
-app.use(helmet());
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+  }),
+);
 app.use(express.json());
 app.use(cookieParser());
 
-connectDB();
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
-//logMiddleware
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
 app.use(logMiddleware);
 app.use(makeLimiterMiddleware(globalLimiter, (request) => request.ip));
 
-//API routes
-//user routes
 app.use("/api/users", userRoutes);
-
-//product routes
 app.use("/api/products", productRoutes);
-
-//cart routes
 app.use("/api/cart", cartRoutes);
-
-//checkout routes
 app.use("/api/checkout", checkoutRoutes);
-
-//order routes
 app.use("/api/orders", orderRoutes);
-
-//upload image route
 app.use("/api/upload", uploadRoutes);
-
-//subscribe routes
 app.use("/api/subscribe", subscriberRoutes);
-
-//admin routes
-//user routes for admin
 app.use("/api/admin/users", adminRoutes);
-
-//products routes for admin
 app.use("/api/admin/products", productAdminRoutes);
-
-//orders routes for admin
 app.use("/api/admin/orders", adminOrderRoutes);
 
-// handle unknown routes (404) and forward to global error handler
-/**
- * the following is a pathless middleware for handling unknown routes
- * should be used as the last middleware*
- */
 app.use((req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
 });
@@ -95,7 +84,7 @@ app.use((err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
-  const message = err.message || "Enternal server error";
+  const message = err.message || "Internal server error";
   const statusCode = err.statusCode || 500;
   res.status(statusCode).json({ message: message });
 });

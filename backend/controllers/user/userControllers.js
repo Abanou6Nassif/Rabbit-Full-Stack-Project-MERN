@@ -3,6 +3,7 @@ import catchError from "../../utils/catchError.js";
 import AppError from "../../utils/appError.js";
 import nodemailer from "nodemailer";
 import crypto from "crypto";
+import { getAuthCookieOptions } from "../../utils/cookieOptions.js";
 import {
   forgotPasswordValidationSchema,
   resetPasswordValidationSchema,
@@ -10,8 +11,12 @@ import {
 } from "../../models/user/userValidationSchema.js";
 
 const getFrontendBaseUrl = (req) =>
-  (process.env.FRONTEND_URL || req.headers.origin || "http://localhost:5173")
-    .replace(/\/$/, "");
+  (
+    process.env.FRONTEND_URL ||
+    process.env.FRONTEND_ORIGIN?.split(",")[0]?.trim() ||
+    req.headers.origin ||
+    "http://localhost:5173"
+  ).replace(/\/$/, "");
 
 const buildResetEmail = ({ name, resetUrl }) => ({
   text: `Hi ${name || "there"},\n\nWe received a request to reset your Rabbit password. Use the link below to choose a new password:\n${resetUrl}\n\nThis link expires in 10 minutes. If you did not request this, you can safely ignore this email.`,
@@ -164,13 +169,7 @@ const profile = catchError(async (req, res) => {
  * logout controller
  */
 const logout = catchError(async (req, res) => {
-  res.clearCookie("jwt", {
-    //   secure: true,         // enforce HTTPS in production
-    //   sameSite: "Strict"    // or "None" if you need cross-site
-    httpOnly: true,
-    secure: false,
-    sameSite: "Lax",
-  });
+  res.clearCookie("jwt", getAuthCookieOptions());
   res.status(200).json({ message: "Logged out successfully" });
 });
 

@@ -1,11 +1,39 @@
-import { RateLimiterRedis } from "rate-limiter-flexible";
+import {
+  RateLimiterMemory,
+  RateLimiterRedis,
+} from "rate-limiter-flexible";
 import Redis from "ioredis";
 
-export const redisClient = new Redis({ enableOfflineQueue: false });
+const useRedis = Boolean(process.env.REDIS_URL);
 
-// Stricter, route-specific
-export const authLimiter = new RateLimiterRedis({
-  storeClient: redisClient,
+const redisClient = useRedis
+  ? new Redis(process.env.REDIS_URL, {
+      enableOfflineQueue: false,
+      maxRetriesPerRequest: 1,
+      lazyConnect: true,
+    })
+  : null;
+
+if (redisClient) {
+  redisClient.on("error", (error) => {
+    console.error("Redis connection error:", error.message);
+  });
+}
+
+const createLimiter = ({ keyPrefix, points, duration, blockDuration }) => {
+  const options = { keyPrefix, points, duration, blockDuration };
+
+  if (redisClient) {
+    return new RateLimiterRedis({
+      storeClient: redisClient,
+      ...options,
+    });
+  }
+
+  return new RateLimiterMemory(options);
+};
+
+export const authLimiter = createLimiter({
   keyPrefix: "auth",
   points: 5,
   duration: 60 * 15,
@@ -19,23 +47,18 @@ export const authLimiterMiddleware = async (req, res, next) => {
 
     await Promise.all(promises);
     next();
-  } catch (error) {
+  } catch {
     res.status(429).send("Too many login attempts. Try again later.");
   }
 };
 
-////////////////////////////////////////////////
-
-// Safety net for the whole app
-export const globalLimiter = new RateLimiterRedis({
-  storeClient: redisClient,
+export const globalLimiter = createLimiter({
   keyPrefix: "global",
   points: 200,
   duration: 60,
 });
 
-export const checkoutLimiter = new RateLimiterRedis({
-  storeClient: redisClient,
+export const checkoutLimiter = createLimiter({
   keyPrefix: "checkout",
   points: 5,
   duration: 60,

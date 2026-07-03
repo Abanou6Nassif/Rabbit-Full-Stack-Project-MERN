@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
+import { getAuthCookieOptions } from "../../utils/cookieOptions.js";
 
 const userSchema = new mongoose.Schema(
   {
@@ -76,13 +77,7 @@ userSchema.methods.generateToken = function (res, payload) {
     expiresIn: "40h",
   });
 
-  //   secure: true,         // enforce HTTPS in production
-  //   sameSite: "Strict"    // or "None" if you need cross-site
-  res.cookie("jwt", token, {
-    httpOnly: true,
-    secure: false,
-    sameSite: "Lax",
-  });
+  res.cookie("jwt", token, getAuthCookieOptions());
 
   return token;
 };
