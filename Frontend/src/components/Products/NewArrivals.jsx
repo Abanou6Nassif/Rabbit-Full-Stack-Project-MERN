@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../axiosConfig";
 import { useEffect, useRef, useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -19,7 +19,7 @@ export const NewArrivals = () => {
     const fetchNewArrivals = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}api/products/new-arrivals`,
+          `/api/products/new-arrivals`,
           { signal: controller.signal }, //passing abort signal
         );
 
@@ -56,7 +56,7 @@ export const NewArrivals = () => {
     const walk = x - startX;
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
-  const handleMouseUpOrLeave = (e) => {
+  const handleMouseUpOrLeave = () => {
     setIsDragging(false);
   };
 
@@ -103,7 +103,7 @@ export const NewArrivals = () => {
         </p>
 
         {/* Scroll Buttons */}
-        <div className="absolute right-0  bottom-[-45px] flex space-x-2">
+        <div className="absolute right-0 -bottom-11.25 flex space-x-2">
           <button
             disabled={!canScrollLeft}
             onClick={() => scroll("left")}
@@ -139,7 +139,7 @@ export const NewArrivals = () => {
               src={product.images[0].url}
               alt={product.images[0]?.altText || product.name}
               draggable="false"
-              className="w-full h-[500px] object-cover rounded-lg"
+              className="w-full h-125 object-cover rounded-lg"
             />
 
             <div className="absolute bottom-0 left-0 right-0 backdrop-blur-md bg-transparent/50 text-white p-4 rounded-b-lg">

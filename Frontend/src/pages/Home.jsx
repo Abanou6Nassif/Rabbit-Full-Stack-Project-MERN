@@ -8,7 +8,7 @@ import ProductDetails from "../components/Products/ProductDetails";
 import ProductGrid from "../components/Products/ProductGrid";
 import { useEffect, useState } from "react";
 import { fetchProductsByFilters } from "../redux/slices/productsSlice";
-import axios from "axios";
+import axios from "../axiosConfig";
 
 // const placeholdeProducts = [
 //   {
@@ -83,7 +83,7 @@ export const Home = () => {
     const fetchBestSeller = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}api/products/best-seller`,
+          `/api/products/best-seller`,
           { signal: controller.signal },
         );
         if (isMounted) {
