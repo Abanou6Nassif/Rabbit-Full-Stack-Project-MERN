@@ -83846,3 +83846,61 @@
 [2026-07-03T21:10:31.938Z] <= END [611d5a57-668d-4766-9921-bf8fdb688311] GET / | Status: 304 | 166ms
 [2026-07-03T21:25:32.765Z] => START [af784ac2-9742-48bc-a877-777eb219b870] GET /api/admin/products
 [2026-07-03T21:25:32.771Z] <= END [af784ac2-9742-48bc-a877-777eb219b870] GET /api/admin/products | Status: 429 | 6ms
+[2026-07-03T21:27:09.670Z] => START [ad04ce78-e21d-4a38-91f4-de5a48ec48e2] GET /api/admin/products
+[2026-07-03T21:27:09.944Z] <= END [ad04ce78-e21d-4a38-91f4-de5a48ec48e2] GET / | Status: 200 | 274ms
+[2026-07-03T21:34:22.988Z] => START [b6ef34a6-ba27-4a0a-b36c-36d2f03c112f] GET /api/products/new-arrivals
+[2026-07-03T21:34:22.990Z] => START [e218f24d-749e-4a8e-9710-8541ef7cd869] GET /api/products?gender=Women&category=Bottom+Wear&limit=8
+[2026-07-03T21:34:22.991Z] => START [4b85e747-3c3c-473a-a5ae-327936b712f4] GET /api/products/best-seller
+[2026-07-03T21:34:23.000Z] => START [7afeb771-fcd5-4317-9355-ea2b7aea732c] GET /api/products/best-seller
+[2026-07-03T21:34:23.001Z] => START [cf6c6a79-1a28-4937-9b71-78c920a4aecb] GET /api/products/new-arrivals
+[2026-07-03T21:34:23.002Z] X ABORT [b6ef34a6-ba27-4a0a-b36c-36d2f03c112f] GET /new-arrivals | Client disconnected 14ms
+[2026-07-03T21:34:23.002Z] X ABORT [4b85e747-3c3c-473a-a5ae-327936b712f4] GET /best-seller | Client disconnected 11ms
+[2026-07-03T21:34:23.083Z] <= END [e218f24d-749e-4a8e-9710-8541ef7cd869] GET /?gender=Women&category=Bottom+Wear&limit=8 | Status: 304 | 93ms
+[2026-07-03T21:34:23.084Z] <= END [7afeb771-fcd5-4317-9355-ea2b7aea732c] GET /best-seller | Status: 200 | 84ms
+[2026-07-03T21:34:23.086Z] => START [406988e8-3408-4ffe-a7f7-b9548ec97836] GET /api/products?gender=Women&category=Bottom+Wear&limit=8
+[2026-07-03T21:34:23.104Z] => START [280d1cb7-9ee3-4b5b-8d47-862d280679ff] GET /api/products/6a18c14fca00924bf4a4139b
+[2026-07-03T21:34:23.107Z] => START [258fb884-a43e-4fa0-9b9c-528e85c6d710] GET /api/products/similar/6a18c14fca00924bf4a4139b
+[2026-07-03T21:34:23.159Z] <= END [406988e8-3408-4ffe-a7f7-b9548ec97836] GET /?gender=Women&category=Bottom+Wear&limit=8 | Status: 304 | 73ms
+[2026-07-03T21:34:23.178Z] <= END [280d1cb7-9ee3-4b5b-8d47-862d280679ff] GET /6a18c14fca00924bf4a4139b | Status: 304 | 74ms
+[2026-07-03T21:34:23.179Z] => START [8911b158-9a14-4d2b-9104-4baf436dcacf] GET /api/products/6a18c14fca00924bf4a4139b
+[2026-07-03T21:34:23.256Z] <= END [8911b158-9a14-4d2b-9104-4baf436dcacf] GET /6a18c14fca00924bf4a4139b | Status: 304 | 77ms
+[2026-07-03T21:34:23.259Z] <= END [258fb884-a43e-4fa0-9b9c-528e85c6d710] GET /similar/6a18c14fca00924bf4a4139b | Status: 304 | 152ms
+[2026-07-03T21:34:23.259Z] => START [3faed661-9999-45f5-a80f-32994866baa6] GET /api/products/similar/6a18c14fca00924bf4a4139b
+[2026-07-03T21:34:23.421Z] <= END [3faed661-9999-45f5-a80f-32994866baa6] GET /similar/6a18c14fca00924bf4a4139b | Status: 304 | 162ms
+[2026-07-03T21:34:23.618Z] <= END [cf6c6a79-1a28-4937-9b71-78c920a4aecb] GET /new-arrivals | Status: 200 | 617ms
+[2026-07-03T21:38:08.490Z] => START [2a385f8f-c3a6-4a38-81ea-4364d397396a] GET /api/products?gender=Women&category=Bottom+Wear&limit=8
+[2026-07-03T21:38:08.503Z] => START [881d2889-91e2-4153-83d0-449d842aa333] GET /api/products/new-arrivals
+[2026-07-03T21:38:08.505Z] => START [8af17e6b-7c1c-46b6-b69a-da593d0f8fad] GET /api/products/best-seller
+[2026-07-03T21:38:08.610Z] <= END [8af17e6b-7c1c-46b6-b69a-da593d0f8fad] GET /best-seller | Status: 304 | 105ms
+[2026-07-03T21:38:08.626Z] <= END [2a385f8f-c3a6-4a38-81ea-4364d397396a] GET /?gender=Women&category=Bottom+Wear&limit=8 | Status: 304 | 136ms
+[2026-07-03T21:38:08.636Z] <= END [881d2889-91e2-4153-83d0-449d842aa333] GET /new-arrivals | Status: 304 | 133ms
+[2026-07-03T21:38:08.637Z] => START [cf7a9dc4-cdc9-4618-85af-225c3ee56cd7] GET /api/products?gender=Women&category=Bottom+Wear&limit=8
+[2026-07-03T21:38:08.639Z] => START [e2685a1b-d329-4284-a998-a33e40cab614] GET /api/products/6a18c14fca00924bf4a4139b
+[2026-07-03T21:38:08.640Z] => START [06ffdc5e-fd60-4f39-b782-5c8001aa7721] GET /api/products/similar/6a18c14fca00924bf4a4139b
+[2026-07-03T21:38:08.714Z] <= END [e2685a1b-d329-4284-a998-a33e40cab614] GET /6a18c14fca00924bf4a4139b | Status: 304 | 75ms
+[2026-07-03T21:38:08.719Z] <= END [cf7a9dc4-cdc9-4618-85af-225c3ee56cd7] GET /?gender=Women&category=Bottom+Wear&limit=8 | Status: 304 | 82ms
+[2026-07-03T21:38:08.720Z] => START [652d71c9-aea9-4a4a-a7e0-83563b726cb2] GET /api/products/6a18c14fca00924bf4a4139b
+[2026-07-03T21:38:08.797Z] <= END [06ffdc5e-fd60-4f39-b782-5c8001aa7721] GET /similar/6a18c14fca00924bf4a4139b | Status: 304 | 157ms
+[2026-07-03T21:38:08.800Z] <= END [652d71c9-aea9-4a4a-a7e0-83563b726cb2] GET /6a18c14fca00924bf4a4139b | Status: 304 | 80ms
+[2026-07-03T21:38:08.802Z] => START [2f5c858f-51ae-4bd9-bb94-887fd9cc6ce8] GET /api/products/similar/6a18c14fca00924bf4a4139b
+[2026-07-03T21:38:08.948Z] <= END [2f5c858f-51ae-4bd9-bb94-887fd9cc6ce8] GET /similar/6a18c14fca00924bf4a4139b | Status: 304 | 146ms
+[2026-07-03T21:39:06.818Z] => START [b089a0e2-dc63-41cb-b2ec-97cb32017f98] GET /api/products/new-arrivals
+[2026-07-03T21:39:06.848Z] => START [c4defdbb-84f3-4515-b94c-d1b5b06a4e9e] GET /api/products?gender=Women&category=Bottom+Wear&limit=8
+[2026-07-03T21:39:06.849Z] => START [b3c361ec-2f2c-40ee-8afc-abc51209e0b8] GET /api/products/best-seller
+[2026-07-03T21:39:06.854Z] X ABORT [b3c361ec-2f2c-40ee-8afc-abc51209e0b8] GET /api/products/best-seller | Client disconnected 5ms
+[2026-07-03T21:39:06.859Z] => START [2b1bccd3-ca36-4533-843b-af4f70f1d8f2] GET /api/products/best-seller
+[2026-07-03T21:39:06.861Z] => START [e96928fd-cce3-4245-a083-fb3358228618] GET /api/products/new-arrivals
+[2026-07-03T21:39:06.862Z] X ABORT [b089a0e2-dc63-41cb-b2ec-97cb32017f98] GET /new-arrivals | Client disconnected 44ms
+[2026-07-03T21:39:07.006Z] <= END [c4defdbb-84f3-4515-b94c-d1b5b06a4e9e] GET /?gender=Women&category=Bottom+Wear&limit=8 | Status: 304 | 158ms
+[2026-07-03T21:39:07.020Z] <= END [2b1bccd3-ca36-4533-843b-af4f70f1d8f2] GET /best-seller | Status: 200 | 161ms
+[2026-07-03T21:39:07.021Z] => START [08babc7b-4eea-44c0-b809-8eb1c848fc9a] GET /api/products?gender=Women&category=Bottom+Wear&limit=8
+[2026-07-03T21:39:07.124Z] <= END [08babc7b-4eea-44c0-b809-8eb1c848fc9a] GET /?gender=Women&category=Bottom+Wear&limit=8 | Status: 304 | 103ms
+[2026-07-03T21:39:07.128Z] => START [34db26c8-3c2b-4edc-b949-1dce0a5a8220] GET /api/products/6a18c14fca00924bf4a4139b
+[2026-07-03T21:39:07.132Z] => START [cd132721-5546-4f6a-801a-cda62c9c3dda] GET /api/products/similar/6a18c14fca00924bf4a4139b
+[2026-07-03T21:39:07.287Z] <= END [34db26c8-3c2b-4edc-b949-1dce0a5a8220] GET /6a18c14fca00924bf4a4139b | Status: 304 | 159ms
+[2026-07-03T21:39:07.290Z] => START [418ad749-5a1f-491e-bcd9-6d283aa860d0] GET /api/products/6a18c14fca00924bf4a4139b
+[2026-07-03T21:39:07.366Z] <= END [cd132721-5546-4f6a-801a-cda62c9c3dda] GET /similar/6a18c14fca00924bf4a4139b | Status: 304 | 234ms
+[2026-07-03T21:39:07.371Z] <= END [418ad749-5a1f-491e-bcd9-6d283aa860d0] GET /6a18c14fca00924bf4a4139b | Status: 304 | 81ms
+[2026-07-03T21:39:07.372Z] => START [f73bc98c-cd1c-45f7-9530-f031d77a4abb] GET /api/products/similar/6a18c14fca00924bf4a4139b
+[2026-07-03T21:39:07.555Z] <= END [f73bc98c-cd1c-45f7-9530-f031d77a4abb] GET /similar/6a18c14fca00924bf4a4139b | Status: 304 | 183ms
+[2026-07-03T21:39:07.746Z] <= END [e96928fd-cce3-4245-a083-fb3358228618] GET /new-arrivals | Status: 200 | 885ms
