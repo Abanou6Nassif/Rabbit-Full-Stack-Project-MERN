@@ -83,7 +83,7 @@ export const Home = () => {
     const fetchBestSeller = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/products/best-seller`,
+          `${import.meta.env.VITE_BACKEND_URL}api/products/best-seller`,
           { signal: controller.signal },
         );
         if (isMounted) {
