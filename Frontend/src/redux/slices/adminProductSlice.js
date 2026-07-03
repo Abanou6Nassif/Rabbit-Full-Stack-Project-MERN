@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../axiosConfig.js";
+import { getErrorMessage } from "./shared.js";
 // const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 //async thunk to fetch admin products
@@ -10,7 +11,7 @@ export const fetchAdminProducts = createAsyncThunk(
       const response = await axios.get(`/api/admin/products`);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -20,13 +21,10 @@ export const createProduct = createAsyncThunk(
   "adminProducts/createProduct",
   async (productData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `/api/admin/products`,
-        productData,
-      );
+      const response = await axios.post(`/api/admin/products`, productData);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -42,7 +40,7 @@ export const updateProduct = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -55,7 +53,7 @@ export const deleteProduct = createAsyncThunk(
       await axios.delete(`/api/admin/products/${id}`);
       return id;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );

@@ -83210,3 +83210,423 @@
 [2026-07-03T16:29:48.919Z] <= END [9ae3ed6c-47de-414f-8ec9-4bcba6ecfd8f] POST /api/users/register | Status: 429 | 1ms
 [2026-07-03T16:32:49.598Z] => START [c7f222d2-6043-4709-82ca-995cd36c2500] POST /api/users/register
 [2026-07-03T16:32:49.598Z] <= END [c7f222d2-6043-4709-82ca-995cd36c2500] POST /api/users/register | Status: 429 | 0ms
+[2026-07-03T17:09:01.268Z] => START [8488922b-6de0-4f99-a652-da7f8a2bf614] GET /api/products?collection=all&gender=Men
+[2026-07-03T17:09:05.330Z] X ABORT [8488922b-6de0-4f99-a652-da7f8a2bf614] GET /?collection=all&gender=Men | Client disconnected 4062ms
+[2026-07-03T17:09:05.331Z] => START [c94b7d0c-4fc6-4bf9-a6d5-d2c99ff13b3e] GET /api/products?collection=all&gender=Men
+[2026-07-03T17:09:05.332Z] X ABORT [c94b7d0c-4fc6-4bf9-a6d5-d2c99ff13b3e] GET /api/products?collection=all&gender=Men | Client disconnected 1ms
+[2026-07-03T17:09:05.674Z] => START [fbaaabf2-a525-4f5c-a722-82f5533bd817] GET /api/products?collection=all&gender=Men
+[2026-07-03T17:09:16.706Z] <= END [fbaaabf2-a525-4f5c-a722-82f5533bd817] GET /?collection=all&gender=Men | Status: 200 | 11032ms
+[2026-07-03T17:09:16.708Z] => START [00d11247-d9d2-4dbf-8201-214127f15978] GET /api/products?collection=all&gender=Men
+[2026-07-03T17:09:18.181Z] <= END [00d11247-d9d2-4dbf-8201-214127f15978] GET /?collection=all&gender=Men | Status: 304 | 1473ms
+[2026-07-03T17:09:20.370Z] => START [930f4c66-9278-4584-8fcb-5329850efe1b] GET /api/products?collection=all&gender=Women
+[2026-07-03T17:09:21.648Z] <= END [930f4c66-9278-4584-8fcb-5329850efe1b] GET /?collection=all&gender=Women | Status: 200 | 1278ms
+[2026-07-03T17:09:22.063Z] => START [0b22af02-e37a-4b30-bbd4-9d1bac07c192] GET /api/products?collection=all&gender=Men
+[2026-07-03T17:09:23.406Z] <= END [0b22af02-e37a-4b30-bbd4-9d1bac07c192] GET /?collection=all&gender=Men | Status: 304 | 1343ms
+[2026-07-03T17:09:30.980Z] => START [d606dc3f-3ad6-4992-89cd-2566bfbbcc86] GET /api/products/6a18c14fca00924bf4a41392
+[2026-07-03T17:09:30.981Z] => START [8efb460c-eff1-4339-9f9b-f8a9a6116730] GET /api/products/similar/6a18c14fca00924bf4a41392
+[2026-07-03T17:09:31.657Z] <= END [d606dc3f-3ad6-4992-89cd-2566bfbbcc86] GET /6a18c14fca00924bf4a41392 | Status: 200 | 677ms
+[2026-07-03T17:09:31.660Z] => START [a50de669-7efd-46b1-96c7-7a55f9a6e503] GET /api/products/6a18c14fca00924bf4a41392
+[2026-07-03T17:09:32.024Z] <= END [8efb460c-eff1-4339-9f9b-f8a9a6116730] GET /similar/6a18c14fca00924bf4a41392 | Status: 200 | 1043ms
+[2026-07-03T17:09:32.025Z] => START [ed6b938c-96ef-43c9-b8bc-fbb93b1e4840] GET /api/products/similar/6a18c14fca00924bf4a41392
+[2026-07-03T17:09:32.032Z] <= END [a50de669-7efd-46b1-96c7-7a55f9a6e503] GET /6a18c14fca00924bf4a41392 | Status: 304 | 372ms
+[2026-07-03T17:09:33.105Z] <= END [ed6b938c-96ef-43c9-b8bc-fbb93b1e4840] GET /similar/6a18c14fca00924bf4a41392 | Status: 304 | 1080ms
+[2026-07-03T17:09:36.795Z] => START [ecf58fd0-2b6c-4bdb-a1c1-7e6339cab70d] POST /api/cart
+[2026-07-03T17:09:38.404Z] <= END [ecf58fd0-2b6c-4bdb-a1c1-7e6339cab70d] POST / | Status: 201 | 1609ms
+[2026-07-03T17:09:43.400Z] => START [7f9af4d0-6501-4a66-8b15-ee973c08e783] PATCH /api/cart
+[2026-07-03T17:09:43.625Z] => START [0607946f-d761-4918-a444-8fc7ae09066b] PATCH /api/cart
+[2026-07-03T17:09:45.426Z] <= END [7f9af4d0-6501-4a66-8b15-ee973c08e783] PATCH / | Status: 200 | 2026ms
+[2026-07-03T17:09:45.542Z] <= END [0607946f-d761-4918-a444-8fc7ae09066b] PATCH / | Status: 200 | 1917ms
+[2026-07-03T17:09:48.099Z] => START [9d3c6dd6-208a-4409-9771-9bf4e9411373] PATCH /api/cart
+[2026-07-03T17:09:49.635Z] <= END [9d3c6dd6-208a-4409-9771-9bf4e9411373] PATCH / | Status: 200 | 1536ms
+[2026-07-03T17:10:09.656Z] => START [cee9fd04-8df5-4d7b-8e29-16172fd8651b] PATCH /api/cart
+[2026-07-03T17:10:09.775Z] => START [1d384179-75c6-416d-aed6-f0e35d1d752f] PATCH /api/cart
+[2026-07-03T17:10:09.980Z] => START [eb29b3e9-7427-485b-8b8a-2990f9a1592e] PATCH /api/cart
+[2026-07-03T17:10:10.445Z] <= END [cee9fd04-8df5-4d7b-8e29-16172fd8651b] PATCH / | Status: 200 | 789ms
+[2026-07-03T17:10:10.465Z] <= END [1d384179-75c6-416d-aed6-f0e35d1d752f] PATCH / | Status: 200 | 690ms
+[2026-07-03T17:10:10.611Z] <= END [eb29b3e9-7427-485b-8b8a-2990f9a1592e] PATCH / | Status: 200 | 631ms
+[2026-07-03T17:10:13.970Z] => START [50dfdc26-6a27-44ab-9508-43d7a8e4fc5b] PATCH /api/cart
+[2026-07-03T17:10:14.199Z] => START [1a12bcb6-3ce5-4dd6-a33e-67060f329d01] PATCH /api/cart
+[2026-07-03T17:10:14.530Z] <= END [50dfdc26-6a27-44ab-9508-43d7a8e4fc5b] PATCH / | Status: 200 | 560ms
+[2026-07-03T17:10:14.671Z] <= END [1a12bcb6-3ce5-4dd6-a33e-67060f329d01] PATCH / | Status: 200 | 472ms
+[2026-07-03T17:10:19.038Z] => START [712a1295-9737-4444-a908-27424e2308bf] PATCH /api/cart
+[2026-07-03T17:10:19.257Z] => START [3eda2621-c940-4ce0-be96-b677256f2135] PATCH /api/cart
+[2026-07-03T17:10:19.307Z] <= END [712a1295-9737-4444-a908-27424e2308bf] PATCH / | Status: 200 | 269ms
+[2026-07-03T17:10:19.659Z] <= END [3eda2621-c940-4ce0-be96-b677256f2135] PATCH / | Status: 200 | 402ms
+[2026-07-03T17:10:52.427Z] => START [0f2f1d23-4267-4397-befe-1a1199d05569] POST /api/users/register
+[2026-07-03T17:10:53.147Z] <= END [0f2f1d23-4267-4397-befe-1a1199d05569] POST /register | Status: 201 | 720ms
+[2026-07-03T17:10:53.168Z] => START [50c7003e-2788-49f5-a3c0-5c6d4d690d23] POST /api/cart/merge
+[2026-07-03T17:10:53.650Z] <= END [50c7003e-2788-49f5-a3c0-5c6d4d690d23] POST /merge | Status: 200 | 482ms
+[2026-07-03T17:10:53.668Z] => START [568b7da0-6ece-4e8f-96d0-74e4bee6ae07] POST /api/cart/merge
+[2026-07-03T17:10:53.686Z] => START [9fb156ed-2d02-41e1-b121-cb10d6633b80] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:10:53.768Z] <= END [9fb156ed-2d02-41e1-b121-cb10d6633b80] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 82ms
+[2026-07-03T17:10:53.786Z] => START [ea763f5f-2f59-45cc-8790-752d0b68ac4a] POST /api/cart/merge
+[2026-07-03T17:10:53.986Z] <= END [568b7da0-6ece-4e8f-96d0-74e4bee6ae07] POST /merge | Status: 200 | 318ms
+[2026-07-03T17:10:54.004Z] => START [b33ab46e-ecb8-483a-b921-e273e6c59b34] POST /api/cart/merge
+[2026-07-03T17:10:54.021Z] => START [baa5bbb3-0932-47b7-8a96-98442473e988] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:10:54.317Z] <= END [baa5bbb3-0932-47b7-8a96-98442473e988] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 296ms
+[2026-07-03T17:10:54.345Z] => START [aa10d53d-9537-4c53-851b-f57fd8b25268] POST /api/cart/merge
+[2026-07-03T17:10:54.353Z] <= END [ea763f5f-2f59-45cc-8790-752d0b68ac4a] POST /merge | Status: 200 | 567ms
+[2026-07-03T17:10:54.388Z] => START [ff076e73-2a61-4aba-a873-a1dfbc030bc8] POST /api/cart/merge
+[2026-07-03T17:10:54.407Z] => START [ce5e4e43-21cf-4a15-a0c6-4e4c9683c910] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:10:54.913Z] <= END [ce5e4e43-21cf-4a15-a0c6-4e4c9683c910] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 506ms
+[2026-07-03T17:10:54.931Z] => START [df2408f0-35e0-490b-b076-a5d32e96b0b7] POST /api/cart/merge
+[2026-07-03T17:10:55.087Z] <= END [b33ab46e-ecb8-483a-b921-e273e6c59b34] POST /merge | Status: 200 | 1083ms
+[2026-07-03T17:10:55.105Z] => START [7d862330-5acf-4e97-811f-ff7dfda35932] POST /api/cart/merge
+[2026-07-03T17:10:55.120Z] => START [865783d2-c0c2-471c-b427-b36e5eba463a] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:10:55.655Z] <= END [865783d2-c0c2-471c-b427-b36e5eba463a] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 535ms
+[2026-07-03T17:10:55.673Z] => START [e0af124d-3124-4392-a11e-f9d757dde140] POST /api/cart/merge
+[2026-07-03T17:10:55.863Z] <= END [aa10d53d-9537-4c53-851b-f57fd8b25268] POST /merge | Status: 200 | 1518ms
+[2026-07-03T17:10:55.878Z] => START [028c7ae2-5037-472e-8f4a-8f3ed698acc5] POST /api/cart/merge
+[2026-07-03T17:10:55.884Z] <= END [ff076e73-2a61-4aba-a873-a1dfbc030bc8] POST /merge | Status: 200 | 1496ms
+[2026-07-03T17:10:55.890Z] => START [8e8a1ea8-b306-4e8d-9ea5-e0dcb2b33ef0] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:10:55.907Z] => START [4a8905e3-acf2-4801-9539-50870426b1de] POST /api/cart/merge
+[2026-07-03T17:10:56.880Z] <= END [8e8a1ea8-b306-4e8d-9ea5-e0dcb2b33ef0] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 990ms
+[2026-07-03T17:10:56.881Z] => START [5bda881b-3c93-4711-8766-2d45372d33d0] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:10:57.041Z] <= END [df2408f0-35e0-490b-b076-a5d32e96b0b7] POST /merge | Status: 200 | 2110ms
+[2026-07-03T17:10:57.042Z] => START [2c9c93cc-7ac2-45e3-8391-4398a79d7a13] POST /api/cart/merge
+[2026-07-03T17:10:57.282Z] <= END [7d862330-5acf-4e97-811f-ff7dfda35932] POST /merge | Status: 200 | 2177ms
+[2026-07-03T17:10:57.284Z] => START [ae898ebe-edb0-4983-bc6a-20286ac84875] POST /api/cart/merge
+[2026-07-03T17:10:57.655Z] <= END [5bda881b-3c93-4711-8766-2d45372d33d0] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 774ms
+[2026-07-03T17:10:57.656Z] => START [3b157a83-6cb5-427b-98c1-6bbc40281f5f] POST /api/cart/merge
+[2026-07-03T17:10:57.907Z] <= END [e0af124d-3124-4392-a11e-f9d757dde140] POST /merge | Status: 200 | 2234ms
+[2026-07-03T17:10:57.909Z] => START [21e8a292-4075-4b1c-8596-b429c80e3053] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:10:58.228Z] <= END [028c7ae2-5037-472e-8f4a-8f3ed698acc5] POST /merge | Status: 200 | 2350ms
+[2026-07-03T17:10:58.230Z] => START [523285fe-6bf2-4268-9e44-436fdebfb4ab] POST /api/cart/merge
+[2026-07-03T17:10:59.754Z] <= END [21e8a292-4075-4b1c-8596-b429c80e3053] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 1845ms
+[2026-07-03T17:10:59.755Z] => START [c505da43-fd25-4648-96a1-384e587e51d5] POST /api/cart/merge
+[2026-07-03T17:11:00.021Z] <= END [2c9c93cc-7ac2-45e3-8391-4398a79d7a13] POST /merge | Status: 200 | 2979ms
+[2026-07-03T17:11:00.023Z] => START [46c7418c-becf-4033-86bf-7bbbaf306f10] POST /api/cart/merge
+[2026-07-03T17:11:00.099Z] <= END [ae898ebe-edb0-4983-bc6a-20286ac84875] POST /merge | Status: 200 | 2815ms
+[2026-07-03T17:11:00.101Z] => START [04140473-c46e-44cd-933a-ccd8252aadaf] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:00.733Z] <= END [3b157a83-6cb5-427b-98c1-6bbc40281f5f] POST /merge | Status: 200 | 3077ms
+[2026-07-03T17:11:00.735Z] => START [04efa542-a702-4c9c-b4f2-c77c36144f4f] POST /api/cart/merge
+[2026-07-03T17:11:00.829Z] <= END [04140473-c46e-44cd-933a-ccd8252aadaf] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 728ms
+[2026-07-03T17:11:00.830Z] => START [5dd95e5d-7f4f-4dac-bc10-1f207be594ca] POST /api/cart/merge
+[2026-07-03T17:11:01.262Z] <= END [523285fe-6bf2-4268-9e44-436fdebfb4ab] POST /merge | Status: 200 | 3032ms
+[2026-07-03T17:11:01.264Z] => START [80fb08e1-3ff3-48b1-9446-78a26c0017cc] POST /api/cart/merge
+[2026-07-03T17:11:01.588Z] <= END [c505da43-fd25-4648-96a1-384e587e51d5] POST /merge | Status: 200 | 1833ms
+[2026-07-03T17:11:01.589Z] => START [9a19e5bd-5872-4901-a0b7-73468884751a] POST /api/cart/merge
+[2026-07-03T17:11:02.310Z] <= END [46c7418c-becf-4033-86bf-7bbbaf306f10] POST /merge | Status: 200 | 2287ms
+[2026-07-03T17:11:02.311Z] => START [fe2722bf-b017-417f-bfbc-ecbd23104f1c] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:02.852Z] <= END [04efa542-a702-4c9c-b4f2-c77c36144f4f] POST /merge | Status: 200 | 2117ms
+[2026-07-03T17:11:02.854Z] => START [23e5ee37-cdf0-43aa-b720-e2e19fc60e9e] POST /api/cart/merge
+[2026-07-03T17:11:02.894Z] <= END [fe2722bf-b017-417f-bfbc-ecbd23104f1c] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 583ms
+[2026-07-03T17:11:02.896Z] => START [66faecc4-0ed1-4b53-8ba7-9d7c886b7ee0] POST /api/cart/merge
+[2026-07-03T17:11:02.916Z] <= END [5dd95e5d-7f4f-4dac-bc10-1f207be594ca] POST /merge | Status: 200 | 2086ms
+[2026-07-03T17:11:02.918Z] => START [a2d5bdec-f595-4bdb-95de-91517befdcb6] POST /api/cart/merge
+[2026-07-03T17:11:03.460Z] <= END [80fb08e1-3ff3-48b1-9446-78a26c0017cc] POST /merge | Status: 200 | 2196ms
+[2026-07-03T17:11:03.461Z] <= END [4a8905e3-acf2-4801-9539-50870426b1de] POST /merge | Status: 200 | 7554ms
+[2026-07-03T17:11:03.462Z] => START [9fcc193c-778a-4c9c-80af-fd510281e77e] POST /api/cart/merge
+[2026-07-03T17:11:03.465Z] => START [e9110748-60a9-4aa3-8f8d-5da4ae52f1bf] POST /api/cart/merge
+[2026-07-03T17:11:03.488Z] <= END [9a19e5bd-5872-4901-a0b7-73468884751a] POST /merge | Status: 200 | 1899ms
+[2026-07-03T17:11:03.490Z] => START [31aea90a-4563-4f63-8b86-0bd0882ec83f] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:04.028Z] <= END [31aea90a-4563-4f63-8b86-0bd0882ec83f] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 538ms
+[2026-07-03T17:11:04.029Z] => START [971e7305-09df-4476-9015-b37113295891] POST /api/cart/merge
+[2026-07-03T17:11:04.472Z] <= END [23e5ee37-cdf0-43aa-b720-e2e19fc60e9e] POST /merge | Status: 200 | 1618ms
+[2026-07-03T17:11:04.474Z] => START [1c1eb03c-d2cc-40a0-ba6a-19a60ece2e9a] POST /api/cart/merge
+[2026-07-03T17:11:04.481Z] <= END [66faecc4-0ed1-4b53-8ba7-9d7c886b7ee0] POST /merge | Status: 200 | 1585ms
+[2026-07-03T17:11:04.482Z] => START [cc6656af-d0f1-4218-aab6-51430c6542bc] POST /api/cart/merge
+[2026-07-03T17:11:04.511Z] <= END [a2d5bdec-f595-4bdb-95de-91517befdcb6] POST /merge | Status: 200 | 1593ms
+[2026-07-03T17:11:04.514Z] => START [eebafa37-7eae-4d02-9387-d99117d9809e] POST /api/cart/merge
+[2026-07-03T17:11:05.172Z] <= END [e9110748-60a9-4aa3-8f8d-5da4ae52f1bf] POST /merge | Status: 200 | 1707ms
+[2026-07-03T17:11:05.173Z] => START [eb0e0435-432c-487d-9cc3-03cf980458e3] POST /api/cart/merge
+[2026-07-03T17:11:05.191Z] <= END [9fcc193c-778a-4c9c-80af-fd510281e77e] POST /merge | Status: 200 | 1729ms
+[2026-07-03T17:11:05.193Z] => START [e79b62b9-8c21-4769-951d-523eec1910fa] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:05.965Z] <= END [e79b62b9-8c21-4769-951d-523eec1910fa] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 772ms
+[2026-07-03T17:11:05.967Z] => START [a8c7060e-1f3c-4f38-88eb-10b3217bdea3] POST /api/cart/merge
+[2026-07-03T17:11:05.972Z] <= END [971e7305-09df-4476-9015-b37113295891] POST /merge | Status: 200 | 1943ms
+[2026-07-03T17:11:05.974Z] => START [f0c15d3d-fa06-4a93-8e0f-606c578fbe03] POST /api/cart/merge
+[2026-07-03T17:11:06.998Z] <= END [1c1eb03c-d2cc-40a0-ba6a-19a60ece2e9a] POST /merge | Status: 200 | 2524ms
+[2026-07-03T17:11:07.001Z] => START [4c8a274b-1ac4-42b6-9d18-2c8d971e611b] POST /api/cart/merge
+[2026-07-03T17:11:07.021Z] <= END [cc6656af-d0f1-4218-aab6-51430c6542bc] POST /merge | Status: 200 | 2539ms
+[2026-07-03T17:11:07.022Z] => START [7c82ccb7-845a-41c2-ae97-8939990ec4f2] POST /api/cart/merge
+[2026-07-03T17:11:07.057Z] <= END [eebafa37-7eae-4d02-9387-d99117d9809e] POST /merge | Status: 200 | 2543ms
+[2026-07-03T17:11:07.059Z] => START [40f51747-b33c-4d77-aee9-efde1c3b0c0b] POST /api/cart/merge
+[2026-07-03T17:11:08.871Z] <= END [eb0e0435-432c-487d-9cc3-03cf980458e3] POST /merge | Status: 200 | 3698ms
+[2026-07-03T17:11:08.873Z] => START [092d5fb5-1900-43f9-8a11-5370ff8661e3] POST /api/cart/merge
+[2026-07-03T17:11:12.272Z] <= END [a8c7060e-1f3c-4f38-88eb-10b3217bdea3] POST /merge | Status: 200 | 6305ms
+[2026-07-03T17:11:12.274Z] => START [7cfebb93-fa92-438d-83fe-e6823acede81] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:12.277Z] <= END [f0c15d3d-fa06-4a93-8e0f-606c578fbe03] POST /merge | Status: 200 | 6303ms
+[2026-07-03T17:11:12.279Z] => START [e2868b37-17d4-4595-827b-6865daf279d4] POST /api/cart/merge
+[2026-07-03T17:11:13.982Z] <= END [4c8a274b-1ac4-42b6-9d18-2c8d971e611b] POST /merge | Status: 200 | 6982ms
+[2026-07-03T17:11:13.984Z] => START [dbb5644f-c6e7-47ba-9014-e49103fa2c71] POST /api/cart/merge
+[2026-07-03T17:11:14.125Z] <= END [7c82ccb7-845a-41c2-ae97-8939990ec4f2] POST /merge | Status: 200 | 7103ms
+[2026-07-03T17:11:14.127Z] => START [e7ae6867-c1fd-4392-aed0-327f7dda0e63] POST /api/cart/merge
+[2026-07-03T17:11:14.135Z] <= END [40f51747-b33c-4d77-aee9-efde1c3b0c0b] POST /merge | Status: 200 | 7076ms
+[2026-07-03T17:11:14.137Z] => START [296414be-acbc-4a1c-8fe4-da39e72338a4] POST /api/cart/merge
+[2026-07-03T17:11:14.161Z] <= END [7cfebb93-fa92-438d-83fe-e6823acede81] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 1887ms
+[2026-07-03T17:11:14.163Z] => START [781a7199-10e6-494b-9118-58cee32726ab] POST /api/cart/merge
+[2026-07-03T17:11:15.181Z] <= END [092d5fb5-1900-43f9-8a11-5370ff8661e3] POST /merge | Status: 200 | 6308ms
+[2026-07-03T17:11:15.183Z] => START [0911e59f-e447-4867-879b-802b79271224] POST /api/cart/merge
+[2026-07-03T17:11:15.562Z] <= END [e2868b37-17d4-4595-827b-6865daf279d4] POST /merge | Status: 200 | 3283ms
+[2026-07-03T17:11:15.564Z] => START [39a7aa83-2e45-4138-8edb-7c79205b419e] POST /api/cart/merge
+[2026-07-03T17:11:16.045Z] <= END [dbb5644f-c6e7-47ba-9014-e49103fa2c71] POST /merge | Status: 200 | 2061ms
+[2026-07-03T17:11:16.047Z] => START [724b6f3d-693e-4586-ae60-bc167ac3985a] POST /api/cart/merge
+[2026-07-03T17:11:16.056Z] <= END [e7ae6867-c1fd-4392-aed0-327f7dda0e63] POST /merge | Status: 200 | 1929ms
+[2026-07-03T17:11:16.059Z] <= END [296414be-acbc-4a1c-8fe4-da39e72338a4] POST /merge | Status: 200 | 1922ms
+[2026-07-03T17:11:16.060Z] => START [fe2a6971-8051-40ce-86d9-697ba2fd7ae5] POST /api/cart/merge
+[2026-07-03T17:11:16.062Z] => START [6fef2ec5-5c17-411f-bb5c-f3a3e8935257] POST /api/cart/merge
+[2026-07-03T17:11:16.114Z] <= END [781a7199-10e6-494b-9118-58cee32726ab] POST /merge | Status: 200 | 1951ms
+[2026-07-03T17:11:16.117Z] => START [d61d1356-7bdc-43d4-b045-cd69c5c57609] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:16.887Z] <= END [0911e59f-e447-4867-879b-802b79271224] POST /merge | Status: 200 | 1704ms
+[2026-07-03T17:11:16.889Z] => START [b91e6560-3889-49af-82b7-64d7544c1fb0] POST /api/cart/merge
+[2026-07-03T17:11:17.097Z] <= END [d61d1356-7bdc-43d4-b045-cd69c5c57609] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 980ms
+[2026-07-03T17:11:17.098Z] => START [cf2f09c8-169c-46da-ae84-6a67addf0230] POST /api/cart/merge
+[2026-07-03T17:11:18.137Z] <= END [39a7aa83-2e45-4138-8edb-7c79205b419e] POST /merge | Status: 200 | 2573ms
+[2026-07-03T17:11:18.140Z] => START [c43ee067-8c88-46b8-99d0-94321b3a9c39] POST /api/cart/merge
+[2026-07-03T17:11:18.891Z] <= END [724b6f3d-693e-4586-ae60-bc167ac3985a] POST /merge | Status: 200 | 2844ms
+[2026-07-03T17:11:18.893Z] => START [3d696643-a0b0-4078-9775-a4f5751e05f9] POST /api/cart/merge
+[2026-07-03T17:11:18.909Z] <= END [fe2a6971-8051-40ce-86d9-697ba2fd7ae5] POST /merge | Status: 200 | 2849ms
+[2026-07-03T17:11:18.911Z] => START [abfc40a0-5929-463d-a037-c114d18a2d95] POST /api/cart/merge
+[2026-07-03T17:11:18.916Z] <= END [6fef2ec5-5c17-411f-bb5c-f3a3e8935257] POST /merge | Status: 200 | 2854ms
+[2026-07-03T17:11:18.919Z] => START [3bd3273c-8968-4e04-b5e6-bb0cde27df37] POST /api/cart/merge
+[2026-07-03T17:11:19.937Z] <= END [b91e6560-3889-49af-82b7-64d7544c1fb0] POST /merge | Status: 200 | 3048ms
+[2026-07-03T17:11:19.939Z] => START [911425b6-cb65-4398-ad70-dca7524bf20a] POST /api/cart/merge
+[2026-07-03T17:11:20.066Z] <= END [cf2f09c8-169c-46da-ae84-6a67addf0230] POST /merge | Status: 200 | 2968ms
+[2026-07-03T17:11:20.068Z] => START [9aabfaf5-259a-4eee-a0f1-2347dae59504] POST /api/cart/merge
+[2026-07-03T17:11:21.123Z] <= END [c43ee067-8c88-46b8-99d0-94321b3a9c39] POST /merge | Status: 200 | 2983ms
+[2026-07-03T17:11:21.126Z] => START [3cf62f95-99b7-4a85-810c-218e0e9b6f34] POST /api/cart/merge
+[2026-07-03T17:11:22.127Z] <= END [3d696643-a0b0-4078-9775-a4f5751e05f9] POST /merge | Status: 200 | 3234ms
+[2026-07-03T17:11:22.129Z] <= END [abfc40a0-5929-463d-a037-c114d18a2d95] POST /merge | Status: 200 | 3218ms
+[2026-07-03T17:11:22.130Z] => START [e53f7ef9-7cf9-4fa1-b899-ddf12e9f180a] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:22.133Z] => START [2ebc0259-3f1d-4507-b2a6-386ab6343e11] POST /api/cart/merge
+[2026-07-03T17:11:22.173Z] <= END [3bd3273c-8968-4e04-b5e6-bb0cde27df37] POST /merge | Status: 200 | 3254ms
+[2026-07-03T17:11:22.176Z] => START [e355b6ae-a982-4eff-b66a-d9be8b5e5947] POST /api/cart/merge
+[2026-07-03T17:11:22.766Z] <= END [911425b6-cb65-4398-ad70-dca7524bf20a] POST /merge | Status: 200 | 2827ms
+[2026-07-03T17:11:22.767Z] => START [c6ed31bf-9cdc-454c-826d-8628bfad768a] POST /api/cart/merge
+[2026-07-03T17:11:22.792Z] <= END [e53f7ef9-7cf9-4fa1-b899-ddf12e9f180a] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 662ms
+[2026-07-03T17:11:22.793Z] => START [7f549bfd-19ab-4fb0-8fd4-980098a1b532] POST /api/cart/merge
+[2026-07-03T17:11:22.907Z] <= END [9aabfaf5-259a-4eee-a0f1-2347dae59504] POST /merge | Status: 200 | 2839ms
+[2026-07-03T17:11:22.909Z] => START [bd225754-5ef4-4409-9993-295cf316bf23] POST /api/cart/merge
+[2026-07-03T17:11:23.909Z] <= END [3cf62f95-99b7-4a85-810c-218e0e9b6f34] POST /merge | Status: 200 | 2783ms
+[2026-07-03T17:11:23.911Z] => START [4b9f74a8-2e90-4652-b18f-689e4a0033ae] POST /api/cart/merge
+[2026-07-03T17:11:24.839Z] <= END [2ebc0259-3f1d-4507-b2a6-386ab6343e11] POST /merge | Status: 200 | 2706ms
+[2026-07-03T17:11:24.841Z] => START [7eb3c773-d390-4f91-82e8-27e4be8a83a9] POST /api/cart/merge
+[2026-07-03T17:11:25.044Z] <= END [e355b6ae-a982-4eff-b66a-d9be8b5e5947] POST /merge | Status: 200 | 2868ms
+[2026-07-03T17:11:25.046Z] => START [75e5d24b-8b22-451a-8bf3-f4c7ae9b9d2b] POST /api/cart/merge
+[2026-07-03T17:11:25.313Z] <= END [c6ed31bf-9cdc-454c-826d-8628bfad768a] POST /merge | Status: 200 | 2546ms
+[2026-07-03T17:11:25.315Z] => START [6cf6b51f-74d5-4f44-9b93-394ede4d9bb9] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:25.933Z] <= END [7f549bfd-19ab-4fb0-8fd4-980098a1b532] POST /merge | Status: 200 | 3140ms
+[2026-07-03T17:11:25.934Z] => START [877f0ea7-ed36-4353-8671-1f1a7218df92] POST /api/cart/merge
+[2026-07-03T17:11:25.937Z] <= END [bd225754-5ef4-4409-9993-295cf316bf23] POST /merge | Status: 200 | 3028ms
+[2026-07-03T17:11:25.939Z] => START [05663538-8539-49e7-ae89-22ac9f1830e7] POST /api/cart/merge
+[2026-07-03T17:11:25.942Z] <= END [6cf6b51f-74d5-4f44-9b93-394ede4d9bb9] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 627ms
+[2026-07-03T17:11:25.943Z] => START [6e15310e-d5df-4105-acf9-e278ec29157c] POST /api/cart/merge
+[2026-07-03T17:11:26.516Z] <= END [4b9f74a8-2e90-4652-b18f-689e4a0033ae] POST /merge | Status: 200 | 2605ms
+[2026-07-03T17:11:26.518Z] => START [17d6bea0-be04-4bb9-9b23-4c91fd5cb429] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:26.808Z] <= END [7eb3c773-d390-4f91-82e8-27e4be8a83a9] POST /merge | Status: 200 | 1967ms
+[2026-07-03T17:11:26.810Z] => START [9b382c2e-ce4a-40b5-9345-ee83e6230b8c] POST /api/cart/merge
+[2026-07-03T17:11:26.813Z] <= END [17d6bea0-be04-4bb9-9b23-4c91fd5cb429] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 295ms
+[2026-07-03T17:11:26.813Z] <= END [75e5d24b-8b22-451a-8bf3-f4c7ae9b9d2b] POST /merge | Status: 200 | 1767ms
+[2026-07-03T17:11:26.815Z] => START [602b6f71-2feb-4eac-9ffa-7100f46e65cf] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:26.817Z] => START [17ca6a54-e4e5-4008-8bcf-3c368053505e] POST /api/cart/merge
+[2026-07-03T17:11:27.125Z] <= END [877f0ea7-ed36-4353-8671-1f1a7218df92] POST /merge | Status: 200 | 1191ms
+[2026-07-03T17:11:27.128Z] => START [0b45ea61-114a-4f48-9a8d-66ae5b196ebc] POST /api/cart/merge
+[2026-07-03T17:11:27.131Z] <= END [6e15310e-d5df-4105-acf9-e278ec29157c] POST /merge | Status: 200 | 1188ms
+[2026-07-03T17:11:27.133Z] => START [4ee819ff-8055-4a10-a58a-de04a1337a91] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:27.160Z] <= END [05663538-8539-49e7-ae89-22ac9f1830e7] POST /merge | Status: 200 | 1221ms
+[2026-07-03T17:11:27.161Z] => START [e041f8bf-a293-4686-94f0-1e27d10077be] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:27.163Z] <= END [602b6f71-2feb-4eac-9ffa-7100f46e65cf] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 348ms
+[2026-07-03T17:11:27.164Z] => START [8dbb9574-2ec8-45ab-96a5-7fcbbdb95a8b] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:27.626Z] <= END [4ee819ff-8055-4a10-a58a-de04a1337a91] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 493ms
+[2026-07-03T17:11:27.628Z] => START [a38beda1-dfdc-4b71-9dcd-aef8cf8cc2cf] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:27.644Z] <= END [e041f8bf-a293-4686-94f0-1e27d10077be] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 483ms
+[2026-07-03T17:11:27.646Z] => START [6813f0e3-60bf-4eeb-b1ed-eb5d70348196] POST /api/cart/merge
+[2026-07-03T17:11:27.672Z] <= END [8dbb9574-2ec8-45ab-96a5-7fcbbdb95a8b] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 508ms
+[2026-07-03T17:11:27.673Z] => START [fb1c30a5-ce08-478b-b86a-83bb7a2a9d80] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:28.320Z] <= END [9b382c2e-ce4a-40b5-9345-ee83e6230b8c] POST /merge | Status: 200 | 1510ms
+[2026-07-03T17:11:28.322Z] => START [7cddac7c-b249-4704-8201-84a72e4bac21] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:28.347Z] <= END [a38beda1-dfdc-4b71-9dcd-aef8cf8cc2cf] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 719ms
+[2026-07-03T17:11:28.349Z] => START [8539a9e6-a209-4e14-b8bd-e9514d8f68e5] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:28.381Z] <= END [fb1c30a5-ce08-478b-b86a-83bb7a2a9d80] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 708ms
+[2026-07-03T17:11:28.382Z] => START [1c59df8b-e2d6-4f6b-9153-4da79cecd978] POST /api/cart/merge
+[2026-07-03T17:11:28.429Z] <= END [17ca6a54-e4e5-4008-8bcf-3c368053505e] POST /merge | Status: 200 | 1612ms
+[2026-07-03T17:11:28.430Z] => START [bc3dce6b-0a48-45af-bd74-5f7d3c49a80e] POST /api/cart/merge
+[2026-07-03T17:11:29.372Z] <= END [0b45ea61-114a-4f48-9a8d-66ae5b196ebc] POST /merge | Status: 200 | 2244ms
+[2026-07-03T17:11:29.374Z] <= END [7cddac7c-b249-4704-8201-84a72e4bac21] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 1052ms
+[2026-07-03T17:11:29.374Z] => START [f05efd43-ee0f-469a-98aa-0000784a2f8c] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:29.377Z] => START [bf19aa07-fe6b-4897-9f6c-e145289b4bb9] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:29.394Z] <= END [8539a9e6-a209-4e14-b8bd-e9514d8f68e5] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 1045ms
+[2026-07-03T17:11:29.396Z] => START [0cfa2e22-3d06-4930-82cd-7ee5c00b75db] POST /api/cart/merge
+[2026-07-03T17:11:30.802Z] <= END [f05efd43-ee0f-469a-98aa-0000784a2f8c] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 1428ms
+[2026-07-03T17:11:30.803Z] <= END [bf19aa07-fe6b-4897-9f6c-e145289b4bb9] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 1426ms
+[2026-07-03T17:11:30.804Z] => START [4d8fe985-ea8b-4120-8728-648aea63722b] POST /api/cart/merge
+[2026-07-03T17:11:30.806Z] => START [5e57739b-98f8-4884-a19d-7dd69fd92b3f] POST /api/cart/merge
+[2026-07-03T17:11:30.837Z] <= END [6813f0e3-60bf-4eeb-b1ed-eb5d70348196] POST /merge | Status: 200 | 3191ms
+[2026-07-03T17:11:30.839Z] => START [ea8957aa-0604-4767-a613-8c86a46ee689] POST /api/cart/merge
+[2026-07-03T17:11:31.488Z] <= END [1c59df8b-e2d6-4f6b-9153-4da79cecd978] POST /merge | Status: 200 | 3106ms
+[2026-07-03T17:11:31.490Z] => START [dc31c70b-eab8-41ae-8bb7-b48b88ba183f] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:31.508Z] <= END [bc3dce6b-0a48-45af-bd74-5f7d3c49a80e] POST /merge | Status: 200 | 3078ms
+[2026-07-03T17:11:31.510Z] => START [5ba99db5-6165-4ddf-acfc-7bbc2e04809f] POST /api/cart/merge
+[2026-07-03T17:11:32.005Z] <= END [0cfa2e22-3d06-4930-82cd-7ee5c00b75db] POST /merge | Status: 200 | 2609ms
+[2026-07-03T17:11:32.007Z] => START [827e5792-433a-412c-9ec5-216cceaf69d5] POST /api/cart/merge
+[2026-07-03T17:11:32.080Z] <= END [dc31c70b-eab8-41ae-8bb7-b48b88ba183f] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 590ms
+[2026-07-03T17:11:32.082Z] => START [15b926a2-5ac5-41ef-9fc0-926f5b9fb111] POST /api/cart/merge
+[2026-07-03T17:11:32.422Z] <= END [4d8fe985-ea8b-4120-8728-648aea63722b] POST /merge | Status: 200 | 1618ms
+[2026-07-03T17:11:32.423Z] => START [638d2300-e389-423a-8ce8-29ea782b0927] POST /api/cart/merge
+[2026-07-03T17:11:32.425Z] <= END [5e57739b-98f8-4884-a19d-7dd69fd92b3f] POST /merge | Status: 200 | 1619ms
+[2026-07-03T17:11:32.426Z] => START [691a138d-638d-43ae-9921-21bc57743bc4] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:32.451Z] <= END [ea8957aa-0604-4767-a613-8c86a46ee689] POST /merge | Status: 200 | 1612ms
+[2026-07-03T17:11:32.453Z] => START [bf51345b-cd07-47e7-863f-543e65b0d1d5] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:32.869Z] <= END [691a138d-638d-43ae-9921-21bc57743bc4] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 443ms
+[2026-07-03T17:11:32.871Z] => START [fa0cd92d-b4be-4cea-9fd0-5008f5bfc2d4] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:32.877Z] <= END [bf51345b-cd07-47e7-863f-543e65b0d1d5] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 424ms
+[2026-07-03T17:11:32.879Z] => START [309d97bc-98a5-4363-809f-166a9d9c0847] POST /api/cart/merge
+[2026-07-03T17:11:32.948Z] <= END [5ba99db5-6165-4ddf-acfc-7bbc2e04809f] POST /merge | Status: 200 | 1438ms
+[2026-07-03T17:11:32.949Z] => START [debd34fa-2a8a-43f8-ba2c-0122c01c817c] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:33.477Z] <= END [fa0cd92d-b4be-4cea-9fd0-5008f5bfc2d4] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 606ms
+[2026-07-03T17:11:33.480Z] => START [cd5bcf62-2cc4-45a1-99cd-7e965c4e3b1f] POST /api/cart/merge
+[2026-07-03T17:11:33.483Z] <= END [827e5792-433a-412c-9ec5-216cceaf69d5] POST /merge | Status: 200 | 1476ms
+[2026-07-03T17:11:33.484Z] => START [dadf3733-4438-4ee7-adc4-336ab797ad50] POST /api/cart/merge
+[2026-07-03T17:11:33.535Z] <= END [15b926a2-5ac5-41ef-9fc0-926f5b9fb111] POST /merge | Status: 200 | 1453ms
+[2026-07-03T17:11:33.536Z] => START [00e5b14b-7547-4894-812b-85c401e318e8] POST /api/cart/merge
+[2026-07-03T17:11:33.704Z] <= END [debd34fa-2a8a-43f8-ba2c-0122c01c817c] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 755ms
+[2026-07-03T17:11:33.704Z] => START [d58e6509-bf77-4b76-9e54-86aa2ba14aad] POST /api/cart/merge
+[2026-07-03T17:11:34.780Z] <= END [638d2300-e389-423a-8ce8-29ea782b0927] POST /merge | Status: 200 | 2357ms
+[2026-07-03T17:11:34.782Z] => START [6aa4095a-a128-4ef2-ab2e-547867043264] POST /api/cart/merge
+[2026-07-03T17:11:36.265Z] <= END [309d97bc-98a5-4363-809f-166a9d9c0847] POST /merge | Status: 200 | 3386ms
+[2026-07-03T17:11:36.267Z] => START [24568f89-cd9b-4d5e-9f70-a961d495dec5] POST /api/cart/merge
+[2026-07-03T17:11:36.973Z] <= END [cd5bcf62-2cc4-45a1-99cd-7e965c4e3b1f] POST /merge | Status: 200 | 3493ms
+[2026-07-03T17:11:36.975Z] => START [ba9cf0fd-54d0-4d78-8e86-d49a9b375d19] POST /api/cart/merge
+[2026-07-03T17:11:36.982Z] <= END [dadf3733-4438-4ee7-adc4-336ab797ad50] POST /merge | Status: 200 | 3498ms
+[2026-07-03T17:11:36.983Z] => START [6934aebb-d9b1-426d-80da-d0233284005a] POST /api/cart/merge
+[2026-07-03T17:11:36.987Z] <= END [00e5b14b-7547-4894-812b-85c401e318e8] POST /merge | Status: 200 | 3451ms
+[2026-07-03T17:11:36.989Z] => START [2a18ce19-58d8-494d-bb9f-bf2307063bf9] POST /api/cart/merge
+[2026-07-03T17:11:37.272Z] <= END [d58e6509-bf77-4b76-9e54-86aa2ba14aad] POST /merge | Status: 200 | 3568ms
+[2026-07-03T17:11:37.274Z] => START [8e75dc09-04cd-466d-be2c-28651992321b] POST /api/cart/merge
+[2026-07-03T17:11:37.337Z] <= END [6aa4095a-a128-4ef2-ab2e-547867043264] POST /merge | Status: 200 | 2555ms
+[2026-07-03T17:11:37.338Z] => START [ab2c71d2-7b43-4d92-af01-93748f057f6e] POST /api/cart/merge
+[2026-07-03T17:11:37.844Z] <= END [24568f89-cd9b-4d5e-9f70-a961d495dec5] POST /merge | Status: 200 | 1577ms
+[2026-07-03T17:11:37.846Z] => START [826c390a-7848-42f6-b102-0fcb40ca8ace] POST /api/cart/merge
+[2026-07-03T17:11:38.437Z] <= END [ba9cf0fd-54d0-4d78-8e86-d49a9b375d19] POST /merge | Status: 200 | 1462ms
+[2026-07-03T17:11:38.440Z] => START [a68d6cb9-19ad-4917-828c-804ae19391b1] POST /api/cart/merge
+[2026-07-03T17:11:38.442Z] <= END [6934aebb-d9b1-426d-80da-d0233284005a] POST /merge | Status: 200 | 1459ms
+[2026-07-03T17:11:38.444Z] => START [bb38f747-5b98-498d-bac8-384b54a14474] POST /api/cart/merge
+[2026-07-03T17:11:38.504Z] <= END [2a18ce19-58d8-494d-bb9f-bf2307063bf9] POST /merge | Status: 200 | 1515ms
+[2026-07-03T17:11:38.506Z] => START [e6cbba4e-c778-40d8-8e59-c36621a1f3d6] POST /api/cart/merge
+[2026-07-03T17:11:39.195Z] <= END [8e75dc09-04cd-466d-be2c-28651992321b] POST /merge | Status: 200 | 1921ms
+[2026-07-03T17:11:39.197Z] => START [3331fcba-abea-47e3-90d5-440d39405f06] POST /api/cart/merge
+[2026-07-03T17:11:39.884Z] <= END [ab2c71d2-7b43-4d92-af01-93748f057f6e] POST /merge | Status: 200 | 2546ms
+[2026-07-03T17:11:39.886Z] => START [66cd6ea7-8050-41c5-abf1-c46b90abeaca] POST /api/cart/merge
+[2026-07-03T17:11:42.271Z] <= END [826c390a-7848-42f6-b102-0fcb40ca8ace] POST /merge | Status: 200 | 4425ms
+[2026-07-03T17:11:42.273Z] => START [9d16e397-07aa-4ea2-abf6-8cc1feae5500] POST /api/cart/merge
+[2026-07-03T17:11:43.990Z] <= END [a68d6cb9-19ad-4917-828c-804ae19391b1] POST /merge | Status: 200 | 5550ms
+[2026-07-03T17:11:43.992Z] => START [faf53ccb-27f9-490b-93db-7586ee375175] POST /api/cart/merge
+[2026-07-03T17:11:44.016Z] <= END [bb38f747-5b98-498d-bac8-384b54a14474] POST /merge | Status: 200 | 5572ms
+[2026-07-03T17:11:44.018Z] => START [5b0b709a-db28-4e48-b3f7-c3be5282065b] POST /api/cart/merge
+[2026-07-03T17:11:44.148Z] <= END [e6cbba4e-c778-40d8-8e59-c36621a1f3d6] POST /merge | Status: 200 | 5642ms
+[2026-07-03T17:11:44.150Z] => START [04b00b78-4bff-47e4-835e-b2774795d0db] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:45.805Z] <= END [3331fcba-abea-47e3-90d5-440d39405f06] POST /merge | Status: 200 | 6608ms
+[2026-07-03T17:11:45.807Z] => START [fdf65adf-774e-466b-8811-74c68c9fc07a] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:46.564Z] <= END [66cd6ea7-8050-41c5-abf1-c46b90abeaca] POST /merge | Status: 200 | 6678ms
+[2026-07-03T17:11:46.566Z] => START [cee14205-235b-44f1-b493-7aff7e080962] POST /api/cart/merge
+[2026-07-03T17:11:46.643Z] <= END [04b00b78-4bff-47e4-835e-b2774795d0db] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 2493ms
+[2026-07-03T17:11:46.646Z] => START [b7509548-7492-4f80-a8e3-40ac099b59cd] POST /api/cart/merge
+[2026-07-03T17:11:48.089Z] <= END [fdf65adf-774e-466b-8811-74c68c9fc07a] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 2282ms
+[2026-07-03T17:11:48.091Z] => START [0a3ffd2d-75a4-49f6-adde-de60db8f40f9] POST /api/cart/merge
+[2026-07-03T17:11:48.505Z] <= END [9d16e397-07aa-4ea2-abf6-8cc1feae5500] POST /merge | Status: 200 | 6232ms
+[2026-07-03T17:11:48.507Z] => START [e4a317da-6598-4e74-ae85-d094498edbe1] POST /api/cart/merge
+[2026-07-03T17:11:50.951Z] X ABORT [cee14205-235b-44f1-b493-7aff7e080962] POST /merge | Client disconnected 4385ms
+[2026-07-03T17:11:50.954Z] => START [4c6a0749-877e-41b3-a5f5-467da9ce3b25] POST /api/cart/merge
+[2026-07-03T17:11:50.956Z] X ABORT [0a3ffd2d-75a4-49f6-adde-de60db8f40f9] POST /merge | Client disconnected 2865ms
+[2026-07-03T17:11:50.956Z] X ABORT [faf53ccb-27f9-490b-93db-7586ee375175] POST /merge | Client disconnected 6964ms
+[2026-07-03T17:11:50.959Z] => START [511fe914-2984-4016-ab02-9859518c4302] POST /api/cart/merge
+[2026-07-03T17:11:50.960Z] => START [a15274da-2b61-4937-838c-1b3599e367b7] POST /api/cart/merge
+[2026-07-03T17:11:50.966Z] X ABORT [5b0b709a-db28-4e48-b3f7-c3be5282065b] POST /merge | Client disconnected 6948ms
+[2026-07-03T17:11:50.969Z] => START [6e618bd5-05d9-4cc2-aa60-df46d9bfdbe4] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:50.972Z] => START [7a8cf1fc-4c51-4bd6-847d-e5a57994fe99] POST /api/cart/merge
+[2026-07-03T17:11:50.973Z] X ABORT [7a8cf1fc-4c51-4bd6-847d-e5a57994fe99] POST /api/cart/merge | Client disconnected 1ms
+[2026-07-03T17:11:50.973Z] X ABORT [a15274da-2b61-4937-838c-1b3599e367b7] POST /merge | Client disconnected 13ms
+[2026-07-03T17:11:50.978Z] X ABORT [b7509548-7492-4f80-a8e3-40ac099b59cd] POST /merge | Client disconnected 4332ms
+[2026-07-03T17:11:50.978Z] X ABORT [4c6a0749-877e-41b3-a5f5-467da9ce3b25] POST /merge | Client disconnected 24ms
+[2026-07-03T17:11:50.979Z] => START [93b7f76f-796c-4017-980f-8a4ee274920b] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:50.980Z] => START [1c6fd88f-2d6e-4c59-9e42-c0e6ebaf6038] POST /api/cart/merge
+[2026-07-03T17:11:50.980Z] => START [b592882c-38fe-49d0-ac40-b979c02c9cb8] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:50.981Z] => START [1975070a-b032-4f38-9d19-f5ef7ce9a967] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:50.983Z] X ABORT [1c6fd88f-2d6e-4c59-9e42-c0e6ebaf6038] POST /api/cart/merge | Client disconnected 3ms
+[2026-07-03T17:11:50.983Z] X ABORT [6e618bd5-05d9-4cc2-aa60-df46d9bfdbe4] GET /?userId=6a47ed1c8aafffca5d0bf625 | Client disconnected 14ms
+[2026-07-03T17:11:50.983Z] X ABORT [e4a317da-6598-4e74-ae85-d094498edbe1] POST /merge | Client disconnected 2476ms
+[2026-07-03T17:11:50.987Z] X ABORT [1975070a-b032-4f38-9d19-f5ef7ce9a967] GET /?userId=6a47ed1c8aafffca5d0bf625 | Client disconnected 6ms
+[2026-07-03T17:11:50.987Z] X ABORT [511fe914-2984-4016-ab02-9859518c4302] POST /merge | Client disconnected 28ms
+[2026-07-03T17:11:50.987Z] X ABORT [93b7f76f-796c-4017-980f-8a4ee274920b] GET /?userId=6a47ed1c8aafffca5d0bf625 | Client disconnected 8ms
+[2026-07-03T17:11:50.987Z] => START [1bdb720c-64fd-4363-b73f-814c350963fd] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:50.989Z] => START [34f94793-9da0-4e80-bfb3-f702cf59ead6] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:50.989Z] => START [fe3cf731-9431-44e8-bf62-f470e771c873] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:50.990Z] => START [476b1bb0-ff1c-4d9e-b720-a92c545ed47d] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:50.991Z] X ABORT [476b1bb0-ff1c-4d9e-b720-a92c545ed47d] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625 | Client disconnected 1ms
+[2026-07-03T17:11:50.991Z] X ABORT [34f94793-9da0-4e80-bfb3-f702cf59ead6] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625 | Client disconnected 2ms
+[2026-07-03T17:11:50.994Z] => START [e191ca40-59c5-4495-ad0b-5267e235c57a] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:50.997Z] X ABORT [b592882c-38fe-49d0-ac40-b979c02c9cb8] GET /?userId=6a47ed1c8aafffca5d0bf625 | Client disconnected 17ms
+[2026-07-03T17:11:50.997Z] X ABORT [1bdb720c-64fd-4363-b73f-814c350963fd] GET /?userId=6a47ed1c8aafffca5d0bf625 | Client disconnected 10ms
+[2026-07-03T17:11:50.998Z] X ABORT [fe3cf731-9431-44e8-bf62-f470e771c873] GET /?userId=6a47ed1c8aafffca5d0bf625 | Client disconnected 9ms
+[2026-07-03T17:11:50.998Z] X ABORT [e191ca40-59c5-4495-ad0b-5267e235c57a] GET /?userId=6a47ed1c8aafffca5d0bf625 | Client disconnected 4ms
+[2026-07-03T17:11:52.312Z] => START [51ccb5b0-c34f-4fef-a732-20ba7730a488] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:11:59.885Z] <= END [51ccb5b0-c34f-4fef-a732-20ba7730a488] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 200 | 7573ms
+[2026-07-03T17:11:59.886Z] => START [2d03b317-9cfd-43bd-8dc9-5848489bb016] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:12:03.580Z] <= END [2d03b317-9cfd-43bd-8dc9-5848489bb016] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 3694ms
+[2026-07-03T17:12:03.581Z] => START [2aac2697-cc1c-4805-8269-269b63bdaa5f] GET /api/cart?userId=6a47ed1c8aafffca5d0bf625
+[2026-07-03T17:12:05.995Z] <= END [2aac2697-cc1c-4805-8269-269b63bdaa5f] GET /?userId=6a47ed1c8aafffca5d0bf625 | Status: 304 | 2414ms
+[2026-07-03T17:12:29.159Z] => START [573a8ce8-b1e9-4b4c-9dca-3a7cfe4e8be5] POST /api/checkout
+[2026-07-03T17:12:33.927Z] <= END [573a8ce8-b1e9-4b4c-9dca-3a7cfe4e8be5] POST / | Status: 201 | 4768ms
+[2026-07-03T17:16:44.457Z] => START [cfbcff45-a0dc-455c-834b-e66a31a8afcb] PATCH /api/checkout/6a47ed7f8aafffca5d0bf626/pay
+[2026-07-03T17:16:44.625Z] <= END [cfbcff45-a0dc-455c-834b-e66a31a8afcb] PATCH /6a47ed7f8aafffca5d0bf626/pay | Status: 400 | 168ms
+[2026-07-03T17:17:20.946Z] => START [1f2c991e-a453-46df-83a5-ed22ce6f5369] POST /api/checkout
+[2026-07-03T17:17:21.130Z] <= END [1f2c991e-a453-46df-83a5-ed22ce6f5369] POST / | Status: 201 | 184ms
+[2026-07-03T17:17:36.028Z] => START [5fb5a47e-1ae8-4c36-94c0-26ec2bbfe2cb] PATCH /api/checkout/6a47eea18aafffca5d0bf627/pay
+[2026-07-03T17:17:36.180Z] <= END [5fb5a47e-1ae8-4c36-94c0-26ec2bbfe2cb] PATCH /6a47eea18aafffca5d0bf627/pay | Status: 400 | 152ms
+[2026-07-03T17:20:13.970Z] => START [369e39ec-f3e9-4756-8fab-c247d04157a5] GET /api/products?collection=all&category=Top+Wear
+[2026-07-03T17:20:14.136Z] <= END [369e39ec-f3e9-4756-8fab-c247d04157a5] GET /?collection=all&category=Top+Wear | Status: 200 | 166ms
+[2026-07-03T17:20:14.138Z] => START [93c55cda-36a4-4692-a32c-784735487afa] GET /api/products?collection=all&category=Top+Wear
+[2026-07-03T17:20:14.266Z] <= END [93c55cda-36a4-4692-a32c-784735487afa] GET /?collection=all&category=Top+Wear | Status: 304 | 128ms
+[2026-07-03T17:20:29.661Z] => START [1f3024ef-c83a-4325-8fa1-914f9dfb29fd] POST /api/checkout
+[2026-07-03T17:20:29.834Z] <= END [1f3024ef-c83a-4325-8fa1-914f9dfb29fd] POST / | Status: 201 | 173ms
+[2026-07-03T17:20:53.023Z] => START [92b4975f-7d60-4dd0-875a-b6e182f25abf] PATCH /api/checkout/6a47ef5d8aafffca5d0bf65a/pay
+[2026-07-03T17:20:53.273Z] <= END [92b4975f-7d60-4dd0-875a-b6e182f25abf] PATCH /6a47ef5d8aafffca5d0bf65a/pay | Status: 400 | 250ms
+[2026-07-03T17:22:25.917Z] => START [c0d67a72-0c4a-4967-9152-455dae814a1a] GET /api/orders/my-orders
+[2026-07-03T17:22:26.068Z] <= END [c0d67a72-0c4a-4967-9152-455dae814a1a] GET /api/orders/my-orders | Status: 404 | 151ms
+[2026-07-03T17:22:26.069Z] => START [cf0639e6-4cfd-4f78-806d-bc6e84456f62] GET /api/orders/my-orders
+[2026-07-03T17:22:26.206Z] <= END [cf0639e6-4cfd-4f78-806d-bc6e84456f62] GET /api/orders/my-orders | Status: 404 | 137ms
+[2026-07-03T17:22:32.213Z] => START [65c666b6-5558-400e-abed-945dc6dfd80f] GET /api/orders/my-orders
+[2026-07-03T17:22:32.365Z] <= END [65c666b6-5558-400e-abed-945dc6dfd80f] GET /api/orders/my-orders | Status: 404 | 152ms
+[2026-07-03T17:22:32.367Z] => START [892bf37e-e8f2-4796-afda-77a4a8fb2a1c] GET /api/orders/my-orders
+[2026-07-03T17:22:32.530Z] <= END [892bf37e-e8f2-4796-afda-77a4a8fb2a1c] GET /api/orders/my-orders | Status: 404 | 163ms
+[2026-07-03T17:23:05.971Z] => START [4a81234b-d250-450f-9256-6060dd761e8b] GET /api/orders/my-orders
+[2026-07-03T17:23:06.136Z] <= END [4a81234b-d250-450f-9256-6060dd761e8b] GET /api/orders/my-orders | Status: 404 | 165ms
+[2026-07-03T17:23:06.138Z] => START [c5f7489b-c30c-455d-9160-226c9718abab] GET /api/orders/my-orders
+[2026-07-03T17:23:06.277Z] <= END [c5f7489b-c30c-455d-9160-226c9718abab] GET /api/orders/my-orders | Status: 404 | 139ms
+[2026-07-03T17:25:00.579Z] => START [1ba4d86d-4513-4f78-a94d-861aaf4cbcf4] GET /api/orders/my-orders
+[2026-07-03T17:25:00.727Z] <= END [1ba4d86d-4513-4f78-a94d-861aaf4cbcf4] GET /api/orders/my-orders | Status: 404 | 148ms
+[2026-07-03T17:25:00.730Z] => START [3591703f-1e4f-45d8-b816-ec9f22359222] GET /api/orders/my-orders
+[2026-07-03T17:25:00.871Z] <= END [3591703f-1e4f-45d8-b816-ec9f22359222] GET /api/orders/my-orders | Status: 404 | 141ms
+[2026-07-03T17:25:28.341Z] => START [a0649fbf-3702-4a33-ad63-426121f54314] GET /api/orders/my-orders
+[2026-07-03T17:25:28.482Z] <= END [a0649fbf-3702-4a33-ad63-426121f54314] GET /api/orders/my-orders | Status: 404 | 141ms
+[2026-07-03T17:25:28.484Z] => START [50c7adc9-4d2f-441f-bf43-955e4ea5821c] GET /api/orders/my-orders
+[2026-07-03T17:25:28.637Z] <= END [50c7adc9-4d2f-441f-bf43-955e4ea5821c] GET /api/orders/my-orders | Status: 404 | 153ms
+[2026-07-03T17:26:07.689Z] => START [5740b9d6-8a09-453c-b363-fbeee86bbae6] GET /api/orders/my-orders
+[2026-07-03T17:26:07.865Z] <= END [5740b9d6-8a09-453c-b363-fbeee86bbae6] GET /api/orders/my-orders | Status: 404 | 176ms
+[2026-07-03T17:26:07.898Z] => START [aedce78a-b902-44b9-9fb1-11a1208137bd] GET /api/orders/my-orders
+[2026-07-03T17:26:08.040Z] <= END [aedce78a-b902-44b9-9fb1-11a1208137bd] GET /api/orders/my-orders | Status: 404 | 142ms
+[2026-07-03T17:27:59.013Z] => START [83bfc341-9c5c-4fd5-bcf3-2cf59c1a8e02] GET /api/orders/my-orders
+[2026-07-03T17:27:59.021Z] <= END [83bfc341-9c5c-4fd5-bcf3-2cf59c1a8e02] GET /api/orders/my-orders | Status: 429 | 8ms
+[2026-07-03T17:27:59.034Z] => START [15412f20-2776-4d0e-a145-83fa1b9525ba] GET /api/orders/my-orders
+[2026-07-03T17:27:59.035Z] <= END [15412f20-2776-4d0e-a145-83fa1b9525ba] GET /api/orders/my-orders | Status: 429 | 1ms
+[2026-07-03T17:28:44.826Z] => START [3d4f58a0-d13b-400b-8573-04756628f2f5] GET /api/orders/my-orders
+[2026-07-03T17:28:45.001Z] <= END [3d4f58a0-d13b-400b-8573-04756628f2f5] GET /my-orders | Status: 200 | 175ms
+[2026-07-03T17:28:45.004Z] => START [806f5401-de53-4027-b9ff-e1074d8620e5] GET /api/orders/my-orders
+[2026-07-03T17:28:45.173Z] <= END [806f5401-de53-4027-b9ff-e1074d8620e5] GET /my-orders | Status: 304 | 169ms
+[2026-07-03T17:28:55.333Z] => START [c07a6394-da5d-419b-a8b8-c5fb8006720d] GET /api/products?collection=all&gender=Men
+[2026-07-03T17:28:55.512Z] <= END [c07a6394-da5d-419b-a8b8-c5fb8006720d] GET /?collection=all&gender=Men | Status: 304 | 179ms
+[2026-07-03T17:28:55.513Z] => START [45706328-4adb-4af4-9af3-69dc6e201edf] GET /api/products?collection=all&gender=Men
+[2026-07-03T17:28:55.658Z] <= END [45706328-4adb-4af4-9af3-69dc6e201edf] GET /?collection=all&gender=Men | Status: 304 | 145ms
+[2026-07-03T17:28:59.161Z] => START [303f50f2-f5ec-4d07-8f70-9c62a4422af4] GET /api/products?collection=all&category=Bottom+Wear
+[2026-07-03T17:28:59.321Z] <= END [303f50f2-f5ec-4d07-8f70-9c62a4422af4] GET /?collection=all&category=Bottom+Wear | Status: 200 | 160ms
+[2026-07-03T17:29:02.217Z] => START [b572e7b3-8641-4b83-8314-18f0c433c1c7] GET /api/products?collection=all&sortBy=priceAsc&category=Bottom+Wear
+[2026-07-03T17:29:02.387Z] <= END [b572e7b3-8641-4b83-8314-18f0c433c1c7] GET /?collection=all&sortBy=priceAsc&category=Bottom+Wear | Status: 200 | 170ms
+[2026-07-03T17:29:20.054Z] => START [3ebb0526-af19-421d-a322-65af3e678e39] GET /api/orders/my-orders
+[2026-07-03T17:29:20.194Z] <= END [3ebb0526-af19-421d-a322-65af3e678e39] GET /my-orders | Status: 304 | 140ms
+[2026-07-03T17:29:20.195Z] => START [5cf5e6a5-5d06-49e7-bb58-92596c33df74] GET /api/orders/my-orders
+[2026-07-03T17:29:20.346Z] <= END [5cf5e6a5-5d06-49e7-bb58-92596c33df74] GET /my-orders | Status: 304 | 151ms
+[2026-07-03T17:29:22.376Z] => START [2817519e-6f5c-40cc-8b2f-733af000ec60] POST /api/users/logout
+[2026-07-03T17:29:22.378Z] <= END [2817519e-6f5c-40cc-8b2f-733af000ec60] POST /logout | Status: 200 | 2ms
+[2026-07-03T17:29:38.698Z] => START [cdfb6680-6321-441c-b00c-d1adc3d5dc89] POST /api/users/login
+[2026-07-03T17:29:38.865Z] <= END [cdfb6680-6321-441c-b00c-d1adc3d5dc89] POST /api/users/login | Status: 400 | 167ms

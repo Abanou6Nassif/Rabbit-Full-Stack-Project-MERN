@@ -1,21 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../axiosConfig.js";
+import { getErrorMessage } from "./shared.js";
 
 // Async thunk to creat checkout session
 export const createCheckout = createAsyncThunk(
   "checkout/createCheckout",
   async (checkoutData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `/api/checkout`,
-        checkoutData,
-      );
-      
+      const response = await axios.post(`/api/checkout`, checkoutData);
+
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );

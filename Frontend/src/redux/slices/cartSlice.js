@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../axiosConfig.js";
+import { getErrorMessage } from "./shared.js";
 
 //Helper function to load cart from localStorage
 const loadCartFromStorage = () => {
@@ -17,18 +18,13 @@ export const fetchCart = createAsyncThunk(
   "cart/fetchCart",
   async ({ guestId, userId }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `/api/cart`,
-        {
-          params: { guestId, userId },
-        },
-      );
+      const response = await axios.get(`/api/cart`, {
+        params: { guestId, userId },
+      });
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -41,23 +37,18 @@ export const addToCart = createAsyncThunk(
     { rejectWithValue },
   ) => {
     try {
-      const response = await axios.post(
-        `/api/cart`,
-        {
-          productId,
-          size,
-          color,
-          quantity,
-          guestId,
-          userId,
-        },
-      );
+      const response = await axios.post(`/api/cart`, {
+        productId,
+        size,
+        color,
+        quantity,
+        guestId,
+        userId,
+      });
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -70,23 +61,18 @@ export const updateCartItemQuantity = createAsyncThunk(
     { rejectWithValue },
   ) => {
     try {
-      const response = await axios.patch(
-        `/api/cart`,
-        {
-          productId,
-          size,
-          color,
-          quantity,
-          guestId,
-          userId,
-        },
-      );
+      const response = await axios.patch(`/api/cart`, {
+        productId,
+        size,
+        color,
+        quantity,
+        guestId,
+        userId,
+      });
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -98,27 +84,21 @@ export const removeFromCart = createAsyncThunk(
     { productId, size, color, quantity, guestId, userId },
     { rejectWithValue },
   ) => {
-
     try {
-      const response = await axios.delete(
-        `/api/cart`,
-        {
-          data: {
-            productId,
-            size,
-            color,
-            quantity,
-            guestId,
-            userId,
-          },
+      const response = await axios.delete(`/api/cart`, {
+        data: {
+          productId,
+          size,
+          color,
+          quantity,
+          guestId,
+          userId,
         },
-      );
+      });
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -128,16 +108,11 @@ export const mergeCart = createAsyncThunk(
   "cart/mergeCart",
   async ({ guestId }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `/api/cart/merge`,
-        { guestId },
-      );
+      const response = await axios.post(`/api/cart/merge`, { guestId });
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );

@@ -6,6 +6,10 @@ export default function MyOrdersPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { orders, loading, error } = useSelector((state) => state.orders);
+  const errorMessage =
+    typeof error === "string"
+      ? error
+      : error?.message || "Failed to load orders";
 
   useEffect(() => {
     dispatch(fetchUserOrders());
@@ -15,8 +19,8 @@ export default function MyOrdersPage() {
     navigate(`/order/${orderId}`);
   }
 
+  if (error) return <p className="text-center">Error: {errorMessage}</p>;
   if (loading) return <p className="text-center">Loading...</p>;
-  if (error) return <p className="text-center">Error: {error}</p>;
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6">
       <h2 className="text-xl sm:text-2xl font-bold mb-6">My Orders</h2>

@@ -42,6 +42,10 @@ function Login() {
     loading,
     error: authErrors,
   } = useSelector((state) => state.auth);
+  const authErrorMessage =
+    typeof authErrors === "string"
+      ? authErrors
+      : authErrors?.message || "";
   const userId = user?._id || null;
 
   // Get the redirect parameter and check if it's checkout or something else
@@ -159,7 +163,9 @@ function Login() {
             {loading ? "Loading..." : "Sign In"}
           </button>
 
-          <p className="text-red-500 p-1 text-center">{authErrors}</p>
+          {authErrorMessage ? (
+            <p className="text-red-500 p-1 text-center">{authErrorMessage}</p>
+          ) : null}
 
           <p className="mt-6 text-center text-sm">
             Don't have an account?{" "}

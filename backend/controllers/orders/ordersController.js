@@ -1,6 +1,5 @@
 import catchError from "../../utils/catchError.js";
 import orderModel from "../../models/order/Order.js";
-import AppError from "../../utils/appError.js";
 
 /**
  * Get logged-in user's orders
@@ -10,8 +9,9 @@ export const getUserOrders = catchError(async (req, res) => {
   const orders = await orderModel.find({ user: req.user._id }).sort({
     createdAt: -1,
   }); //Sort by most recent orders
-  if (!orders || orders.length === 0)
-    throw new AppError("No previous orders available", 404);
+  if (!orders || orders.length === 0) {
+    return res.status(200).json([]);
+  }
 
   res.status(200).json(orders);
 });

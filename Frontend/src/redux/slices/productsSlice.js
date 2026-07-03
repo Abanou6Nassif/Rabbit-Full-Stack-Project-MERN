@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../axiosConfig.js";
+import { getErrorMessage } from "./shared.js";
 
 //Async thunk to fetch products by collection and optional filters
 export const fetchProductsByFilters = createAsyncThunk(
@@ -36,14 +37,10 @@ export const fetchProductsByFilters = createAsyncThunk(
       if (brand) query.append("brand", brand);
       if (limit) query.append("limit", limit);
 
-      const response = await axios.get(
-        `/api/products?${query.toString()}`,
-      );
+      const response = await axios.get(`/api/products?${query.toString()}`);
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -53,15 +50,11 @@ export const fetchProductDetails = createAsyncThunk(
   "products/fetchProductDetails",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `/api/products/${id}`,
-      );
-      
+      const response = await axios.get(`/api/products/${id}`);
+
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -78,9 +71,7 @@ export const updateProduct = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -90,14 +81,10 @@ export const fetchSimilarProducts = createAsyncThunk(
   "products/fetchSimilarProducts",
   async ({ id }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `/api/products/similar/${id}`,
-      );
+      const response = await axios.get(`/api/products/similar/${id}`);
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -210,7 +197,9 @@ const productSlice = createSlice({
       })
       .addCase(fetchSimilarProducts.fulfilled, (state, action) => {
         state.loadingSimilar = false;
-        state.similarProducts = Array.isArray(action.payload) ? action.payload : [];
+        state.similarProducts = Array.isArray(action.payload)
+          ? action.payload
+          : [];
       })
       .addCase(fetchSimilarProducts.rejected, (state, action) => {
         state.loadingSimilar = false;

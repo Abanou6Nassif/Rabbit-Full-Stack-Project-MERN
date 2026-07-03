@@ -1,6 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../axiosConfig.js";
 import { v6 as uuidV6 } from "uuid";
+import { getErrorMessage } from "./shared.js";
+
+const getAuthErrorMessage = (error) =>
+  error.response?.data?.message ||
+  getErrorMessage(error) ||
+  "Authentication failed";
 
 //Retrieve user info and from localStorage if available
 const userFromStorage = localStorage.getItem("userInfo")
@@ -31,9 +37,7 @@ export const loginUser = createAsyncThunk(
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       return response.data.user; //Return the user object from the response
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getAuthErrorMessage(error));
     }
   },
 );
@@ -48,9 +52,7 @@ export const registerUser = createAsyncThunk(
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       return response.data.user; //Return the user object from the response
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getAuthErrorMessage(error));
     }
   },
 );
@@ -67,9 +69,7 @@ export const logoutUser = createAsyncThunk(
 
       return response.data.message; //Return the message from the response
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data  || error.message,
-      );
+      return rejectWithValue(getAuthErrorMessage(error));
     }
   },
 );

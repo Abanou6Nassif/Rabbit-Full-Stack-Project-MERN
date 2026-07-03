@@ -1,21 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../axiosConfig.js";
+import { getErrorMessage } from "./shared.js";
 
 // Async thunk to fetch user orders
 export const fetchUserOrders = createAsyncThunk(
   "orders/fetchUserOrders",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `/api/orders/my-orders`,
-      );
+      const response = await axios.get(`/api/orders/my-orders`);
 
-      
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -25,15 +21,11 @@ export const fetchOrderDetails = createAsyncThunk(
   "orders/fetchOrderDetails",
   async (orderId, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `/api/orders/${orderId}`,
-      );
+      const response = await axios.get(`/api/orders/${orderId}`);
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );

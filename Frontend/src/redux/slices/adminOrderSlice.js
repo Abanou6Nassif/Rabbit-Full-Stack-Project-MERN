@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../axiosConfig.js";
+import { getErrorMessage } from "./shared.js";
 // const API_URL = import.meta.env.VITE_BACKEND_URL;
-// { _DO_NOT_USE_ActionTypes }  
+// { _DO_NOT_USE_ActionTypes }
 // Fetch all orders (admin only)
 export const fetchAllOrders = createAsyncThunk(
   "adminOrders/fetchAllOrders",
@@ -10,9 +11,7 @@ export const fetchAllOrders = createAsyncThunk(
       const response = await axios.get(`/api/admin/orders`);
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -27,9 +26,7 @@ export const updateOrderStatus = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -42,9 +39,7 @@ export const deleteOrder = createAsyncThunk(
       await axios.delete(`/api/admin/orders/${id}`);
       return id;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -70,7 +65,7 @@ const adminOrderSlice = createSlice({
       .addCase(fetchAllOrders.fulfilled, (state, action) => {
         state.loading = false;
         state.orders = action.payload;
-        
+
         state.totalOrders = action.payload.length;
 
         //calculate total sales
@@ -82,7 +77,7 @@ const adminOrderSlice = createSlice({
       })
       .addCase(fetchAllOrders.rejected, (state, action) => {
         state.loading = false;
-        
+
         state.error = action.payload;
       })
 

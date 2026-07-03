@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../axiosConfig.js";
+import { getErrorMessage } from "./shared.js";
 
 // fetch all users (admin only)
 export const fetchUsers = createAsyncThunk(
@@ -10,9 +11,7 @@ export const fetchUsers = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -26,9 +25,7 @@ export const addUser = createAsyncThunk(
 
       return response.data.user;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -46,9 +43,7 @@ export const updateUser = createAsyncThunk(
 
       return response.data.user;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -61,9 +56,7 @@ export const deleteUser = createAsyncThunk(
       await axios.delete(`/api/admin/users/${id}`);
       return id;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || error.message,
-      );
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -101,7 +94,7 @@ const adminSlice = createSlice({
       .addCase(updateUser.fulfilled, (state, action) => {
         state.loading = false;
         const upadtedUser = action.payload;
-                
+
         const index = state.users.findIndex(
           (user) => user._id === upadtedUser._id,
         );
