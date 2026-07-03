@@ -1,8 +1,7 @@
-import {
-  RateLimiterMemory,
-  RateLimiterRedis,
-} from "rate-limiter-flexible";
+import { RateLimiterMemory, RateLimiterRedis } from "rate-limiter-flexible";
 import Redis from "ioredis";
+import dotenv from "dotenv";
+dotenv.config();
 
 const useRedis = Boolean(process.env.REDIS_URL);
 
@@ -35,7 +34,7 @@ const createLimiter = ({ keyPrefix, points, duration, blockDuration }) => {
 
 export const authLimiter = createLimiter({
   keyPrefix: "auth",
-  points: 5,
+  points: 1,
   duration: 60 * 15,
   blockDuration: 60 * 15,
 });
