@@ -155,6 +155,14 @@ function Login() {
                 {errors.password?.message}
               </p>
             )}{" "}
+            <div className="mt-2 text-right">
+              <Link
+                to={`/forgot-password?redirect=${encodeURIComponent(redirect)}`}
+                className="text-sm text-blue-600 hover:text-blue-700"
+              >
+                Forgot password?
+              </Link>
+            </div>
           </div>
           <button
             type="submit"
@@ -186,7 +194,7 @@ function Login() {
           <img
             src={login}
             alt="Login to Account"
-            className="h-[750px] w-full object-cover"
+            className="h-187.5 w-full object-cover"
           />
         </div>
       </div>

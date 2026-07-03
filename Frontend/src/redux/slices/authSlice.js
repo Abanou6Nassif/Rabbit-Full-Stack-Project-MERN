@@ -42,6 +42,35 @@ export const loginUser = createAsyncThunk(
   },
 );
 
+export const requestPasswordReset = createAsyncThunk(
+  "auth/requestPasswordReset",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`/api/users/forgot-password`, userData);
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(getAuthErrorMessage(error));
+    }
+  },
+);
+
+export const resetPassword = createAsyncThunk(
+  "auth/resetPassword",
+  async ({ token, password, confirmPassword }, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(`/api/users/reset-password/${token}`, {
+        password,
+        confirmPassword,
+      });
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(getAuthErrorMessage(error));
+    }
+  },
+);
+
 //Async Thunk for User Registration
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
@@ -120,6 +149,28 @@ const authSlice = createSlice({
         // localStorage.removeItem("guestId");
       })
       .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(requestPasswordReset.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(requestPasswordReset.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(requestPasswordReset.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(resetPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(resetPassword.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

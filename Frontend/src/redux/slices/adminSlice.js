@@ -23,7 +23,7 @@ export const addUser = createAsyncThunk(
     try {
       const response = await axios.post(`/api/admin/users`, userData);
 
-      return response.data.user;
+      return response.data;
     } catch (error) {
       return rejectWithValue(getErrorMessage(error));
     }
@@ -128,7 +128,10 @@ const adminSlice = createSlice({
       })
       .addCase(addUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.users.push(action.payload.user);
+        const createdUser = action.payload?.user || action.payload;
+        if (createdUser) {
+          state.users.push(createdUser);
+        }
       })
       .addCase(addUser.rejected, (state, action) => {
         state.loading = false;

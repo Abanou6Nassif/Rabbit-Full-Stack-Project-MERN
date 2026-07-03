@@ -4,6 +4,8 @@ import {
   login,
   profile,
   logout,
+  forgotPassword,
+  resetPassword,
 } from "../controllers/user/userControllers.js";
 import { authenticate } from "../middlewares/authenticate.js";
 import { authorize } from "../middlewares/authorize.js";
@@ -23,11 +25,21 @@ router.post("/login", authLimiterMiddleware, login);
 //@route GET /api/users/profile
 //@desc Get logged-in user's profile (Protected Route)
 //@access Public
-router.get("/profile", authenticate, profile);
+router.get("/profile", authLimiterMiddleware, authenticate, profile);
 
 //@route POST /api/users/logout
 //@desc logout user
 //@access Public
-router.post("/logout", logout);
+router.post("/logout", authLimiterMiddleware, logout);
+
+//@route POST /api/users/forgot-password
+//@desc Send a password reset link
+//@access Public
+router.post("/forgot-password", authLimiterMiddleware, forgotPassword);
+
+//@route PUT /api/users/reset-password/:token
+//@desc Reset user password
+//@access Public
+router.put("/reset-password/:token", authLimiterMiddleware, resetPassword);
 
 export default router;

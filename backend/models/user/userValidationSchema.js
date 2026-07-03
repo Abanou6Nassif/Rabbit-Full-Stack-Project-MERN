@@ -30,9 +30,47 @@ export const userValidationSchema = Joi.object({
   //   "string.pattern.base":
   //     "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character (#?!@$ %^&*-).",
   // }),
+  resetPasswordToken: Joi.string().trim().optional(),
+  resetPasswordExpire: Joi.date().optional(),
   role: Joi.string().trim().valid("admin", "customer").default("customer"),
 });
 
+export const forgotPasswordValidationSchema = Joi.object({
+  email: Joi.string()
+    .trim()
+    .email()
+    .pattern(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/)
+    .required()
+    .messages({
+      "any.required": "Email is required",
+      "string.empty": "Email is required",
+      "string.pattern.base":
+        "Invalid email format. Must be in the form local@domain.tld without spaces or invalid characters.",
+    }),
+});
+
+export const resetPasswordValidationSchema = Joi.object({
+  password: Joi.string().trim().min(8).required().messages({
+    "any.required": "Password is required",
+    "string.empty": "Password is required",
+    "string.min": "Password must be at least 8 characters long",
+  }),
+  confirmPassword: Joi.any().valid(Joi.ref("password")).required().messages({
+    "any.only": "Passwords do not match",
+    "any.required": "Confirm password is required",
+  }),
+});
+
 export const userUpdateValidation = userValidationSchema
-  .fork(["name", "email", "password", "role"], (schema) => schema.optional())
+  .fork(
+    [
+      "name",
+      "email",
+      "password",
+      "role",
+      "resetPasswordToken",
+      "resetPasswordExpire",
+    ],
+    (schema) => schema.optional().empty("").empty(null).empty(undefined),
+  )
   .prefs({ stripUnknown: true });

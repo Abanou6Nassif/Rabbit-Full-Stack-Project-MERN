@@ -36,7 +36,10 @@ export const addNewUser = catchError(async (req, res) => {
 
   user = await userModel.create({ name, email, password, role });
 
-  res.status(201).json(user);
+  res.status(201).json({
+    message: "User created successfully",
+    user,
+  });
 });
 
 /**

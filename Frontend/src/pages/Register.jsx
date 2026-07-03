@@ -214,7 +214,7 @@ function Register() {
           <img
             src={registerImg}
             alt="Login to Account"
-            className="h-[750px] w-full object-cover"
+            className="h-187.5 w-full object-cover"
           />
         </div>
       </div>

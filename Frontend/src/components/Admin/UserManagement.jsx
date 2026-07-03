@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -16,9 +16,12 @@ function UserManagement() {
   const { users, loading, error } = useSelector((state) => state.admin);
 
   useEffect(() => {
-    if (!user && user.role !== "admin") {
+    if (!user || user.role !== "admin") {
       navigate("/");
-    } else if (user && user.role === "admin") {
+      return;
+    }
+
+    if (user.role === "admin") {
       dispatch(fetchUsers());
     }
   }, [user, navigate, dispatch]);
