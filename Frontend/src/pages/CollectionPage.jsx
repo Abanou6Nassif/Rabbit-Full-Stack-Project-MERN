@@ -21,7 +21,6 @@ function CollectionPage() {
     dispatch(fetchProductsByFilters({ collection, ...queryParams }));
   }, [dispatch, collection, searchParams]);
 
-  console.log(searchParams);
   
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);

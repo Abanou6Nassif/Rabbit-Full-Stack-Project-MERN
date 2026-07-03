@@ -65,28 +65,23 @@ export default function EditProductPage() {
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     //Using FormData web API
-    console.log(file);
 
     const formData = new FormData();
     formData.append("image", file);
 
-    console.log(formData.get("image"));
     try {
       setUplaoding(true);
       const { data } = await axios.post(`/api/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      console.log(data);
 
       setProductData((prevData) => ({
         ...prevData,
         images: [...prevData.images, { url: data.imageURL, altText: "" }],
       }));
       setUplaoding(false);
-      console.log(productData.images);
       
     } catch (error) {
-      console.log(error);
       setUplaoding(false);
     }
   };

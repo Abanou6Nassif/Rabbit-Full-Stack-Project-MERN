@@ -8,30 +8,27 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import DOMPurify from "dompurify";
-import { toast, Toaster } from "sonner";
-
-export const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
-export const passwordRegex =
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
-export const passErrorMsg =
-  "Minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character";
+import { Toaster } from "sonner";
+import { toastError, toastSuccess } from "./constants/shared.js";
+import { emailRegex } from "./constants/shared.js";
 
 const schema = yup.object({
   email: yup
     .string()
     .email("Must be a valid email")
-    .required()
-    .matches(emailRegex),
-  password: yup.string().min(8, "must be at least 8 characters long"),
+    .required("Email is a required field")
+    .matches(emailRegex, "Must be a valid email"),
+  password: yup.string().required('Password is a required field'),
   // .matches(passwordRegex, passErrorMsg),
 });
 
 function Login() {
   const {
     register,
-    formState: { errors },
+    formState: { errors, dirtyFields, isValid },
     handleSubmit,
   } = useForm({
+    mode: "all",
     resolver: yupResolver(schema),
   });
 
@@ -57,9 +54,6 @@ function Login() {
 
       if (user) {
         if (guestId) {
-          console.log(guestId);
-          console.log(userId);
-
           await dispatch(mergeCart({ guestId }));
           await dispatch(fetchCart({ userId: user._id }));
           navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
@@ -69,8 +63,6 @@ function Login() {
         }
       }
     };
-
-    console.log(user);
 
     userCart();
   }, [
@@ -88,19 +80,17 @@ function Login() {
     const email = DOMPurify.sanitize(data.email);
     const password = DOMPurify.sanitize(data.password);
     if (email !== data.email || password !== data.password) {
-      toast.error("Invalid characters detected in input!", {
-        position: "top-center",
-        style: {
-          border: "1px solid #ff4d4f",
-          padding: "16px",
-          color: "#ff4d4f",
-          background: "#fff1f0",
-        },
-        icon: "⚠️",
-      });
+      toastError("Invalid characters detected in input!");
       return;
     } else {
-      dispatch(loginUser({ email, password }));
+      try {
+        await dispatch(loginUser({ email, password })).unwrap();
+        toastSuccess("Logged in successfully");
+      } catch (error) {
+        toastError(
+          typeof error === "string" ? error : error?.message || "Log in failed",
+        );
+      }
     }
   };
 
@@ -125,11 +115,19 @@ function Login() {
               Email
             </label>
             <input
+              type="email"
               {...register("email")}
-              className="w-full p-2 border rounded"
+              className={`w-full p-2 border rounded ${dirtyFields.email ? "bg-yellow-50" : ""}
+              ${isValid ? "border-green-500" : ""}
+              ${errors.email ? "border-red-500" : ""}
+              `}
               placeholder="Enter your email address"
             />
-            <p className="text-red-500 p-1">{errors.email?.message}</p>
+            {errors.email && (
+              <p className="text-red-500 p-1 text-sm">
+                {errors.email?.message}
+              </p>
+            )}
           </div>
 
           <div className="mb-4">
@@ -140,11 +138,19 @@ function Login() {
               Password
             </label>
             <input
+              type="password"
               {...register("password")}
-              className="w-full p-2 border rounded"
+              className={`w-full p-2 border rounded ${dirtyFields.password ? "bg-yellow-50" : ""}
+              ${isValid ? "border-green-500" : ""}
+              ${errors.password ? "border-red-500" : ""}
+              `}
               placeholder="Enter your password"
             />
-            <p className="text-red-500 p-1">{errors.password?.message}</p>
+            {errors.password && (
+              <p className="text-red-500 p-1 text-sm">
+                {errors.password?.message}
+              </p>
+            )}{" "}
           </div>
           <button
             type="submit"

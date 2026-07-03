@@ -31,10 +31,8 @@ export default function Checkout() {
 
   const handleCreateCheckout = async (e) => {
     e.preventDefault();
-    console.log(cart);
     
     if (cart && cart.products.length > 0) {
-          console.log(cart);
 
       const res = await dispatch(
         createCheckout({
@@ -44,8 +42,6 @@ export default function Checkout() {
           totalPrice: cart.totalPrice,
         }),
       );
-
-      console.log(res);
       
       if ((res.payload, res.payload._id)) {
         //Set checkout ID if checkout was successful

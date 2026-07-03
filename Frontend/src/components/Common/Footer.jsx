@@ -19,6 +19,7 @@ export const Footer = () => {
           </p>
 
           {/* Newsletter form */}
+          {/* The Newsletter is not available now*/}
           <form className="flex">
             <input
               type="email"

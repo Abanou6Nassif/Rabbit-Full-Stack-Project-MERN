@@ -70,7 +70,6 @@ const adminOrderSlice = createSlice({
       .addCase(fetchAllOrders.fulfilled, (state, action) => {
         state.loading = false;
         state.orders = action.payload;
-        console.log(action.payload);
         
         state.totalOrders = action.payload.length;
 
@@ -83,7 +82,6 @@ const adminOrderSlice = createSlice({
       })
       .addCase(fetchAllOrders.rejected, (state, action) => {
         state.loading = false;
-        console.log(action.payload);
         
         state.error = action.payload;
       })

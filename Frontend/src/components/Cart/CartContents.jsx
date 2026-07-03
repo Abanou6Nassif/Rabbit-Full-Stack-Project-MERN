@@ -8,7 +8,6 @@ import { useLocation } from "react-router-dom";
 
 export const CartContents = ({ userId, guestId }) => {
   const params = useLocation();
-  console.log(params.pathname === "/checkout");
   const { cart } = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();

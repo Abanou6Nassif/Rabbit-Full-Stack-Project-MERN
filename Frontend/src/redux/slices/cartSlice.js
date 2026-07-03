@@ -98,10 +98,6 @@ export const removeFromCart = createAsyncThunk(
     { productId, size, color, quantity, guestId, userId },
     { rejectWithValue },
   ) => {
-    console.log(
-      { productId, size, color, quantity, guestId, userId },
-      "L102 CartSlice",
-    );
 
     try {
       const response = await axios.delete(
@@ -137,7 +133,6 @@ export const mergeCart = createAsyncThunk(
         { guestId },
       );
 
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(

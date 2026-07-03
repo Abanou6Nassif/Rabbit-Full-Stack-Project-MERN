@@ -10,7 +10,6 @@ export const fetchUserOrders = createAsyncThunk(
         `/api/orders/my-orders`,
       );
 
-      console.log(response.data);
       
       return response.data;
     } catch (error) {

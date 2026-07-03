@@ -27,7 +27,6 @@ export const loginUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(`/api/users/login`, userData);
-      console.log(response.data);
 
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       return response.data.user; //Return the user object from the response
@@ -45,14 +44,12 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(`/api/users/register`, userData);
-      console.log(response.data);
 
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       return response.data.user; //Return the user object from the response
     } catch (error) {
       return rejectWithValue(
         error.response?.data || error.message,
-        console.log(error.response?.data),
       );
     }
   },
@@ -64,7 +61,6 @@ export const logoutUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.post(`/api/users/logout`);
-      console.log(response.data);
 
       localStorage.removeItem("userInfo");
       localStorage.setItem("guestId", `guest_${uuidV6()}`); //set new guest ID in localStorage

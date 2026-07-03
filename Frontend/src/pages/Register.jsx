@@ -8,23 +8,33 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import DOMPurify from "dompurify";
-import { toast, Toaster } from "sonner";
-import { emailRegex, passErrorMsg, passwordRegex } from "./Login.jsx";
-const nameRegex = /^[a-zA-Z]{3,15}$/;
+import { Toaster } from "sonner";
+import {
+  emailRegex,
+  passErrorMsg,
+  passwordRegex,
+  nameRegex,
+  toastSuccess,
+  toastError,
+} from "./constants/shared.js";
+
+/**
+ * The order in yup validation is important
+ */
 const schema = yup.object({
   name: yup
     .string()
+    .required("Name is a required field")
     .min(3, "Must be at least 3 charachters long")
-    .required()
     .matches(nameRegex, "Must be a valid name"),
   email: yup
     .string()
+    .required("Email is a required field")
     .email("Must be a valid email")
-    .required()
     .matches(emailRegex),
   password: yup
-    .string()
-    .min(8, "must be at least 8 characters long")
+    .string().required('Password is a required field')
+    .min(8, "Must be at least 8 characters long")
     .matches(passwordRegex, passErrorMsg),
 });
 
@@ -32,8 +42,9 @@ function Register() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, dirtyFields, isValid },
   } = useForm({
+    mode: "all",
     resolver: yupResolver(schema),
   });
 
@@ -58,8 +69,6 @@ function Register() {
       if (!user) return;
       if (user) {
         if (guestId) {
-          console.log(userId);
-          console.log(guestId);
           await dispatch(mergeCart({ guestId }));
           await dispatch(fetchCart({ userId: user._id }));
           // navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
@@ -90,20 +99,17 @@ function Register() {
       password !== data.password ||
       name !== data.name
     ) {
-      toast.error("Invalid characters detected in input!", {
-        position: "top-center",
-        style: {
-          border: "1px solid #ff4d4f",
-          padding: "16px",
-          color: "#ff4d4f",
-          background: "#fff1f0",
-        },
-        icon: "⚠️",
-      });
+      toastError("Invalid characters detected in input!");
       return;
     } else {
-      console.log("User Registered", { name, email, password });
-      dispatch(registerUser({ name, email, password }));
+      try {
+        await dispatch(registerUser({ name, email, password })).unwrap();
+        toastSuccess("Registered successfully");
+      } catch (error) {
+        toastError(
+          typeof error === "string" ? error : error?.message || "Registration failed",
+        );
+      }
     }
   };
   return (
@@ -127,11 +133,17 @@ function Register() {
               Name
             </label>
             <input
+              type="text"
               {...register("name")}
-              className="w-full p-2 border rounded"
+              className={`w-full p-2 border rounded ${dirtyFields.name ? "bg-yellow-50" : ""}
+              ${isValid ? "border-green-500" : ""}
+              ${errors.name ? "border-red-500" : ""}
+              `}
               placeholder="Enter your name"
             />
-            <p className="text-red-500 p-1">{errors.name?.message}</p>
+            {errors.name && (
+              <p className="text-red-500 p-1 text-sm">{errors.name?.message}</p>
+            )}
           </div>
 
           <div className="mb-4">
@@ -139,11 +151,19 @@ function Register() {
               Email
             </label>
             <input
+              type="email"
               {...register("email")}
-              className="w-full p-2 border rounded"
+              className={`w-full p-2 border rounded ${dirtyFields.email ? "bg-yellow-50" : ""}
+              ${isValid ? "border-green-500" : ""}
+              ${errors.email ? "border-red-500" : ""}
+              `}
               placeholder="Enter your email address"
             />
-            <p className="text-red-500 p-1">{errors.email?.message}</p>
+            {errors.email && (
+              <p className="text-red-500 p-1 text-sm">
+                {errors.email?.message}
+              </p>
+            )}
           </div>
 
           <div className="mb-4">
@@ -154,11 +174,19 @@ function Register() {
               Password
             </label>
             <input
+              type="password"
               {...register("password")}
-              className="w-full p-2 border rounded"
+              className={`w-full p-2 border rounded ${dirtyFields.password ? "bg-yellow-50" : ""}
+              ${isValid ? "border-green-500" : ""}
+              ${errors.password ? "border-red-500" : ""}
+              `}
               placeholder="Enter your password"
             />
-            <p className="text-red-500 p-1">{errors.password?.message}</p>
+            {errors.password && (
+              <p className="text-red-500 p-1 text-sm">
+                {errors.password?.message}
+              </p>
+            )}{" "}
           </div>
           <button
             type="submit"

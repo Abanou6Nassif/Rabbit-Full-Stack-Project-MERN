@@ -10,7 +10,6 @@ export const createCheckout = createAsyncThunk(
         `/api/checkout`,
         checkoutData,
       );
-      console.log(response.data);
       
       return response.data;
     } catch (error) {

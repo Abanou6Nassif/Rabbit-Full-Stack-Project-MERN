@@ -15,7 +15,6 @@ export default function PayPalButton({ amount, onSuccess, onError }) {
           });
         }}
         onApprove={(data, actions) => {
-          console.log(actions, data);
 
           return actions.order.capture().then(onSuccess);
         }}

@@ -10,7 +10,6 @@ export default function MyOrdersPage() {
   useEffect(() => {
     dispatch(fetchUserOrders());
   }, [dispatch]);
-  console.log(error);
 
   function handleRowClick(orderId) {
     navigate(`/order/${orderId}`);
