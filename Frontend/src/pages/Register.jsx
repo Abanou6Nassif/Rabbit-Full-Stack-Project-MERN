@@ -1,41 +1,58 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import register from "../assets/register.webp";
+import registerImg from "../assets/register.webp";
 import { registerUser } from "../redux/slices/authSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart, mergeCart } from "../redux/slices/cartSlice.js";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import DOMPurify from "dompurify";
+import { toast, Toaster } from "sonner";
+import { emailRegex, passErrorMsg, passwordRegex } from "./Login.jsx";
+const nameRegex = /^[a-zA-Z]{3,15}$/;
+const schema = yup.object({
+  name: yup
+    .string()
+    .min(3, "Must be at least 3 charachters long")
+    .required()
+    .matches(nameRegex, "Must be a valid name"),
+  email: yup
+    .string()
+    .email("Must be a valid email")
+    .required()
+    .matches(emailRegex),
+  password: yup
+    .string()
+    .min(8, "must be at least 8 characters long")
+    .matches(passwordRegex, passErrorMsg),
+});
 
 function Register() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const { cart } = useSelector((state) => state.cart);
-  const { guestId, user, loading } = useSelector((state) => state.auth);
+  const {
+    guestId,
+    user,
+    loading,
+    error: authErrors,
+  } = useSelector((state) => state.auth);
   const userId = user?._id || null;
 
   // Get the redirect parameter and check if it's checkout or something else
   const redirect = new URLSearchParams(location.search).get("redirect") || "/";
   const isCheckoutRedirect = redirect.includes("checkout");
 
-  const userCart = async () => {
-    console.log(userId);
-    console.log(guestId);
-    if (!user) return;
-    if (user) {
-      if (guestId) {
-        await dispatch(mergeCart({ guestId }));
-        await dispatch(fetchCart({ userId: user._id }));
-        // navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
-      } else {
-        await dispatch(fetchCart({ userId: user._id }));
-        // navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
-      }
-    }
-  };
   useEffect(() => {
     const userCart = async () => {
       if (!user) return;
@@ -64,16 +81,36 @@ function Register() {
     userId,
   ]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("User Registered", { name, email, password });
-    dispatch(registerUser({ name, email, password }));
+  const submitForm = async (data) => {
+    const name = DOMPurify.sanitize(data.name);
+    const email = DOMPurify.sanitize(data.email);
+    const password = DOMPurify.sanitize(data.password);
+    if (
+      email !== data.email ||
+      password !== data.password ||
+      name !== data.name
+    ) {
+      toast.error("Invalid characters detected in input!", {
+        position: "top-center",
+        style: {
+          border: "1px solid #ff4d4f",
+          padding: "16px",
+          color: "#ff4d4f",
+          background: "#fff1f0",
+        },
+        icon: "⚠️",
+      });
+      return;
+    } else {
+      console.log("User Registered", { name, email, password });
+      dispatch(registerUser({ name, email, password }));
+    }
   };
   return (
     <div className="flex">
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 md:p-12">
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(submitForm)}
           className="w-full max-w-md bg-white p-8 rounded-lg border shadow-sm"
         >
           <div className="flex justify-center mb-6">
@@ -90,14 +127,11 @@ function Register() {
               Name
             </label>
             <input
-              name="name"
-              id="name"
-              type="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              {...register("name")}
               className="w-full p-2 border rounded"
               placeholder="Enter your name"
             />
+            <p className="text-red-500 p-1">{errors.name?.message}</p>
           </div>
 
           <div className="mb-4">
@@ -105,14 +139,11 @@ function Register() {
               Email
             </label>
             <input
-              name="email"
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email")}
               className="w-full p-2 border rounded"
               placeholder="Enter your email address"
             />
+            <p className="text-red-500 p-1">{errors.email?.message}</p>
           </div>
 
           <div className="mb-4">
@@ -123,15 +154,11 @@ function Register() {
               Password
             </label>
             <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              {...register("password")}
               className="w-full p-2 border rounded"
               placeholder="Enter your password"
             />
+            <p className="text-red-500 p-1">{errors.password?.message}</p>
           </div>
           <button
             type="submit"
@@ -139,6 +166,8 @@ function Register() {
           >
             {loading ? "Loading..." : "Sign Up"}
           </button>
+
+          <p className="text-red-500 p-1 text-center">{authErrors}</p>
 
           <p className="mt-6 text-center text-sm">
             Have an account?{" "}
@@ -150,11 +179,12 @@ function Register() {
             </Link>
           </p>
         </form>
+        <Toaster />
       </div>
       <div className="hidden md:block w-1/2 bg-gray-800">
         <div className="h-full flex flex-col justify-center items-center">
           <img
-            src={register}
+            src={registerImg}
             alt="Login to Account"
             className="h-[750px] w-full object-cover"
           />

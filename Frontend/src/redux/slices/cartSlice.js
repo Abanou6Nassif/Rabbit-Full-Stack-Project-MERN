@@ -27,7 +27,7 @@ export const fetchCart = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: error.message },
+        error.response?.data || error.message,
       );
     }
   },
@@ -56,7 +56,7 @@ export const addToCart = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: error.message },
+        error.response?.data || error.message,
       );
     }
   },
@@ -85,7 +85,7 @@ export const updateCartItemQuantity = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: error.message },
+        error.response?.data || error.message,
       );
     }
   },
@@ -121,7 +121,7 @@ export const removeFromCart = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: error.message },
+        error.response?.data || error.message,
       );
     }
   },
@@ -141,7 +141,7 @@ export const mergeCart = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: error.message },
+        error.response?.data || error.message,
       );
     }
   },
@@ -177,7 +177,7 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message || "Failed to fetch cart";
+        state.error = action.payload || "Failed to fetch cart";
       })
 
       //add to cart
@@ -192,7 +192,7 @@ const cartSlice = createSlice({
       })
       .addCase(addToCart.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || "Failed to add to cart";
+        state.error = action.payload || "Failed to add to cart";
       })
 
       //update cart item quantity
@@ -207,7 +207,7 @@ const cartSlice = createSlice({
       })
       .addCase(updateCartItemQuantity.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || "Failed to update item";
+        state.error = action.payload || "Failed to update item";
       })
 
       //Remove item from the cart
@@ -222,7 +222,7 @@ const cartSlice = createSlice({
       })
       .addCase(removeFromCart.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || "Failed to remove item";
+        state.error = action.payload || "Failed to remove item";
       })
 
       //Merge the carts
@@ -237,7 +237,7 @@ const cartSlice = createSlice({
       })
       .addCase(mergeCart.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || "Failed to merge cart";
+        state.error = action.payload || "Failed to merge cart";
       });
   },
 });

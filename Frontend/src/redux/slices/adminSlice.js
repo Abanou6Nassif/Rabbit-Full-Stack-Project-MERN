@@ -11,7 +11,7 @@ export const fetchUsers = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: error.message },
+        error.response?.data || error.message,
       );
     }
   },
@@ -27,7 +27,7 @@ export const addUser = createAsyncThunk(
       return response.data.user;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: error.message },
+        error.response?.data || error.message,
       );
     }
   },
@@ -47,7 +47,7 @@ export const updateUser = createAsyncThunk(
       return response.data.user;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: error.message },
+        error.response?.data || error.message,
       );
     }
   },
@@ -62,7 +62,7 @@ export const deleteUser = createAsyncThunk(
       return id;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: error.message },
+        error.response?.data || error.message,
       );
     }
   },
@@ -90,7 +90,7 @@ const adminSlice = createSlice({
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || action.error.message;
+        state.error = action.payload;
       })
 
       //update user
@@ -111,7 +111,7 @@ const adminSlice = createSlice({
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || action.error.message;
+        state.error = action.payload;
       })
 
       //delete user
@@ -125,7 +125,7 @@ const adminSlice = createSlice({
       })
       .addCase(deleteUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || action.error.message;
+        state.error = action.payload;
       })
 
       //create user
@@ -139,7 +139,7 @@ const adminSlice = createSlice({
       })
       .addCase(addUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || action.error.message;
+        state.error = action.payload;
       });
   },
 });

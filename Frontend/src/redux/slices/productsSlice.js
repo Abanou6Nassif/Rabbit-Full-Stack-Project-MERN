@@ -42,7 +42,7 @@ export const fetchProductsByFilters = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: error.message },
+        error.response?.data || error.message,
       );
     }
   },
@@ -60,7 +60,7 @@ export const fetchProductDetails = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: error.message },
+        error.response?.data || error.message,
       );
     }
   },
@@ -79,7 +79,7 @@ export const updateProduct = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: error.message },
+        error.response?.data || error.message,
       );
     }
   },
@@ -96,7 +96,7 @@ export const fetchSimilarProducts = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: error.message },
+        error.response?.data || error.message,
       );
     }
   },
@@ -166,7 +166,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchProductsByFilters.rejected, (state, action) => {
         state.loadingList = false;
-        state.errorList = action.payload?.message;
+        state.errorList = action.payload;
       })
 
       //handle fetching single product details
@@ -180,7 +180,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchProductDetails.rejected, (state, action) => {
         state.loadingSelected = false;
-        state.errorSelected = action.payload?.message;
+        state.errorSelected = action.payload;
       })
 
       //handle updating product
@@ -200,7 +200,7 @@ const productSlice = createSlice({
       })
       .addCase(updateProduct.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message;
+        state.error = action.payload;
       })
 
       //handle fetch similar products
@@ -214,7 +214,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchSimilarProducts.rejected, (state, action) => {
         state.loadingSimilar = false;
-        state.errorSimilar = action.payload?.message;
+        state.errorSimilar = action.payload;
       });
   },
 });

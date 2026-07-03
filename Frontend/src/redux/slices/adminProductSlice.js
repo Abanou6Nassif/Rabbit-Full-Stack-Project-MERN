@@ -10,7 +10,7 @@ export const fetchAdminProducts = createAsyncThunk(
       const response = await axios.get(`/api/admin/products`);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || { message: error.message });
+      return rejectWithValue(error.response?.data || error.message);
     }
   },
 );
@@ -26,7 +26,7 @@ export const createProduct = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || { message: error.message });
+      return rejectWithValue(error.response?.data || error.message);
     }
   },
 );
@@ -42,7 +42,7 @@ export const updateProduct = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || { message: error.message });
+      return rejectWithValue(error.response?.data || error.message);
     }
   },
 );
@@ -55,7 +55,7 @@ export const deleteProduct = createAsyncThunk(
       await axios.delete(`/api/admin/products/${id}`);
       return id;
     } catch (error) {
-      return rejectWithValue(error.response?.data || { message: error.message });
+      return rejectWithValue(error.response?.data || error.message);
     }
   },
 );
@@ -82,7 +82,7 @@ const adminProductSlice = createSlice({
       })
       .addCase(fetchAdminProducts.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload;
       })
 
       //create product
@@ -96,7 +96,7 @@ const adminProductSlice = createSlice({
       })
       .addCase(createProduct.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload;
       })
 
       //update product
@@ -115,7 +115,7 @@ const adminProductSlice = createSlice({
       })
       .addCase(updateProduct.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload;
       })
 
       //delete product
@@ -131,7 +131,7 @@ const adminProductSlice = createSlice({
       })
       .addCase(deleteProduct.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload;
       });
   },
 });

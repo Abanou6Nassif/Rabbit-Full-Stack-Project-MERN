@@ -26,17 +26,14 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `/api/users/login`,
-        userData,
-      );
+      const response = await axios.post(`/api/users/login`, userData);
       console.log(response.data);
 
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       return response.data.user; //Return the user object from the response
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: error.message },
+        error.response?.data || error.message,
       );
     }
   },
@@ -47,17 +44,15 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `/api/users/register`,
-        userData,
-      );
+      const response = await axios.post(`/api/users/register`, userData);
       console.log(response.data);
 
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       return response.data.user; //Return the user object from the response
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: error.message },
+        error.response?.data || error.message,
+        console.log(error.response?.data),
       );
     }
   },
@@ -68,9 +63,7 @@ export const logoutUser = createAsyncThunk(
   "auth/logoutUser",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `/api/users/logout`,
-      );
+      const response = await axios.post(`/api/users/logout`);
       console.log(response.data);
 
       localStorage.removeItem("userInfo");
@@ -79,13 +72,12 @@ export const logoutUser = createAsyncThunk(
       return response.data.message; //Return the message from the response
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: error.message },
+        error.response?.data  || error.message,
       );
     }
   },
 );
 
-//slice
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -119,7 +111,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload;
       })
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
@@ -133,7 +125,7 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload;
       })
       .addCase(logoutUser.pending, (state) => {
         state.loading = true;
@@ -147,7 +139,7 @@ const authSlice = createSlice({
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || "Logout failed";
+        state.error = action.payload || "Logout failed";
       });
   },
 });
