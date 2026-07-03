@@ -25,9 +25,8 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
-      minLength: 8,
-      maxLength: 20,
+      required: [true, "Password is required"],
+      minlength: [8, "Password must be at least 8 characters"],
     },
     resetPasswordToken: {
       type: String,
@@ -57,7 +56,6 @@ userSchema.pre("save", async function () {
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
-
 
 userSchema.methods.createPasswordResetToken = function () {
   const resetToken = crypto.randomBytes(32).toString("hex");

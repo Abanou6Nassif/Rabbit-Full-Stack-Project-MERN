@@ -187,6 +187,7 @@ const forgotPassword = catchError(async (req, res) => {
 
   const { email } = value;
   const user = await userModel.findOne({ email });
+  console.log(user, "line 190");
 
   if (!user) {
     return res.status(200).json({
@@ -196,7 +197,12 @@ const forgotPassword = catchError(async (req, res) => {
   }
 
   const resetToken = user.createPasswordResetToken();
-  await user.save();
+    console.log(resetToken, "line 190");
+
+ const userSaved = await user.save();
+
+ console.log(userSaved, "202");
+ 
 
   const resetUrl = `${getFrontendBaseUrl(req)}/reset-password/${resetToken}`;
 
