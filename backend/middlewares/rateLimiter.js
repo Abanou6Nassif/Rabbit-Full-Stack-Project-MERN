@@ -32,17 +32,23 @@ const createLimiter = ({ keyPrefix, points, duration, blockDuration }) => {
   return new RateLimiterMemory(options);
 };
 
-export const authLimiter = createLimiter({
+export const authLimiterEmail = createLimiter({
   keyPrefix: "auth",
   points: 5,
   duration: 60 * 15,
   blockDuration: 60 * 15,
 });
+export const authLimiterIP = createLimiter({
+  keyPrefix: "auth",
+  points: 10,
+  duration: 60 * 30,
+  blockDuration: 60 * 15,
+});
 
 export const authLimiterMiddleware = async (req, res, next) => {
   try {
-    const promises = [authLimiter.consume(req.ip)];
-    if (req.body?.email) promises.push(authLimiter.consume(req.body.email));
+    const promises = [authLimiterIP.consume(req.ip)];
+    if (req.body?.email) promises.push(authLimiterEmail.consume(req.body.email));
 
     await Promise.all(promises);
     next();

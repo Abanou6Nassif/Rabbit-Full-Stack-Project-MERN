@@ -84294,3 +84294,33 @@
 [2026-07-04T00:25:31.528Z] <= END [ab4d69cd-56a1-469a-bead-a1208bf835ad] GET /6a18c14fca00924bf4a4139b | Status: 304 | 156ms
 [2026-07-04T00:25:31.599Z] <= END [51aa1e49-1853-4f20-a105-2b038c2dec5f] GET /new-arrivals | Status: 200 | 566ms
 [2026-07-04T00:25:31.672Z] <= END [48d037f7-b583-475c-bad9-4f3e977c904f] GET /similar/6a18c14fca00924bf4a4139b | Status: 304 | 223ms
+[2026-07-04T13:37:30.583Z] => START [2c7830ca-25bf-478c-b9c1-1d945f1ba97a] GET /api/products/new-arrivals
+[2026-07-04T13:37:30.591Z] => START [e9021161-db8e-425e-a3de-4f22601567fb] GET /api/products?gender=Women&category=Bottom+Wear&limit=8
+[2026-07-04T13:37:30.592Z] => START [c90d79f8-13db-48ca-ba2e-fd137124fd5d] GET /api/products/best-seller
+[2026-07-04T13:37:30.593Z] => START [8ea28840-974b-469b-a0f6-a0fa3fbeca71] GET /api/products/best-seller
+[2026-07-04T13:37:30.593Z] => START [bb151823-9e3c-431e-a435-73a623ab2191] GET /api/products/new-arrivals
+[2026-07-04T13:37:30.614Z] <= END [e9021161-db8e-425e-a3de-4f22601567fb] GET /api/products?gender=Women&category=Bottom+Wear&limit=8 | Status: 429 | 23ms
+[2026-07-04T13:37:30.614Z] <= END [8ea28840-974b-469b-a0f6-a0fa3fbeca71] GET /api/products/best-seller | Status: 429 | 21ms
+[2026-07-04T13:37:30.614Z] <= END [bb151823-9e3c-431e-a435-73a623ab2191] GET /api/products/new-arrivals | Status: 429 | 21ms
+[2026-07-04T13:37:30.619Z] => START [524a523d-de5f-4e74-8a45-d40108515b7a] GET /api/products?gender=Women&category=Bottom+Wear&limit=8
+[2026-07-04T13:37:30.622Z] <= END [524a523d-de5f-4e74-8a45-d40108515b7a] GET /api/products?gender=Women&category=Bottom+Wear&limit=8 | Status: 429 | 3ms
+[2026-07-04T13:37:35.734Z] => START [3c5f379b-91f4-4303-8021-5fcc1f63a351] GET /api/products/new-arrivals
+[2026-07-04T13:37:35.750Z] => START [b1945839-bf10-412e-b7a0-d4be0fc6c57a] GET /api/products?gender=Women&category=Bottom+Wear&limit=8
+[2026-07-04T13:37:35.758Z] => START [724a808a-017a-4fa8-ba65-b59d7f98d655] GET /api/products/best-seller
+[2026-07-04T13:37:35.791Z] X ABORT [724a808a-017a-4fa8-ba65-b59d7f98d655] GET /api/products/best-seller | Client disconnected 33ms
+[2026-07-04T13:37:35.793Z] X ABORT [3c5f379b-91f4-4303-8021-5fcc1f63a351] GET /api/products/new-arrivals | Client disconnected 59ms
+[2026-07-04T13:37:35.795Z] => START [6e3c58d5-e066-4494-8bed-3d6a62b934af] GET /api/products/best-seller
+[2026-07-04T13:37:35.796Z] => START [d9439174-7b21-4955-acdb-097fede146f4] GET /api/products/new-arrivals
+[2026-07-04T13:37:35.939Z] <= END [b1945839-bf10-412e-b7a0-d4be0fc6c57a] GET /?gender=Women&category=Bottom+Wear&limit=8 | Status: 200 | 189ms
+[2026-07-04T13:37:35.942Z] => START [f47cc237-f6ae-466c-b50c-7e2ac7ad3d51] GET /api/products?gender=Women&category=Bottom+Wear&limit=8
+[2026-07-04T13:37:35.945Z] <= END [6e3c58d5-e066-4494-8bed-3d6a62b934af] GET /best-seller | Status: 200 | 150ms
+[2026-07-04T13:37:35.977Z] => START [ceae062d-93fd-4849-99db-37678ea1a52f] GET /api/products/6a18c14fca00924bf4a4139b
+[2026-07-04T13:37:35.980Z] => START [dd5276ea-3aa0-4b7b-bdc0-0a7a01ef59ff] GET /api/products/similar/6a18c14fca00924bf4a4139b
+[2026-07-04T13:37:36.095Z] <= END [f47cc237-f6ae-466c-b50c-7e2ac7ad3d51] GET /?gender=Women&category=Bottom+Wear&limit=8 | Status: 304 | 153ms
+[2026-07-04T13:37:36.168Z] <= END [ceae062d-93fd-4849-99db-37678ea1a52f] GET /6a18c14fca00924bf4a4139b | Status: 304 | 191ms
+[2026-07-04T13:37:36.169Z] => START [3dc44aca-ef9c-4225-91b2-3f2c8c697a1a] GET /api/products/6a18c14fca00924bf4a4139b
+[2026-07-04T13:37:36.237Z] <= END [dd5276ea-3aa0-4b7b-bdc0-0a7a01ef59ff] GET /similar/6a18c14fca00924bf4a4139b | Status: 304 | 257ms
+[2026-07-04T13:37:36.238Z] => START [c554929f-4bfb-414a-a6d8-0ea3bca851a6] GET /api/products/similar/6a18c14fca00924bf4a4139b
+[2026-07-04T13:37:36.318Z] <= END [3dc44aca-ef9c-4225-91b2-3f2c8c697a1a] GET /6a18c14fca00924bf4a4139b | Status: 304 | 149ms
+[2026-07-04T13:37:36.389Z] <= END [d9439174-7b21-4955-acdb-097fede146f4] GET /new-arrivals | Status: 200 | 593ms
+[2026-07-04T13:37:36.464Z] <= END [c554929f-4bfb-414a-a6d8-0ea3bca851a6] GET /similar/6a18c14fca00924bf4a4139b | Status: 304 | 226ms
