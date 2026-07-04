@@ -20,6 +20,9 @@ const getFrontendBaseUrl = (req) =>
     "http://localhost:5173"
   ).replace(/\/$/, "");
 
+const isProduction =
+  process.env.NODE_ENV === "production" || process.env.VERCEL === "1";
+
 const buildResetEmail = ({ name, resetUrl }) => ({
   text: `Hi ${name || "there"},\n\nWe received a request to reset your Rabbit password. Use the link below to choose a new password:\n${resetUrl}\n\nThis link expires in 10 minutes. If you did not request this, you can safely ignore this email.`,
   html: `
@@ -338,7 +341,6 @@ const forgotPassword = catchError(async (req, res) => {
 
   const { email } = value;
   const user = await userModel.findOne({ email });
-  console.log(user, "line 190");
 
   if (!user) {
     return res.status(200).json({
@@ -348,11 +350,9 @@ const forgotPassword = catchError(async (req, res) => {
   }
 
   const resetToken = user.createPasswordResetToken();
-    console.log(resetToken, "line 190");
 
  const userSaved = await user.save();
 
- console.log(userSaved, "202");
  
 
   const resetUrl = `${getFrontendBaseUrl(req)}/reset-password/${resetToken}`;
@@ -367,7 +367,7 @@ const forgotPassword = catchError(async (req, res) => {
     message: sent
       ? "Password reset link sent to your email address."
       : "Password reset link generated.",
-    resetUrl: sent ? undefined : resetUrl,
+    resetUrl: sent || isProduction ? undefined : resetUrl,
   });
 });
 

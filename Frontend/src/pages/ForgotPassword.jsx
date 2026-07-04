@@ -47,6 +47,8 @@ function ForgotPassword() {
       const response = await dispatch(requestPasswordReset({ email })).unwrap();
       toastSuccess(response.message || "Password reset instructions sent");
       setResetUrl(response.resetUrl || "");
+      console.log(response);
+      
       if (response.resetUrl) {
         navigate(`/reset-password/${response.resetUrl.split("/").pop()}`);
       }
