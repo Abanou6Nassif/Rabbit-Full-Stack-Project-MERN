@@ -24,16 +24,20 @@ import {
 const schema = yup.object({
   name: yup
     .string()
+    .trim()
     .required("Name is a required field")
     .min(3, "Must be at least 3 charachters long")
     .matches(nameRegex, "Must be a valid name"),
   email: yup
     .string()
+    .trim()
     .required("Email is a required field")
     .email("Must be a valid email")
     .matches(emailRegex),
   password: yup
-    .string().required('Password is a required field')
+    .string()
+    .trim()
+    .required("Password is a required field")
     .min(8, "Must be at least 8 characters long")
     .matches(passwordRegex, passErrorMsg),
 });
@@ -110,7 +114,9 @@ function Register() {
         navigate(`/login?redirect=${encodeURIComponent(redirect)}`);
       } catch (error) {
         toastError(
-          typeof error === "string" ? error : error?.message || "Registration failed",
+          typeof error === "string"
+            ? error
+            : error?.message || "Registration failed",
         );
       }
     }

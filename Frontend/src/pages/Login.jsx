@@ -15,10 +15,11 @@ import { emailRegex } from "./constants/shared.js";
 const schema = yup.object({
   email: yup
     .string()
+    .trim()
     .email("Must be a valid email")
     .required("Email is a required field")
     .matches(emailRegex, "Must be a valid email"),
-  password: yup.string().required('Password is a required field'),
+  password: yup.string().trim().required("Password is a required field"),
   // .matches(passwordRegex, passErrorMsg),
 });
 
@@ -43,9 +44,7 @@ function Login() {
     error: authErrors,
   } = useSelector((state) => state.auth);
   const authErrorMessage =
-    typeof authErrors === "string"
-      ? authErrors
-      : authErrors?.message || "";
+    typeof authErrors === "string" ? authErrors : authErrors?.message || "";
   const userId = user?._id || null;
 
   // Get the redirect parameter and check if it's checkout or something else
