@@ -103,8 +103,11 @@ function Register() {
       return;
     } else {
       try {
-        await dispatch(registerUser({ name, email, password })).unwrap();
-        toastSuccess("Registered successfully");
+        const response = await dispatch(
+          registerUser({ name, email, password }),
+        ).unwrap();
+        toastSuccess(response?.message || "Verification email sent");
+        navigate(`/login?redirect=${encodeURIComponent(redirect)}`);
       } catch (error) {
         toastError(
           typeof error === "string" ? error : error?.message || "Registration failed",

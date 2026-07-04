@@ -1,8 +1,10 @@
 import userModel from "../../models/user/User.js";
+import pendingRegistrationModel from "../../models/user/PendingRegistration.js";
 import catchError from "../../utils/catchError.js";
 import AppError from "../../utils/appError.js";
 import nodemailer from "nodemailer";
 import crypto from "crypto";
+import bcrypt from "bcrypt";
 import { getAuthCookieOptions } from "../../utils/cookieOptions.js";
 import {
   forgotPasswordValidationSchema,
@@ -31,6 +33,23 @@ const buildResetEmail = ({ name, resetUrl }) => ({
       <p style="margin-top: 20px;">If the button does not work, copy and paste this link into your browser:</p>
       <p><a href="${resetUrl}">${resetUrl}</a></p>
       <p>This link expires in 10 minutes. If you did not request this, you can ignore this email.</p>
+    </div>
+  `,
+});
+
+const buildVerificationEmail = ({ name, verifyUrl }) => ({
+  text: `Hi ${name || "there"},\n\nPlease verify your Rabbit account by opening the link below:\n${verifyUrl}\n\nThis link expires in 24 hours. If you did not create this account, you can ignore this email.`,
+  html: `
+    <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #111827;">
+      <h2 style="margin-bottom: 16px;">Verify your Rabbit account</h2>
+      <p>Hi ${name || "there"},</p>
+      <p>Please verify your email address by clicking the button below.</p>
+      <p>
+        <a href="${verifyUrl}" style="display:inline-block;padding:12px 20px;background:#111827;color:#ffffff;text-decoration:none;border-radius:8px;">Verify email</a>
+      </p>
+      <p style="margin-top: 20px;">If the button does not work, copy and paste this link into your browser:</p>
+      <p><a href="${verifyUrl}">${verifyUrl}</a></p>
+      <p>This link expires in 24 hours. If you did not create this account, you can ignore this email.</p>
     </div>
   `,
 });
@@ -85,6 +104,66 @@ const sendResetEmail = async ({ to, name, resetUrl }) => {
   }
 };
 
+const sendVerificationEmail = async ({ to, name, verifyUrl }) => {
+  const smtpHost = process.env.SMTP_HOST;
+  const smtpPort = Number(process.env.SMTP_PORT || 587);
+  const smtpUser = process.env.SMTP_USER;
+  const smtpPass = process.env.SMTP_PASS;
+
+  if (!smtpHost || !smtpUser || !smtpPass) {
+    return { sent: false };
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: smtpHost,
+    port: smtpPort,
+    secure: process.env.SMTP_SECURE === "true",
+    auth: {
+      user: smtpUser,
+      pass: smtpPass,
+    },
+  });
+
+  const emailContent = buildVerificationEmail({ name, verifyUrl });
+
+  try {
+    await transporter.sendMail({
+      from: process.env.MAIL_FROM || smtpUser,
+      to,
+      subject: "Verify your Rabbit email address",
+      text: emailContent.text,
+      html: emailContent.html,
+    });
+
+    return { sent: true };
+  } catch (error) {
+    console.error("Verification email failed", {
+      to,
+      smtpHost,
+      smtpUser,
+      code: error.code,
+      message: error.message,
+      response: error.response,
+      command: error.command,
+    });
+
+    throw new AppError(
+      error.response || error.message || "Verification email failed to send",
+      502,
+    );
+  }
+};
+
+const createVerificationToken = () => {
+  const verificationToken = crypto.randomBytes(32).toString("hex");
+  const verificationTokenHash = crypto
+    .createHash("sha256")
+    .update(verificationToken)
+    .digest("hex");
+
+  return { verificationToken, verificationTokenHash };
+};
+
 /**
  * register controller
  */
@@ -105,7 +184,79 @@ const register = catchError(async (req, res) => {
 
   if (user) throw new AppError("User already exists", 400);
 
-  user = await userModel.create({ name, email, password });
+  const pendingRegistration = await pendingRegistrationModel.findOne({ email });
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const { verificationToken, verificationTokenHash } = createVerificationToken();
+  const verificationTokenExpire = Date.now() + 24 * 60 * 60 * 1000;
+  let pendingRegistrationRecord = pendingRegistration;
+
+  if (pendingRegistration) {
+    pendingRegistration.name = name;
+    pendingRegistration.password = hashedPassword;
+    pendingRegistration.verificationToken = verificationTokenHash;
+    pendingRegistration.verificationTokenExpire = verificationTokenExpire;
+    await pendingRegistration.save();
+  } else {
+    pendingRegistrationRecord = await pendingRegistrationModel.create({
+      name,
+      email,
+      password: hashedPassword,
+      verificationToken: verificationTokenHash,
+      verificationTokenExpire,
+    });
+  }
+
+  const verifyUrl = `${getFrontendBaseUrl(req)}/verify-email/${verificationToken}`;
+
+  try {
+    await sendVerificationEmail({
+      to: email,
+      name,
+      verifyUrl,
+    });
+
+    if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+      throw new AppError("Email service is not configured", 500);
+    }
+  } catch (error) {
+    await pendingRegistrationModel.deleteOne({ _id: pendingRegistrationRecord._id });
+    throw error;
+  }
+
+  res.status(201).json({
+    message: "Verification email sent. Please verify your email to activate your account.",
+  });
+});
+
+const verifyEmail = catchError(async (req, res) => {
+  const verificationTokenHash = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
+
+  const pendingRegistration = await pendingRegistrationModel.findOne({
+    verificationToken: verificationTokenHash,
+    verificationTokenExpire: { $gt: Date.now() },
+  });
+
+  if (!pendingRegistration) {
+    throw new AppError("Verification token is invalid or has expired", 400);
+  }
+
+  const existingUser = await userModel.findOne({ email: pendingRegistration.email });
+  if (existingUser) {
+    await pendingRegistration.deleteOne();
+    throw new AppError("User already exists", 400);
+  }
+
+  const user = await userModel.create({
+    name: pendingRegistration.name,
+    email: pendingRegistration.email,
+    password: pendingRegistration.password,
+    role: pendingRegistration.role,
+  });
+
+  await pendingRegistration.deleteOne();
 
   const payload = { user: { id: user._id, role: user.role } };
   try {
@@ -114,8 +265,8 @@ const register = catchError(async (req, res) => {
     throw new AppError("Internal Server Error", 500);
   }
 
-  res.status(201).json({
-    message: "Account created successfully",
+  return res.status(200).json({
+    message: "Email verified successfully",
     user: {
       _id: user._id,
       name: user.name,
@@ -256,4 +407,4 @@ const resetPassword = catchError(async (req, res) => {
   });
 });
 
-export { register, login, profile, logout, forgotPassword, resetPassword };
+export { register, verifyEmail, login, profile, logout, forgotPassword, resetPassword };

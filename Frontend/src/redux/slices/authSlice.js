@@ -78,8 +78,21 @@ export const registerUser = createAsyncThunk(
     try {
       const response = await axios.post(`/api/users/register`, userData);
 
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(getAuthErrorMessage(error));
+    }
+  },
+);
+
+export const verifyEmail = createAsyncThunk(
+  "auth/verifyEmail",
+  async ({ token }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`/api/users/verify-email/${token}`);
+
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
-      return response.data.user; //Return the user object from the response
+      return response.data;
     } catch (error) {
       return rejectWithValue(getAuthErrorMessage(error));
     }
@@ -144,11 +157,22 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
-        // state.guestId = null;
-        // localStorage.removeItem("guestId");
+        state.user = null;
       })
       .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(verifyEmail.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(verifyEmail.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.user;
+        state.error = null;
+      })
+      .addCase(verifyEmail.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

@@ -1,6 +1,7 @@
 import express from "express";
 import {
   register,
+  verifyEmail,
   login,
   profile,
   logout,
@@ -16,6 +17,11 @@ const router = express.Router();
 //@desc Register a new user
 //@access Public
 router.post("/register", authLimiterMiddleware, register);
+
+//@route POST /api/users/verify-email/:token
+//@desc Verify email and activate account
+//@access Public
+router.post("/verify-email/:token", authLimiterMiddleware, verifyEmail);
 
 //@route POST /api/users/login
 //@desc Login user
