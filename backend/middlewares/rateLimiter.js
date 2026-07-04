@@ -53,13 +53,13 @@ export const authLimiterMiddleware = async (req, res, next) => {
 
 export const globalLimiter = createLimiter({
   keyPrefix: "global",
-  points: 200,
+  points: 300,
   duration: 60,
 });
 
 export const checkoutLimiter = createLimiter({
   keyPrefix: "checkout",
-  points: 5,
+  points: 10,
   duration: 60,
 });
 

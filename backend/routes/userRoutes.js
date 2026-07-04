@@ -31,12 +31,12 @@ router.post("/login", authLimiterMiddleware, login);
 //@route GET /api/users/profile
 //@desc Get logged-in user's profile (Protected Route)
 //@access Public
-router.get("/profile", authLimiterMiddleware, authenticate, profile);
+router.get("/profile", authenticate, profile);
 
 //@route POST /api/users/logout
 //@desc logout user
 //@access Public
-router.post("/logout", authLimiterMiddleware, logout);
+router.post("/logout", logout);
 
 //@route POST /api/users/forgot-password
 //@desc Send a password reset link
