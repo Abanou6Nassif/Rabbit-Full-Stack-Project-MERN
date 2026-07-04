@@ -16,8 +16,11 @@ import AppError from "./utils/appError.js";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import { logMiddleware } from "./middlewares/logMiddleware.js";
-import { makeLimiterMiddleware } from "./middlewares/rateLimiter.js";
-import { globalLimiter } from "./middlewares/rateLimiter.js";
+import {
+  globalLimiter,
+  makeLimiterMiddleware,
+  shouldSkipGlobalRateLimit,
+} from "./middlewares/rateLimiter.js";
 
 dotenv.config();
 const app = express();
@@ -63,7 +66,13 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use(logMiddleware);
-app.use(makeLimiterMiddleware(globalLimiter, (request) => request.ip));
+app.use(
+  makeLimiterMiddleware(
+    globalLimiter,
+    (request) => request.ip,
+    shouldSkipGlobalRateLimit,
+  ),
+);
 
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);

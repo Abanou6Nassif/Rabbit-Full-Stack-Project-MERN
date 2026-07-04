@@ -69,9 +69,19 @@ export const checkoutLimiter = createLimiter({
   duration: 60,
 });
 
+export const shouldSkipGlobalRateLimit = (req) =>
+  req.method === "GET" ||
+  req.method === "HEAD" ||
+  req.method === "OPTIONS" ||
+  req.path === "/api/health";
+
 export const makeLimiterMiddleware =
-  (limiter, keyFn) => async (req, res, next) => {
+  (limiter, keyFn, shouldSkip = () => false) => async (req, res, next) => {
     try {
+      if (shouldSkip(req)) {
+        return next();
+      }
+
       await limiter.consume(keyFn(req));
       next();
     } catch {
