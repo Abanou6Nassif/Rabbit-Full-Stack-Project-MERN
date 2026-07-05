@@ -35,9 +35,10 @@ const initialState = {
 // on the LAST successful login/verify - it never actually asks the server
 // "is my cookie still valid?". Dispatch this once when the app boots (e.g. in
 // your top-level App component's useEffect) so the store's `user` reflects
-// reality instead of stale localStorage data. Since the httpOnly "jwt" cookie
-// is now persistent (see cookieOptions.js maxAge fix), this should keep
-// succeeding across browser restarts until the token actually expires.
+// reality instead of stale localStorage data. Since the httpOnly access and
+// refresh cookies are persistent (see cookieOptions.js), this should keep
+// succeeding across browser restarts until the access token expires and the
+// refresh flow is no longer valid.
 export const checkAuth = createAsyncThunk(
   "auth/checkAuth",
   async (_, { rejectWithValue }) => {
@@ -50,6 +51,8 @@ export const checkAuth = createAsyncThunk(
       // No valid cookie / expired token: clear the stale local copy so the
       // UI doesn't keep showing a user that the backend no longer recognizes.
       localStorage.removeItem("userInfo");
+      localStorage.setItem("guestId", `guest_${uuidV6()}`); //set new guest ID in localStorage
+
       return rejectWithValue(getAuthErrorMessage(error));
     }
   },

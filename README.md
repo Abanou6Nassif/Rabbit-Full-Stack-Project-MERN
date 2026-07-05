@@ -43,7 +43,9 @@ Deploy the frontend and backend as **two separate Vercel projects**, each with i
 2. Framework preset: **Other** (Vercel uses `vercel.json` + `api/index.js`).
 3. Add environment variables from `backend/.env.example`:
    - `MONGO_URI` - MongoDB Atlas connection string (allow `0.0.0.0/0` or Vercel IPs)
-   - `TOKEN_SECRET` - long random string
+   - `TOKEN_SECRET` - long random string for backward compatibility
+   - `ACCESS_TOKEN_SECRET` - optional dedicated secret for access tokens
+   - `REFRESH_TOKEN_SECRET` - optional dedicated secret for refresh tokens
    - `FRONTEND_ORIGIN` - your deployed frontend URL (e.g. `https://rabbit-store.vercel.app`)
    - `FRONTEND_URL` - same URL, used in password reset emails
    - `CLOUD_NAME`, `CLOUD_API_KEY`, `CLOUD_API_SECRET` - Cloudinary

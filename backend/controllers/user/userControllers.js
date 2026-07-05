@@ -5,7 +5,12 @@ import AppError from "../../utils/appError.js";
 import nodemailer from "nodemailer";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
-import { getAuthCookieOptions } from "../../utils/cookieOptions.js";
+import jwt from "jsonwebtoken";
+import {
+  getAccessTokenCookieOptions,
+  getRefreshTokenCookieOptions,
+} from "../../utils/cookieOptions.js";
+import { getRefreshTokenSecret } from "../../utils/tokenConfig.js";
 import {
   forgotPasswordValidationSchema,
   resetPasswordValidationSchema,
@@ -57,6 +62,10 @@ const buildVerificationEmail = ({ name, verifyUrl }) => ({
     </div>
   `,
 });
+
+const issueAuthTokens = (user, res, payload) => {
+  user.generateAuthTokens(res, payload);
+};
 
 const sendResetEmail = async ({ to, name, resetUrl }) => {
   const smtpHost = process.env.SMTP_HOST;
@@ -264,7 +273,7 @@ const verifyEmail = catchError(async (req, res) => {
 
   const payload = { user: { id: user._id, role: user.role } };
   try {
-    user.generateToken(res, payload);
+    issueAuthTokens(user, res, payload);
   } catch (error) {
     throw new AppError("Internal Server Error", 500);
   }
@@ -313,7 +322,7 @@ const login = catchError(async (req, res) => {
 
   const payload = { user: { id: user._id, role: user.role } };
   try {
-    user.generateToken(res, payload);
+    issueAuthTokens(user, res, payload);
   } catch (error) {
     throw new AppError("Internal Server Error", 500);
   }
@@ -340,8 +349,42 @@ const profile = catchError(async (req, res) => {
  * logout controller
  */
 const logout = catchError(async (req, res) => {
-  res.clearCookie("jwt", getAuthCookieOptions());
+  res.clearCookie("accessToken", getAccessTokenCookieOptions());
+  res.clearCookie("refreshToken", getRefreshTokenCookieOptions());
   res.status(200).json({ message: "Logged out successfully" });
+});
+
+const refresh = catchError(async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    throw new AppError("Please login first", 401);
+  }
+
+  let decoded;
+
+  try {
+    decoded = jwt.verify(refreshToken, getRefreshTokenSecret());
+  } catch {
+    throw new AppError("Not authenticated", 401);
+  }
+
+  if (!decoded?.user?.id) {
+    throw new AppError("Not authenticated", 401);
+  }
+
+  const user = await userModel.findById(decoded.user.id).select("-password");
+
+  if (!user) {
+    throw new AppError("Not authenticated", 401);
+  }
+
+  issueAuthTokens(user, res, { user: { id: user._id, role: user.role } });
+
+  return res.status(200).json({
+    message: "Session refreshed successfully",
+    user,
+  });
 });
 
 const forgotPassword = catchError(async (req, res) => {
@@ -368,9 +411,7 @@ const forgotPassword = catchError(async (req, res) => {
 
   const resetToken = user.createPasswordResetToken();
 
- const userSaved = await user.save();
-
- 
+  await user.save();
 
   const resetUrl = `${getFrontendBaseUrl(req)}/reset-password/${resetToken}`;
 
@@ -424,4 +465,4 @@ const resetPassword = catchError(async (req, res) => {
   });
 });
 
-export { register, verifyEmail, login, profile, logout, forgotPassword, resetPassword };
+export { register, verifyEmail, login, profile, logout, refresh, forgotPassword, resetPassword };

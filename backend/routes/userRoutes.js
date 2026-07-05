@@ -5,6 +5,7 @@ import {
   login,
   profile,
   logout,
+  refresh,
   forgotPassword,
   resetPassword,
 } from "../controllers/user/userControllers.js";
@@ -42,6 +43,11 @@ router.get("/profile", authenticate, profile);
 //@desc logout user
 //@access Public
 router.post("/logout", logout);
+
+//@route POST /api/users/refresh
+//@desc Refresh access token with the refresh token cookie
+//@access Public
+router.post("/refresh", refresh);
 
 //@route POST /api/users/forgot-password
 //@desc Send a password reset link
