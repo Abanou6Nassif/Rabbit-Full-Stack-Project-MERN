@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useEffect } from "react"; // ADDED
 import "./App.css";
 import UserLayout from "./components/Layout/UserLayout";
 import { Home } from "./pages/Home";
@@ -22,12 +23,29 @@ import ProductManagement from "./components/Admin/ProductManagement";
 import EditProductPage from "./components/Admin/EditProductPage";
 import OrderManagement from "./components/Admin/OrderManagement";
 
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux"; // CHANGED: added useDispatch
 import store from "./redux/store";
+import { checkAuth } from "./redux/slices/authSlice.js"; // ADDED
 import ProtectedRoute from "./components/Common/ProtectedRoute";
+
+// ADDED: small wrapper so we can use the useDispatch hook, which only works
+// *inside* <Provider>. Runs once on mount to ask the backend "is my cookie
+// still valid?" and syncs the Redux store (and localStorage) with the real
+// answer - instead of just trusting whatever was last written to localStorage.
+function AuthBootstrap() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
+
+  return null;
+}
+
 function App() {
   return (
     <Provider store={store}>
+      <AuthBootstrap /> {/* ADDED: fires the session check on every app load */}
       <BrowserRouter>
         <Toaster position="top-right" />
         <Routes>

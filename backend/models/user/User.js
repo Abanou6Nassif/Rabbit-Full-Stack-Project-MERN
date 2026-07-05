@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
-import { getAuthCookieOptions } from "../../utils/cookieOptions.js";
+import { getAuthCookieOptions, AUTH_TOKEN_TTL_MS } from "../../utils/cookieOptions.js"; // CHANGED: also import the shared TTL constant
 
 const userSchema = new mongoose.Schema(
   {
@@ -73,8 +73,11 @@ userSchema.methods.createPasswordResetToken = function () {
 
 //Generating jwt token
 userSchema.methods.generateToken = function (res, payload) {
+  // CHANGED: expiresIn now derived from the SAME constant used for the cookie's
+  // maxAge (AUTH_TOKEN_TTL_MS), instead of a separately hardcoded "40h" string.
+  // This guarantees the cookie and the token always expire at the same time.
   const token = jwt.sign(payload, process.env.TOKEN_SECRET, {
-    expiresIn: "40h",
+    expiresIn: AUTH_TOKEN_TTL_MS / 1000, // jwt expects seconds, not ms
   });
 
   res.cookie("jwt", token, getAuthCookieOptions());

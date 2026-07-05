@@ -25,7 +25,35 @@ const initialState = {
   guestId: initialGuestId,
   loading: false,
   error: null,
+  // ADDED: tracks whether checkAuth has resolved at least once. Lets
+  // ProtectedRoute (and anything else gating on auth) wait for the real
+  // answer instead of redirecting based on stale/absent localStorage data.
+  authChecked: false,
 };
+
+// ADDED: checkAuth thunk. localStorage("userInfo") only reflects what happened
+// on the LAST successful login/verify - it never actually asks the server
+// "is my cookie still valid?". Dispatch this once when the app boots (e.g. in
+// your top-level App component's useEffect) so the store's `user` reflects
+// reality instead of stale localStorage data. Since the httpOnly "jwt" cookie
+// is now persistent (see cookieOptions.js maxAge fix), this should keep
+// succeeding across browser restarts until the token actually expires.
+export const checkAuth = createAsyncThunk(
+  "auth/checkAuth",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`/api/users/profile`);
+
+      localStorage.setItem("userInfo", JSON.stringify(response.data));
+      return response.data;
+    } catch (error) {
+      // No valid cookie / expired token: clear the stale local copy so the
+      // UI doesn't keep showing a user that the backend no longer recognizes.
+      localStorage.removeItem("userInfo");
+      return rejectWithValue(getAuthErrorMessage(error));
+    }
+  },
+);
 
 //Async Thunk for User Login
 export const loginUser = createAsyncThunk(
@@ -137,6 +165,23 @@ const authSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+      // ADDED: reducers for the new checkAuth thunk above.
+      .addCase(checkAuth.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.error = null;
+        state.authChecked = true; // ADDED
+      })
+      .addCase(checkAuth.rejected, (state) => {
+        // Cookie missing/expired - make sure the store doesn't keep
+        // pretending the user is logged in.
+        state.loading = false;
+        state.user = null;
+        state.authChecked = true; // ADDED
+      })
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -155,7 +200,7 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(registerUser.fulfilled, (state, action) => {
+      .addCase(registerUser.fulfilled, (state) => {
         state.loading = false;
         state.user = null;
       })
