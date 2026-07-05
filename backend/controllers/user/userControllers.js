@@ -11,6 +11,7 @@ import {
   resetPasswordValidationSchema,
   userValidationSchema,
 } from "../../models/user/userValidationSchema.js";
+import { recordLoginFailure } from "../../middlewares/rateLimiter.js";
 
 const getFrontendBaseUrl = (req) =>
   (
@@ -288,11 +289,27 @@ const login = catchError(async (req, res) => {
   // find the user in the DB
   let user = await userModel.findOne({ email });
 
-  if (!user) throw new AppError("Invalid Credentials", 400);
+  if (!user) {
+    try {
+      await recordLoginFailure(req);
+    } catch {
+      throw new AppError("Too many login attempts. Try again later.", 429);
+    }
+
+    throw new AppError("Invalid Credentials", 400);
+  }
 
   const isMatch = await user.matchPassword(password);
 
-  if (!isMatch) throw new AppError("Invalid Credentials", 400);
+  if (!isMatch) {
+    try {
+      await recordLoginFailure(req);
+    } catch {
+      throw new AppError("Too many login attempts. Try again later.", 429);
+    }
+
+    throw new AppError("Invalid Credentials", 400);
+  }
 
   const payload = { user: { id: user._id, role: user.role } };
   try {

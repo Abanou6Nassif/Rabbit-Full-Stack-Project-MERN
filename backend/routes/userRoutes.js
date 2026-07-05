@@ -10,23 +10,28 @@ import {
 } from "../controllers/user/userControllers.js";
 import { authenticate } from "../middlewares/authenticate.js";
 import { authorize } from "../middlewares/authorize.js";
-import { authLimiterMiddleware } from "../middlewares/rateLimiter.js";
+import {
+  registerLimiterMiddleware,
+  verifyEmailLimiterMiddleware,
+  forgotPasswordLimiterMiddleware,
+  resetPasswordLimiterMiddleware,
+} from "../middlewares/rateLimiter.js";
 const router = express.Router();
 
 //@route POST /api/users/register
 //@desc Register a new user
 //@access Public
-router.post("/register", authLimiterMiddleware, register);
+router.post("/register", registerLimiterMiddleware, register);
 
 //@route POST /api/users/verify-email/:token
 //@desc Verify email and activate account
 //@access Public
-router.post("/verify-email/:token", authLimiterMiddleware, verifyEmail);
+router.post("/verify-email/:token", verifyEmailLimiterMiddleware, verifyEmail);
 
 //@route POST /api/users/login
 //@desc Login user
 //@access Public
-router.post("/login", authLimiterMiddleware, login);
+router.post("/login", login);
 
 //@route GET /api/users/profile
 //@desc Get logged-in user's profile (Protected Route)
@@ -41,11 +46,19 @@ router.post("/logout", logout);
 //@route POST /api/users/forgot-password
 //@desc Send a password reset link
 //@access Public
-router.post("/forgot-password", authLimiterMiddleware, forgotPassword);
+router.post(
+  "/forgot-password",
+  forgotPasswordLimiterMiddleware,
+  forgotPassword,
+);
 
 //@route PUT /api/users/reset-password/:token
 //@desc Reset user password
 //@access Public
-router.put("/reset-password/:token", authLimiterMiddleware, resetPassword);
+router.put(
+  "/reset-password/:token",
+  resetPasswordLimiterMiddleware,
+  resetPassword,
+);
 
 export default router;

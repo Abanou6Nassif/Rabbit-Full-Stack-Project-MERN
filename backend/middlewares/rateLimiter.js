@@ -32,34 +32,128 @@ const createLimiter = ({ keyPrefix, points, duration, blockDuration }) => {
   return new RateLimiterMemory(options);
 };
 
-export const authLimiterEmail = createLimiter({
-  keyPrefix: "auth",
+export const registerLimiterEmail = createLimiter({
+  keyPrefix: "register",
   points: 5,
   duration: 60 * 15,
   blockDuration: 60 * 15,
 });
-export const authLimiterIP = createLimiter({
-  keyPrefix: "auth",
+export const registerLimiterIP = createLimiter({
+  keyPrefix: "register",
   points: 10,
   duration: 60 * 30,
   blockDuration: 60 * 15,
 });
 
-export const authLimiterMiddleware = async (req, res, next) => {
-  try {
-    const promises = [authLimiterIP.consume(req.ip)];
-    if (req.body?.email) promises.push(authLimiterEmail.consume(req.body.email));
+export const verifyEmailLimiterIP = createLimiter({
+  keyPrefix: "verify-email",
+  points: 10,
+  duration: 60 * 30,
+  blockDuration: 60 * 15,
+});
 
-    await Promise.all(promises);
-    next();
-  } catch {
-    res.status(429).send("Too many login attempts. Try again later.");
+export const forgotPasswordLimiterEmail = createLimiter({
+  keyPrefix: "forgot-password",
+  points: 5,
+  duration: 60 * 15,
+  blockDuration: 60 * 15,
+});
+export const forgotPasswordLimiterIP = createLimiter({
+  keyPrefix: "forgot-password",
+  points: 10,
+  duration: 60 * 30,
+  blockDuration: 60 * 15,
+});
+
+export const resetPasswordLimiterIP = createLimiter({
+  keyPrefix: "reset-password",
+  points: 10,
+  duration: 60 * 30,
+  blockDuration: 60 * 15,
+});
+
+export const loginFailureLimiterEmail = createLimiter({
+  keyPrefix: "login",
+  points: 5,
+  duration: 60 * 15,
+  blockDuration: 60 * 15,
+});
+export const loginFailureLimiterIP = createLimiter({
+  keyPrefix: "login",
+  points: 10,
+  duration: 60 * 30,
+  blockDuration: 60 * 15,
+});
+
+export const recordLoginFailure = async (req) => {
+  const promises = [loginFailureLimiterIP.consume(req.ip)];
+  const email = req.body?.email?.trim().toLowerCase();
+
+  if (email) {
+    promises.push(loginFailureLimiterEmail.consume(email));
   }
+
+  await Promise.all(promises);
 };
+
+const createRequestLimiterMiddleware = (
+  limiters,
+  message = "Too many requests. Try again later.",
+) =>
+  async (req, res, next) => {
+    try {
+      const promises = limiters.map(({ limiter, keyFn }) => {
+        const key = keyFn(req);
+
+        if (!key) {
+          return null;
+        }
+
+        return limiter.consume(key);
+      });
+
+      await Promise.all(promises.filter(Boolean));
+      next();
+    } catch {
+      res.status(429).send(message);
+    }
+  };
+
+export const registerLimiterMiddleware = createRequestLimiterMiddleware(
+  [
+    { limiter: registerLimiterIP, keyFn: (req) => req.ip },
+    {
+      limiter: registerLimiterEmail,
+      keyFn: (req) => req.body?.email?.trim().toLowerCase(),
+    },
+  ],
+  "Too many registration attempts. Try again later.",
+);
+
+export const verifyEmailLimiterMiddleware = createRequestLimiterMiddleware(
+  [{ limiter: verifyEmailLimiterIP, keyFn: (req) => req.ip }],
+  "Too many verification attempts. Try again later.",
+);
+
+export const forgotPasswordLimiterMiddleware = createRequestLimiterMiddleware(
+  [
+    { limiter: forgotPasswordLimiterIP, keyFn: (req) => req.ip },
+    {
+      limiter: forgotPasswordLimiterEmail,
+      keyFn: (req) => req.body?.email?.trim().toLowerCase(),
+    },
+  ],
+  "Too many password reset attempts. Try again later.",
+);
+
+export const resetPasswordLimiterMiddleware = createRequestLimiterMiddleware(
+  [{ limiter: resetPasswordLimiterIP, keyFn: (req) => req.ip }],
+  "Too many password reset attempts. Try again later.",
+);
 
 export const globalLimiter = createLimiter({
   keyPrefix: "global",
-  points: 300,
+  points: 200,
   duration: 60,
 });
 
