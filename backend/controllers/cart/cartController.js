@@ -252,7 +252,21 @@ export const mergeCart = catchError(async (req, res) => {
         if (productIndex > -1) {
           userCart.products[productIndex].quantity += guestItem.quantity;
         } else {
-          userCart.products.push(guestItem);
+          // Push a plain object built from the guest item's fields rather
+          // than the raw Mongoose subdocument itself. Pushing the subdocument
+          // directly carries over its existing _id and can create a shared
+          // reference between the guest cart's array and the user cart's
+          // array, which leads to duplicate-key errors or unexpected
+          // mutations when either cart is saved/deleted afterward.
+          userCart.products.push({
+            productId: guestItem.productId,
+            name: guestItem.name,
+            image: guestItem.image,
+            price: guestItem.price,
+            size: guestItem.size,
+            color: guestItem.color,
+            quantity: guestItem.quantity,
+          });
         }
       });
 
@@ -260,18 +274,13 @@ export const mergeCart = catchError(async (req, res) => {
         return total + item.quantity * item.price;
       }, 0);
 
-      //Remove the guest cart after merging
-      // userCart.guestId = null
-      // await userCart.save();
+      // Persist the merged products/totalPrice onto the ACTUAL user cart
+      // document (previously this saved nothing and instead re-pointed the
+      // guest cart at the user, silently dropping the merge and leaving a
+      // duplicate cart behind).
+      userCart = await userCart.save();
 
-      userCart = await cartModel.findOneAndUpdate(
-        { guestId },
-        {
-          $set: { user: req.user._id },
-          $unset: { guestId: "" },
-        },
-        { returnDocument: "after" },
-      );
+      // Now that the merge has been persisted, remove the redundant guest cart.
       await cartModel.findOneAndDelete({ guestId });
 
       res.status(200).json(userCart);

@@ -61,9 +61,14 @@ function Login() {
       hasMerged.current = true;
       try {
         if (guestId) {
-          await dispatch(mergeCart({ guestId })).unwrap();
+          const mergedCart = await dispatch(mergeCart({ guestId })).unwrap();
+          console.log(mergedCart);
         }
-        await dispatch(fetchCart({ userId: user._id })).unwrap();
+        const usercart = await dispatch(
+          fetchCart({ userId: user._id }),
+        ).unwrap();
+        console.log(usercart);
+
         navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
         // eslint-disable-next-line no-unused-vars
       } catch (error) {

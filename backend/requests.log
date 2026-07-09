@@ -84324,3 +84324,206 @@
 [2026-07-04T13:37:36.318Z] <= END [3dc44aca-ef9c-4225-91b2-3f2c8c697a1a] GET /6a18c14fca00924bf4a4139b | Status: 304 | 149ms
 [2026-07-04T13:37:36.389Z] <= END [d9439174-7b21-4955-acdb-097fede146f4] GET /new-arrivals | Status: 200 | 593ms
 [2026-07-04T13:37:36.464Z] <= END [c554929f-4bfb-414a-a6d8-0ea3bca851a6] GET /similar/6a18c14fca00924bf4a4139b | Status: 304 | 226ms
+[2026-07-09T14:37:51.261Z] => START [830c2543-f013-41a2-a940-add0abe18342] GET /api/users/profile
+[2026-07-09T14:37:51.262Z] => START [cae48554-7c25-476f-8ea7-39b20008c447] GET /api/products/new-arrivals
+[2026-07-09T14:37:51.264Z] => START [334a1528-307b-49da-a80c-767441aac022] GET /api/products?gender=Women&category=Bottom+Wear&limit=8
+[2026-07-09T14:37:51.267Z] => START [5ffa1955-48c0-4f08-9fc2-fed3778052b1] GET /api/products/best-seller
+[2026-07-09T14:37:51.267Z] => START [e9759298-c675-4cbf-b131-f530bd0e5578] GET /api/products/best-seller
+[2026-07-09T14:37:51.267Z] => START [1d089b57-156f-434f-a241-9cd3182fc39e] GET /api/products/new-arrivals
+[2026-07-09T14:37:51.276Z] <= END [830c2543-f013-41a2-a940-add0abe18342] GET /api/users/profile | Status: 401 | 15ms
+[2026-07-09T14:37:51.277Z] => START [79ad6bb6-ecc2-4b19-a8df-eb2ccd9e761e] GET /api/users/profile
+[2026-07-09T14:37:51.278Z] <= END [79ad6bb6-ecc2-4b19-a8df-eb2ccd9e761e] GET /api/users/profile | Status: 401 | 1ms
+[2026-07-09T14:37:51.279Z] => START [53d7585e-5791-46b1-b6f0-2638fcbbce71] POST /api/users/refresh
+[2026-07-09T14:37:51.283Z] <= END [53d7585e-5791-46b1-b6f0-2638fcbbce71] POST /api/users/refresh | Status: 401 | 4ms
+[2026-07-09T14:37:51.824Z] <= END [334a1528-307b-49da-a80c-767441aac022] GET /?gender=Women&category=Bottom+Wear&limit=8 | Status: 304 | 560ms
+[2026-07-09T14:37:51.825Z] => START [510268c5-ca2b-4f07-8653-d2ba3a140918] GET /api/products?gender=Women&category=Bottom+Wear&limit=8
+[2026-07-09T14:37:51.841Z] <= END [1d089b57-156f-434f-a241-9cd3182fc39e] GET /new-arrivals | Status: 200 | 574ms
+[2026-07-09T14:37:51.975Z] <= END [510268c5-ca2b-4f07-8653-d2ba3a140918] GET /?gender=Women&category=Bottom+Wear&limit=8 | Status: 304 | 150ms
+[2026-07-09T14:37:52.151Z] <= END [e9759298-c675-4cbf-b131-f530bd0e5578] GET /best-seller | Status: 200 | 884ms
+[2026-07-09T14:37:52.165Z] => START [607778ef-8c6e-4644-90f9-ca3f08fdd92c] GET /api/products/6a18c14fca00924bf4a4139b
+[2026-07-09T14:37:52.167Z] => START [af67b9da-2462-4298-9881-c25c435431b5] GET /api/products/similar/6a18c14fca00924bf4a4139b
+[2026-07-09T14:37:52.240Z] <= END [607778ef-8c6e-4644-90f9-ca3f08fdd92c] GET /6a18c14fca00924bf4a4139b | Status: 304 | 75ms
+[2026-07-09T14:37:52.243Z] => START [771bca76-a7ec-4684-94f5-476f9cd92800] GET /api/products/6a18c14fca00924bf4a4139b
+[2026-07-09T14:37:52.313Z] <= END [af67b9da-2462-4298-9881-c25c435431b5] GET /similar/6a18c14fca00924bf4a4139b | Status: 304 | 146ms
+[2026-07-09T14:37:52.313Z] => START [5b712afa-1a64-44eb-9b23-0a4eeeddf14d] GET /api/products/similar/6a18c14fca00924bf4a4139b
+[2026-07-09T14:37:52.324Z] <= END [771bca76-a7ec-4684-94f5-476f9cd92800] GET /6a18c14fca00924bf4a4139b | Status: 304 | 81ms
+[2026-07-09T14:37:52.459Z] <= END [5b712afa-1a64-44eb-9b23-0a4eeeddf14d] GET /similar/6a18c14fca00924bf4a4139b | Status: 304 | 146ms
+[2026-07-09T14:37:52.933Z] => START [39bb1edb-756f-4d4c-b201-c22ebd6aeede] GET /api/orders/my-orders
+[2026-07-09T14:37:52.934Z] <= END [39bb1edb-756f-4d4c-b201-c22ebd6aeede] GET /api/orders/my-orders | Status: 401 | 1ms
+[2026-07-09T14:37:52.936Z] => START [9c881293-0adf-4bb0-84d8-6864c4c5ff71] GET /api/orders/my-orders
+[2026-07-09T14:37:52.937Z] <= END [9c881293-0adf-4bb0-84d8-6864c4c5ff71] GET /api/orders/my-orders | Status: 401 | 1ms
+[2026-07-09T14:37:52.944Z] => START [5eb62d96-766f-4903-bf92-56766e9cc6e7] POST /api/users/refresh
+[2026-07-09T14:37:53.025Z] <= END [5eb62d96-766f-4903-bf92-56766e9cc6e7] POST /api/users/refresh | Status: 401 | 81ms
+[2026-07-09T14:37:53.151Z] => START [c8becfc4-c988-4e3f-b89d-edd5733101af] GET /api/orders/my-orders
+[2026-07-09T14:37:53.152Z] <= END [c8becfc4-c988-4e3f-b89d-edd5733101af] GET /api/orders/my-orders | Status: 401 | 1ms
+[2026-07-09T14:37:53.154Z] => START [26e78cd5-0ed1-4cd3-a7a5-35a55c769979] GET /api/orders/my-orders
+[2026-07-09T14:37:53.154Z] <= END [26e78cd5-0ed1-4cd3-a7a5-35a55c769979] GET /api/orders/my-orders | Status: 401 | 0ms
+[2026-07-09T14:37:53.156Z] => START [4a0993d7-72a0-4d79-bc54-c0794b69a87f] POST /api/users/refresh
+[2026-07-09T14:37:53.235Z] <= END [4a0993d7-72a0-4d79-bc54-c0794b69a87f] POST /api/users/refresh | Status: 401 | 79ms
+[2026-07-09T14:37:54.615Z] => START [f4fa9ea8-0404-492c-8a0d-21f99078c067] GET /api/products?collection=all&category=Top+Wear
+[2026-07-09T14:37:54.754Z] <= END [f4fa9ea8-0404-492c-8a0d-21f99078c067] GET /?collection=all&category=Top+Wear | Status: 200 | 139ms
+[2026-07-09T14:37:54.755Z] => START [66899d96-5fd0-469a-a31c-e901cbade27b] GET /api/products?collection=all&category=Top+Wear
+[2026-07-09T14:37:54.832Z] <= END [66899d96-5fd0-469a-a31c-e901cbade27b] GET /?collection=all&category=Top+Wear | Status: 304 | 77ms
+[2026-07-09T14:37:55.677Z] => START [ce36ae04-d524-4cfa-80f0-b107c27598df] GET /api/products/6a18c14fca00924bf4a41392
+[2026-07-09T14:37:55.678Z] => START [e4f6e5d2-a964-4d13-86e0-d9c6f99a9f05] GET /api/products/similar/6a18c14fca00924bf4a41392
+[2026-07-09T14:37:55.750Z] <= END [ce36ae04-d524-4cfa-80f0-b107c27598df] GET /6a18c14fca00924bf4a41392 | Status: 200 | 73ms
+[2026-07-09T14:37:55.751Z] => START [35457946-8cd3-4c24-8259-444722c49354] GET /api/products/6a18c14fca00924bf4a41392
+[2026-07-09T14:37:55.819Z] <= END [35457946-8cd3-4c24-8259-444722c49354] GET /6a18c14fca00924bf4a41392 | Status: 304 | 68ms
+[2026-07-09T14:37:55.821Z] <= END [e4f6e5d2-a964-4d13-86e0-d9c6f99a9f05] GET /similar/6a18c14fca00924bf4a41392 | Status: 200 | 143ms
+[2026-07-09T14:37:55.822Z] => START [d10ad090-3721-4640-aecc-adda4a3407dc] GET /api/products/similar/6a18c14fca00924bf4a41392
+[2026-07-09T14:37:55.966Z] <= END [d10ad090-3721-4640-aecc-adda4a3407dc] GET /similar/6a18c14fca00924bf4a41392 | Status: 304 | 144ms
+[2026-07-09T14:37:59.799Z] => START [24a47f69-70a1-46c1-8984-db6d1a46a541] POST /api/cart
+[2026-07-09T14:38:11.072Z] => START [9fbae11b-887f-49cd-a842-d09ebdad886d] POST /api/cart
+[2026-07-09T14:38:12.082Z] <= END [9fbae11b-887f-49cd-a842-d09ebdad886d] POST / | Status: 201 | 1010ms
+[2026-07-09T14:38:17.586Z] => START [e6fb13a8-e4cf-486a-a4f9-faa740aa54cc] GET /api/orders/my-orders
+[2026-07-09T14:38:17.587Z] <= END [e6fb13a8-e4cf-486a-a4f9-faa740aa54cc] GET /api/orders/my-orders | Status: 401 | 1ms
+[2026-07-09T14:38:17.589Z] => START [70a7d836-55c2-4368-bdf0-c59a7a7d442a] GET /api/orders/my-orders
+[2026-07-09T14:38:17.590Z] <= END [70a7d836-55c2-4368-bdf0-c59a7a7d442a] GET /api/orders/my-orders | Status: 401 | 1ms
+[2026-07-09T14:38:17.593Z] => START [f0f7b51d-3c6f-4d63-85b2-9f93965dbff5] POST /api/users/refresh
+[2026-07-09T14:38:17.672Z] <= END [f0f7b51d-3c6f-4d63-85b2-9f93965dbff5] POST /api/users/refresh | Status: 401 | 79ms
+[2026-07-09T14:38:34.283Z] => START [2d33b24a-b11f-479f-b66e-f6ff838779d0] POST /api/users/login
+[2026-07-09T14:38:34.491Z] <= END [2d33b24a-b11f-479f-b66e-f6ff838779d0] POST /login | Status: 201 | 208ms
+[2026-07-09T14:38:34.502Z] => START [14990044-e3d0-48c5-a7c6-c94781c1949a] POST /api/cart/merge
+[2026-07-09T14:38:34.940Z] <= END [14990044-e3d0-48c5-a7c6-c94781c1949a] POST /merge | Status: 200 | 438ms
+[2026-07-09T14:38:34.952Z] => START [ad1414b6-3c27-48ec-84cc-3ee0970ef4b9] GET /api/cart?userId=6a3140b2bf179b1fd0d8f426
+[2026-07-09T14:38:35.022Z] <= END [ad1414b6-3c27-48ec-84cc-3ee0970ef4b9] GET /?userId=6a3140b2bf179b1fd0d8f426 | Status: 304 | 70ms
+[2026-07-09T14:38:35.042Z] => START [7d2e0e4a-768b-42b7-8c1d-66619f5b144d] GET /api/orders/my-orders
+[2026-07-09T14:38:35.192Z] <= END [7d2e0e4a-768b-42b7-8c1d-66619f5b144d] GET /my-orders | Status: 304 | 150ms
+[2026-07-09T14:38:35.193Z] => START [5630b291-e29b-48d2-b92d-25f36f0b0bb1] GET /api/orders/my-orders
+[2026-07-09T14:38:35.331Z] <= END [5630b291-e29b-48d2-b92d-25f36f0b0bb1] GET /my-orders | Status: 304 | 138ms
+[2026-07-09T14:38:54.325Z] => START [89523762-5fbe-4eba-8d6e-f14c3bb85da7] POST /api/users/logout
+[2026-07-09T14:38:54.415Z] <= END [89523762-5fbe-4eba-8d6e-f14c3bb85da7] POST /logout | Status: 200 | 90ms
+[2026-07-09T14:38:56.044Z] => START [7dc03ef9-0f99-4019-b7a5-dfc4fadacddc] GET /api/products?collection=all&gender=Women
+[2026-07-09T14:38:56.226Z] <= END [7dc03ef9-0f99-4019-b7a5-dfc4fadacddc] GET /?collection=all&gender=Women | Status: 304 | 182ms
+[2026-07-09T14:38:56.227Z] => START [c1c600d9-e3d1-4e24-8ea2-2788809b59db] GET /api/products?collection=all&gender=Women
+[2026-07-09T14:38:56.337Z] <= END [c1c600d9-e3d1-4e24-8ea2-2788809b59db] GET /?collection=all&gender=Women | Status: 304 | 110ms
+[2026-07-09T14:38:58.740Z] => START [6e70e7b0-f4c5-4dba-86d7-740d01f9225d] GET /api/products/6a18c14fca00924bf4a413c7
+[2026-07-09T14:38:58.741Z] => START [1aa009c2-7263-434c-b90a-b0aba4f1b120] GET /api/products/similar/6a18c14fca00924bf4a413c7
+[2026-07-09T14:38:58.809Z] <= END [6e70e7b0-f4c5-4dba-86d7-740d01f9225d] GET /6a18c14fca00924bf4a413c7 | Status: 200 | 69ms
+[2026-07-09T14:38:58.810Z] => START [6d269511-97b3-4f0e-b927-00dae659b334] GET /api/products/6a18c14fca00924bf4a413c7
+[2026-07-09T14:38:58.879Z] <= END [6d269511-97b3-4f0e-b927-00dae659b334] GET /6a18c14fca00924bf4a413c7 | Status: 304 | 69ms
+[2026-07-09T14:38:58.893Z] <= END [1aa009c2-7263-434c-b90a-b0aba4f1b120] GET /similar/6a18c14fca00924bf4a413c7 | Status: 200 | 152ms
+[2026-07-09T14:38:58.893Z] => START [43b5a6c2-ec44-4a07-90c4-1a751ea63661] GET /api/products/similar/6a18c14fca00924bf4a413c7
+[2026-07-09T14:38:59.036Z] <= END [43b5a6c2-ec44-4a07-90c4-1a751ea63661] GET /similar/6a18c14fca00924bf4a413c7 | Status: 304 | 143ms
+[2026-07-09T14:39:09.476Z] => START [ca203bc5-67b6-42e7-8da4-52b79de701c7] POST /api/cart
+[2026-07-09T14:39:09.775Z] <= END [ca203bc5-67b6-42e7-8da4-52b79de701c7] POST / | Status: 201 | 299ms
+[2026-07-09T14:39:12.715Z] => START [04e0ebf1-de65-4ebc-afa2-aeaeb1fac179] GET /api/orders/my-orders
+[2026-07-09T14:39:12.716Z] <= END [04e0ebf1-de65-4ebc-afa2-aeaeb1fac179] GET /api/orders/my-orders | Status: 401 | 1ms
+[2026-07-09T14:39:12.722Z] => START [d8b1974b-dbd3-4766-b256-14993e299f87] GET /api/orders/my-orders
+[2026-07-09T14:39:12.722Z] <= END [d8b1974b-dbd3-4766-b256-14993e299f87] GET /api/orders/my-orders | Status: 401 | 0ms
+[2026-07-09T14:39:12.726Z] => START [ba2c3559-0245-412c-b980-fbba0525eaff] POST /api/users/refresh
+[2026-07-09T14:39:12.804Z] <= END [ba2c3559-0245-412c-b980-fbba0525eaff] POST /api/users/refresh | Status: 401 | 78ms
+[2026-07-09T14:39:23.689Z] => START [d01ceb88-f8f1-46aa-950e-4762fe6134bf] POST /api/users/login
+[2026-07-09T14:39:23.892Z] <= END [d01ceb88-f8f1-46aa-950e-4762fe6134bf] POST /login | Status: 201 | 203ms
+[2026-07-09T14:39:23.901Z] => START [aa8db358-65a7-4a11-a1ac-e22c92d8728b] POST /api/cart/merge
+[2026-07-09T14:39:24.341Z] <= END [aa8db358-65a7-4a11-a1ac-e22c92d8728b] POST /merge | Status: 200 | 440ms
+[2026-07-09T14:39:24.348Z] => START [12d88fb0-06c0-47f9-82b4-de4983216672] GET /api/cart?userId=6a3140b2bf179b1fd0d8f426
+[2026-07-09T14:39:24.418Z] <= END [12d88fb0-06c0-47f9-82b4-de4983216672] GET /?userId=6a3140b2bf179b1fd0d8f426 | Status: 304 | 70ms
+[2026-07-09T14:39:24.440Z] => START [96956f2c-7db0-459b-aa65-59c8ddc6e9a7] GET /api/orders/my-orders
+[2026-07-09T14:39:24.580Z] <= END [96956f2c-7db0-459b-aa65-59c8ddc6e9a7] GET /my-orders | Status: 304 | 140ms
+[2026-07-09T14:39:24.581Z] => START [c31ce92f-5474-47ae-aea2-369e07ceafac] GET /api/orders/my-orders
+[2026-07-09T14:39:24.723Z] <= END [c31ce92f-5474-47ae-aea2-369e07ceafac] GET /my-orders | Status: 304 | 142ms
+[2026-07-09T14:43:33.541Z] => START [22cf477c-7a5d-425a-970e-790953e96bdb] GET /api/users/profile
+[2026-07-09T14:43:33.544Z] => START [57a530fb-d8ce-44a0-aeab-04b66a3dab75] GET /api/orders/my-orders
+[2026-07-09T14:43:33.616Z] <= END [22cf477c-7a5d-425a-970e-790953e96bdb] GET /profile | Status: 200 | 75ms
+[2026-07-09T14:43:33.617Z] => START [8935e188-56e4-4fa5-8d1f-eedae6f5d181] GET /api/users/profile
+[2026-07-09T14:43:33.684Z] <= END [57a530fb-d8ce-44a0-aeab-04b66a3dab75] GET /my-orders | Status: 304 | 140ms
+[2026-07-09T14:43:33.686Z] => START [99288803-25e1-41bb-a22a-79bab405c8a9] GET /api/orders/my-orders
+[2026-07-09T14:43:33.688Z] <= END [8935e188-56e4-4fa5-8d1f-eedae6f5d181] GET /profile | Status: 304 | 71ms
+[2026-07-09T14:43:33.826Z] <= END [99288803-25e1-41bb-a22a-79bab405c8a9] GET /my-orders | Status: 304 | 140ms
+[2026-07-09T14:43:35.090Z] => START [cda97af8-7f04-4631-b512-276da4b90f86] POST /api/users/logout
+[2026-07-09T14:43:35.170Z] <= END [cda97af8-7f04-4631-b512-276da4b90f86] POST /logout | Status: 200 | 80ms
+[2026-07-09T14:43:36.726Z] => START [6dbe17f1-d962-4b56-a56f-8b7be425634f] GET /api/products?collection=all&gender=Women
+[2026-07-09T14:43:36.867Z] <= END [6dbe17f1-d962-4b56-a56f-8b7be425634f] GET /?collection=all&gender=Women | Status: 304 | 141ms
+[2026-07-09T14:43:36.868Z] => START [6cb29192-a2c2-4a80-8c20-5a07b4c64ced] GET /api/products?collection=all&gender=Women
+[2026-07-09T14:43:36.950Z] <= END [6cb29192-a2c2-4a80-8c20-5a07b4c64ced] GET /?collection=all&gender=Women | Status: 304 | 82ms
+[2026-07-09T14:43:37.993Z] => START [2bda5674-2174-41a5-baad-d339d7bd7122] GET /api/products/6a18c14fca00924bf4a413bd
+[2026-07-09T14:43:38.001Z] => START [b4e2440a-222b-4349-a109-0e271af23c23] GET /api/products/similar/6a18c14fca00924bf4a413bd
+[2026-07-09T14:43:38.073Z] <= END [2bda5674-2174-41a5-baad-d339d7bd7122] GET /6a18c14fca00924bf4a413bd | Status: 200 | 80ms
+[2026-07-09T14:43:38.075Z] => START [cb815475-1202-44b8-80d3-33ad2c8e1aa1] GET /api/products/6a18c14fca00924bf4a413bd
+[2026-07-09T14:43:38.148Z] <= END [b4e2440a-222b-4349-a109-0e271af23c23] GET /similar/6a18c14fca00924bf4a413bd | Status: 200 | 147ms
+[2026-07-09T14:43:38.150Z] <= END [cb815475-1202-44b8-80d3-33ad2c8e1aa1] GET /6a18c14fca00924bf4a413bd | Status: 304 | 75ms
+[2026-07-09T14:43:38.151Z] => START [842a971b-924d-41ff-85a6-929f2bfcbe33] GET /api/products/similar/6a18c14fca00924bf4a413bd
+[2026-07-09T14:43:38.293Z] <= END [842a971b-924d-41ff-85a6-929f2bfcbe33] GET /similar/6a18c14fca00924bf4a413bd | Status: 304 | 142ms
+[2026-07-09T14:43:43.538Z] => START [675e5f94-718c-4ccb-a685-7526f5b41616] POST /api/cart
+[2026-07-09T14:43:43.839Z] <= END [675e5f94-718c-4ccb-a685-7526f5b41616] POST / | Status: 201 | 301ms
+[2026-07-09T14:43:50.095Z] => START [c4f7adae-1063-4cc4-b07d-7445cadd42cd] GET /api/orders/my-orders
+[2026-07-09T14:43:50.095Z] <= END [c4f7adae-1063-4cc4-b07d-7445cadd42cd] GET /api/orders/my-orders | Status: 401 | 0ms
+[2026-07-09T14:43:50.099Z] => START [a25d90c1-48e3-4740-a238-f3a2a142bea6] GET /api/orders/my-orders
+[2026-07-09T14:43:50.100Z] <= END [a25d90c1-48e3-4740-a238-f3a2a142bea6] GET /api/orders/my-orders | Status: 401 | 1ms
+[2026-07-09T14:43:50.110Z] => START [19d38f46-e27f-4f49-b116-1375a1504b3b] POST /api/users/refresh
+[2026-07-09T14:43:50.188Z] <= END [19d38f46-e27f-4f49-b116-1375a1504b3b] POST /api/users/refresh | Status: 401 | 78ms
+[2026-07-09T14:44:08.515Z] => START [a810053b-20ae-460b-9435-092d3c4bba4c] POST /api/users/login
+[2026-07-09T14:44:08.725Z] <= END [a810053b-20ae-460b-9435-092d3c4bba4c] POST /login | Status: 201 | 210ms
+[2026-07-09T14:44:08.745Z] => START [d96975b9-1441-43f3-b33c-fb27b211d6bd] POST /api/cart/merge
+[2026-07-09T14:44:09.186Z] <= END [d96975b9-1441-43f3-b33c-fb27b211d6bd] POST /merge | Status: 200 | 441ms
+[2026-07-09T14:44:09.203Z] => START [68d7de2a-3066-4a1e-839a-d882b59140c9] GET /api/cart?userId=6a3140b2bf179b1fd0d8f426
+[2026-07-09T14:44:09.272Z] <= END [68d7de2a-3066-4a1e-839a-d882b59140c9] GET /?userId=6a3140b2bf179b1fd0d8f426 | Status: 304 | 69ms
+[2026-07-09T14:44:09.308Z] => START [22b118bc-4204-4fb2-9337-38ce768b102d] GET /api/orders/my-orders
+[2026-07-09T14:44:09.460Z] <= END [22b118bc-4204-4fb2-9337-38ce768b102d] GET /my-orders | Status: 304 | 152ms
+[2026-07-09T14:44:09.461Z] => START [db91582b-ede5-47e9-a99d-0735fb94b7da] GET /api/orders/my-orders
+[2026-07-09T14:44:09.604Z] <= END [db91582b-ede5-47e9-a99d-0735fb94b7da] GET /my-orders | Status: 304 | 143ms
+[2026-07-09T14:47:26.907Z] => START [c37e999c-b869-4fac-b5a6-0cdf900fb055] POST /api/users/logout
+[2026-07-09T14:47:26.987Z] <= END [c37e999c-b869-4fac-b5a6-0cdf900fb055] POST /logout | Status: 200 | 80ms
+[2026-07-09T14:47:28.608Z] => START [0fdaef46-162e-41f9-89cb-13194c067409] GET /api/products?collection=all&gender=Women
+[2026-07-09T14:47:28.790Z] <= END [0fdaef46-162e-41f9-89cb-13194c067409] GET /?collection=all&gender=Women | Status: 304 | 182ms
+[2026-07-09T14:47:28.791Z] => START [33b447e1-0651-4f62-9700-511b6d72d240] GET /api/products?collection=all&gender=Women
+[2026-07-09T14:47:28.870Z] <= END [33b447e1-0651-4f62-9700-511b6d72d240] GET /?collection=all&gender=Women | Status: 304 | 79ms
+[2026-07-09T14:47:29.717Z] => START [b1cd9610-1535-4927-8859-bd15512c52a8] GET /api/products/6a18c14fca00924bf4a413bd
+[2026-07-09T14:47:29.720Z] => START [d0f81378-c297-4be4-a04f-6e8e4d1a8554] GET /api/products/similar/6a18c14fca00924bf4a413bd
+[2026-07-09T14:47:29.786Z] <= END [b1cd9610-1535-4927-8859-bd15512c52a8] GET /6a18c14fca00924bf4a413bd | Status: 304 | 69ms
+[2026-07-09T14:47:29.787Z] => START [b23228fa-f914-4fa1-8506-0a3e0655ffd6] GET /api/products/6a18c14fca00924bf4a413bd
+[2026-07-09T14:47:29.855Z] <= END [b23228fa-f914-4fa1-8506-0a3e0655ffd6] GET /6a18c14fca00924bf4a413bd | Status: 304 | 68ms
+[2026-07-09T14:47:29.859Z] <= END [d0f81378-c297-4be4-a04f-6e8e4d1a8554] GET /similar/6a18c14fca00924bf4a413bd | Status: 304 | 139ms
+[2026-07-09T14:47:29.861Z] => START [0cc0a1af-1cda-44ea-9775-1261b797cadd] GET /api/products/similar/6a18c14fca00924bf4a413bd
+[2026-07-09T14:47:30.001Z] <= END [0cc0a1af-1cda-44ea-9775-1261b797cadd] GET /similar/6a18c14fca00924bf4a413bd | Status: 304 | 140ms
+[2026-07-09T14:47:34.884Z] => START [26e0fe23-78be-4f90-96f7-67a47ba50ce5] POST /api/cart
+[2026-07-09T14:47:35.183Z] <= END [26e0fe23-78be-4f90-96f7-67a47ba50ce5] POST / | Status: 201 | 299ms
+[2026-07-09T14:47:37.499Z] => START [7000e7ca-4492-4145-944d-18f809e12a92] GET /api/orders/my-orders
+[2026-07-09T14:47:37.499Z] <= END [7000e7ca-4492-4145-944d-18f809e12a92] GET /api/orders/my-orders | Status: 401 | 0ms
+[2026-07-09T14:47:37.502Z] => START [2bf3a602-30a6-49dd-9bb2-73532233b5ac] GET /api/orders/my-orders
+[2026-07-09T14:47:37.502Z] <= END [2bf3a602-30a6-49dd-9bb2-73532233b5ac] GET /api/orders/my-orders | Status: 401 | 0ms
+[2026-07-09T14:47:37.512Z] => START [4087d198-e64c-4bf1-acf9-cc3cd380d5a7] POST /api/users/refresh
+[2026-07-09T14:47:37.590Z] <= END [4087d198-e64c-4bf1-acf9-cc3cd380d5a7] POST /api/users/refresh | Status: 401 | 78ms
+[2026-07-09T14:47:49.855Z] => START [604bad1d-5971-4689-9ccc-596e82d3476a] POST /api/users/login
+[2026-07-09T14:47:50.059Z] <= END [604bad1d-5971-4689-9ccc-596e82d3476a] POST /login | Status: 201 | 204ms
+[2026-07-09T14:47:50.076Z] => START [e9816bb5-0a80-4983-9c9c-92ad1e16124f] POST /api/cart/merge
+[2026-07-09T14:47:50.437Z] <= END [e9816bb5-0a80-4983-9c9c-92ad1e16124f] POST /merge | Status: 200 | 361ms
+[2026-07-09T14:47:50.453Z] => START [eec3c9a1-e51d-4ca3-9938-5e63b8354df3] GET /api/cart?userId=6a3140b2bf179b1fd0d8f426
+[2026-07-09T14:47:50.523Z] <= END [eec3c9a1-e51d-4ca3-9938-5e63b8354df3] GET /?userId=6a3140b2bf179b1fd0d8f426 | Status: 200 | 70ms
+[2026-07-09T14:47:50.553Z] => START [3b1661b2-251d-40e9-85b7-72af2a2eaa6a] GET /api/orders/my-orders
+[2026-07-09T14:47:50.696Z] <= END [3b1661b2-251d-40e9-85b7-72af2a2eaa6a] GET /my-orders | Status: 304 | 143ms
+[2026-07-09T14:47:50.697Z] => START [2dc6e6d3-53ca-43eb-b509-54eff1ff5ffe] GET /api/orders/my-orders
+[2026-07-09T14:47:50.837Z] <= END [2dc6e6d3-53ca-43eb-b509-54eff1ff5ffe] GET /my-orders | Status: 304 | 140ms
+[2026-07-09T14:48:22.589Z] => START [4f319fb6-a7be-4ec7-ae62-4b3c14f8148c] POST /api/users/logout
+[2026-07-09T14:48:22.668Z] <= END [4f319fb6-a7be-4ec7-ae62-4b3c14f8148c] POST /logout | Status: 200 | 79ms
+[2026-07-09T14:48:25.541Z] => START [ce941254-3291-4f1d-b5e8-fb0fe7e05c51] GET /api/products?collection=all&category=Top+Wear
+[2026-07-09T14:48:25.739Z] <= END [ce941254-3291-4f1d-b5e8-fb0fe7e05c51] GET /?collection=all&category=Top+Wear | Status: 304 | 198ms
+[2026-07-09T14:48:25.740Z] => START [a078904e-b5b8-4acb-9a58-c8e478a40ef9] GET /api/products?collection=all&category=Top+Wear
+[2026-07-09T14:48:25.825Z] <= END [a078904e-b5b8-4acb-9a58-c8e478a40ef9] GET /?collection=all&category=Top+Wear | Status: 304 | 85ms
+[2026-07-09T14:48:27.378Z] => START [7bf46c8b-d28f-48b8-85c7-4fdbd42fcf09] GET /api/products/6a18c14fca00924bf4a41392
+[2026-07-09T14:48:27.383Z] => START [39a5e660-e81b-449f-9dc6-d173bc327362] GET /api/products/similar/6a18c14fca00924bf4a41392
+[2026-07-09T14:48:27.449Z] <= END [7bf46c8b-d28f-48b8-85c7-4fdbd42fcf09] GET /6a18c14fca00924bf4a41392 | Status: 304 | 71ms
+[2026-07-09T14:48:27.450Z] => START [54a86e37-9d24-422c-b776-9f384c49938f] GET /api/products/6a18c14fca00924bf4a41392
+[2026-07-09T14:48:27.520Z] <= END [54a86e37-9d24-422c-b776-9f384c49938f] GET /6a18c14fca00924bf4a41392 | Status: 304 | 70ms
+[2026-07-09T14:48:27.527Z] <= END [39a5e660-e81b-449f-9dc6-d173bc327362] GET /similar/6a18c14fca00924bf4a41392 | Status: 304 | 144ms
+[2026-07-09T14:48:27.528Z] => START [62f11725-128c-4224-817d-e818cb9a9012] GET /api/products/similar/6a18c14fca00924bf4a41392
+[2026-07-09T14:48:27.669Z] <= END [62f11725-128c-4224-817d-e818cb9a9012] GET /similar/6a18c14fca00924bf4a41392 | Status: 304 | 141ms
+[2026-07-09T14:48:32.076Z] => START [9ceb7415-4496-4a38-aa39-21cd9d1c4c2b] POST /api/cart
+[2026-07-09T14:48:32.366Z] <= END [9ceb7415-4496-4a38-aa39-21cd9d1c4c2b] POST / | Status: 201 | 290ms
+[2026-07-09T14:48:35.002Z] => START [0063a15f-3f5e-41ab-bb6c-8f34b03f3ea4] GET /api/orders/my-orders
+[2026-07-09T14:48:35.002Z] <= END [0063a15f-3f5e-41ab-bb6c-8f34b03f3ea4] GET /api/orders/my-orders | Status: 401 | 0ms
+[2026-07-09T14:48:35.009Z] => START [55dcf685-407e-4649-ae74-d53b8e24c586] GET /api/orders/my-orders
+[2026-07-09T14:48:35.010Z] <= END [55dcf685-407e-4649-ae74-d53b8e24c586] GET /api/orders/my-orders | Status: 401 | 1ms
+[2026-07-09T14:48:35.015Z] => START [f13b52ec-64f7-46d4-84e0-f820c34c7d50] POST /api/users/refresh
+[2026-07-09T14:48:35.098Z] <= END [f13b52ec-64f7-46d4-84e0-f820c34c7d50] POST /api/users/refresh | Status: 401 | 83ms
+[2026-07-09T14:48:45.466Z] => START [7b0755cd-3d9b-4ab9-87a0-62359077add3] POST /api/users/login
+[2026-07-09T14:48:45.668Z] <= END [7b0755cd-3d9b-4ab9-87a0-62359077add3] POST /login | Status: 201 | 202ms
+[2026-07-09T14:48:45.684Z] => START [a3067ee8-0d05-4ce8-9fab-73f72372b8b8] POST /api/cart/merge
+[2026-07-09T14:48:46.119Z] <= END [a3067ee8-0d05-4ce8-9fab-73f72372b8b8] POST /merge | Status: 200 | 435ms
+[2026-07-09T14:48:46.135Z] => START [baac6874-f88b-42d3-b998-8c5f24e5a5af] GET /api/cart?userId=6a3140b2bf179b1fd0d8f426
+[2026-07-09T14:48:46.204Z] <= END [baac6874-f88b-42d3-b998-8c5f24e5a5af] GET /?userId=6a3140b2bf179b1fd0d8f426 | Status: 304 | 69ms
+[2026-07-09T14:48:46.271Z] => START [63d4c88d-c50a-4329-b82e-f68c5b8badc7] GET /api/orders/my-orders
+[2026-07-09T14:48:46.416Z] <= END [63d4c88d-c50a-4329-b82e-f68c5b8badc7] GET /my-orders | Status: 304 | 145ms
+[2026-07-09T14:48:46.417Z] => START [440a1d59-8b3d-477d-a61f-cbd72b108c5a] GET /api/orders/my-orders
+[2026-07-09T14:48:46.555Z] <= END [440a1d59-8b3d-477d-a61f-cbd72b108c5a] GET /my-orders | Status: 304 | 138ms
