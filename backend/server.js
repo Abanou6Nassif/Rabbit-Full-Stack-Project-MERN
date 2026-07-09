@@ -15,7 +15,7 @@ import adminOrderRoutes from "./routes/adminOrderRoutes.js";
 import AppError from "./utils/appError.js";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
-// import { logMiddleware } from "./middlewares/logMiddleware.js";
+import { logMiddleware } from "./middlewares/logMiddleware.js";
 import {
   globalLimiter,
   makeLimiterMiddleware,
