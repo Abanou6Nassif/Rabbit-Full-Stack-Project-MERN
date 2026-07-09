@@ -17,7 +17,7 @@ function Profile() {
   }, [user, navigate]);
 
   const handleLogout = async () => {
-    await dispatch(logoutUser());
+    await dispatch(logoutUser()).unwrap();
     dispatch(logout())
     dispatch(clearCart());
     navigate("/login?redirect=profile");

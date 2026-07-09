@@ -73,11 +73,11 @@ function Register() {
       if (!user) return;
       if (user) {
         if (guestId) {
-          await dispatch(mergeCart({ guestId }));
-          await dispatch(fetchCart({ userId: user._id }));
+          await dispatch(mergeCart({ guestId })).unwrap();
+          await dispatch(fetchCart({ userId: user._id })).unwrap();
           navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
         } else {
-          await dispatch(fetchCart({ userId: user._id }));
+          await dispatch(fetchCart({ userId: user._id })).unwrap();
           navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
         }
       }

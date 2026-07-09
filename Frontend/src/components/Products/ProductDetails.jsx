@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import ProductGrid from "./ProductGrid";
 import { useParams } from "react-router-dom";
@@ -10,6 +10,7 @@ import {
 import { addToCart } from "../../redux/slices/cartSlice";
 
 const darkColors = ["black", "Black", "gray", "Gray"];
+
 const ProductDetails = ({ productId }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -80,10 +81,14 @@ const ProductDetails = ({ productId }) => {
         userId: user?._id,
       }),
     )
+      .unwrap()
       .then(() => {
         toast.success("Product added to the cart!", {
           duration: 1000,
         });
+      })
+      .catch(() => {
+        toast.error("Failed to add product to the cart.");
       })
       .finally(() => {
         setIsButtonDisabled(false);

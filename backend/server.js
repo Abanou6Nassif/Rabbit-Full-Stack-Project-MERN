@@ -15,9 +15,12 @@ import adminOrderRoutes from "./routes/adminOrderRoutes.js";
 import AppError from "./utils/appError.js";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
+import jwt from "jsonwebtoken";
+import { getAccessTokenSecret } from "./utils/tokenConfig.js";
 import { logMiddleware } from "./middlewares/logMiddleware.js";
 import {
   globalLimiter,
+  globalLimiterKey,
   makeLimiterMiddleware,
   shouldSkipGlobalRateLimit,
 } from "./middlewares/rateLimiter.js";
@@ -66,10 +69,34 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use(logMiddleware);
+
+// Soft auth: attaches req.user when a valid access token is present, but
+// never blocks the request if it's missing/invalid/expired. This lets the
+// global rate limiter key on the authenticated user's ID instead of IP,
+// so multiple logged-in users behind the same IP (NAT, office network,
+// mobile carrier) don't share one rate-limit bucket.
+//
+// This is intentionally lightweight (no DB lookup) - it only decodes the
+// token to get the user ID for rate-limit keying. The real `authenticate`
+// middleware still runs on protected routes and overwrites req.user with
+// the full user document from the DB.
+app.use((req, res, next) => {
+  try {
+    const token = req.cookies?.accessToken;
+    if (token) {
+      const decoded = jwt.verify(token, getAccessTokenSecret());
+      req.user = { id: decoded?.user?.id };
+    }
+  } catch {
+    // Invalid/expired token - treat as anonymous, don't block the request.
+  }
+  next();
+});
+
 app.use(
   makeLimiterMiddleware(
     globalLimiter,
-    (request) => request.ip,
+    globalLimiterKey,
     shouldSkipGlobalRateLimit,
   ),
 );

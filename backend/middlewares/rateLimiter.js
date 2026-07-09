@@ -1,4 +1,8 @@
-import { RateLimiterMemory, RateLimiterRedis } from "rate-limiter-flexible";
+import {
+  RateLimiterMemory,
+  RateLimiterRedis,
+  RateLimiterRes,
+} from "rate-limiter-flexible";
 import Redis from "ioredis";
 import dotenv from "dotenv";
 dotenv.config();
@@ -85,21 +89,39 @@ export const loginFailureLimiterIP = createLimiter({
   blockDuration: 60 * 15,
 });
 
+// Best-effort bookkeeping: a Redis hiccup here should never block the login
+// flow itself, so failures are logged and swallowed rather than thrown.
 export const recordLoginFailure = async (req) => {
-  const promises = [loginFailureLimiterIP.consume(req.ip)];
-  const email = req.body?.email?.trim().toLowerCase();
+  try {
+    const promises = [loginFailureLimiterIP.consume(req.ip)];
+    const email = req.body?.email?.trim().toLowerCase();
 
-  if (email) {
-    promises.push(loginFailureLimiterEmail.consume(email));
+    if (email) {
+      promises.push(loginFailureLimiterEmail.consume(email));
+    }
+
+    await Promise.all(promises);
+  } catch (err) {
+    if (err instanceof RateLimiterRes) {
+      // Expected: this IP/email has already hit the failure limit. Nothing
+      // to do here, the next login attempt will be blocked by the limiter.
+      return;
+    }
+    // Unexpected (e.g. Redis connection error) - don't let it break login.
+    console.error("recordLoginFailure error:", err);
   }
-
-  await Promise.all(promises);
 };
 
-const createRequestLimiterMiddleware = (
-  limiters,
-  message = "Too many requests. Try again later.",
-) =>
+// `limiter.consume()` rejects for two very different reasons:
+//   1. The limit was actually exceeded -> rejects with a RateLimiterRes
+//   2. A technical failure occurred (e.g. Redis connection error/timeout)
+//      -> rejects with a plain Error
+// Only case (1) should ever produce a 429. Case (2) is a bug in the
+// rate limiter's infrastructure, not a signal that the user made too many
+// requests, so we log it and fail open (let the request through) instead
+// of incorrectly telling the user they're being rate limited.
+const createRequestLimiterMiddleware =
+  (limiters, message = "Too many requests. Try again later.") =>
   async (req, res, next) => {
     try {
       const promises = limiters.map(({ limiter, keyFn }) => {
@@ -114,8 +136,13 @@ const createRequestLimiterMiddleware = (
 
       await Promise.all(promises.filter(Boolean));
       next();
-    } catch {
-      res.status(429).send(message);
+    } catch (err) {
+      if (err instanceof RateLimiterRes) {
+        return res.status(429).send(message);
+      }
+
+      console.error("Rate limiter error:", err);
+      next();
     }
   };
 
@@ -153,9 +180,17 @@ export const resetPasswordLimiterMiddleware = createRequestLimiterMiddleware(
 
 export const globalLimiter = createLimiter({
   keyPrefix: "global",
-  points: 300,
+  points: 1000,
   duration: 60,
 });
+
+// Prefer the authenticated user's ID when available so that many distinct
+// logged-in users behind the same IP (NAT, corporate network, mobile
+// carrier, etc.) don't share one rate-limit bucket. Falls back to IP for
+// anonymous requests. Requires a soft-auth step upstream that attaches
+// `req.user` when a valid token is present, without rejecting the request
+// if it's missing/invalid (see `identifyUser` middleware in server.js).
+export const globalLimiterKey = (req) => req.user?.id || req.ip;
 
 export const checkoutLimiter = createLimiter({
   keyPrefix: "checkout",
@@ -170,7 +205,8 @@ export const shouldSkipGlobalRateLimit = (req) =>
   req.path === "/api/health";
 
 export const makeLimiterMiddleware =
-  (limiter, keyFn, shouldSkip = () => false) => async (req, res, next) => {
+  (limiter, keyFn, shouldSkip = () => false) =>
+  async (req, res, next) => {
     try {
       if (shouldSkip(req)) {
         return next();
@@ -178,7 +214,12 @@ export const makeLimiterMiddleware =
 
       await limiter.consume(keyFn(req));
       next();
-    } catch {
-      res.status(429).send("Too many requests. Try again later.");
+    } catch (err) {
+      if (err instanceof RateLimiterRes) {
+        return res.status(429).send("Too many requests. Try again later.");
+      }
+
+      console.error("Rate limiter error:", err);
+      next();
     }
   };
