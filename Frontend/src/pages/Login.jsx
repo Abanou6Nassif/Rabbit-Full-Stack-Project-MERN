@@ -11,6 +11,7 @@ import DOMPurify from "dompurify";
 import { Toaster } from "sonner";
 import { toastError, toastSuccess } from "./constants/shared.js";
 import { emailRegex } from "./constants/shared.js";
+import { useRef } from "react";
 
 const schema = yup.object({
   email: yup
@@ -51,33 +52,27 @@ function Login() {
   const redirect = new URLSearchParams(location.search).get("redirect") || "/";
   const isCheckoutRedirect = redirect.includes("checkout");
 
-  useEffect(() => {
-    const userCart = async () => {
-      if (!user) return;
+  const hasMerged = useRef(false);
 
-      if (user) {
+  useEffect(() => {
+    if (!user || hasMerged.current) return;
+
+    const userCart = async () => {
+      hasMerged.current = true;
+      try {
         if (guestId) {
           await dispatch(mergeCart({ guestId })).unwrap();
-          await dispatch(fetchCart({ userId: user._id })).unwrap();
-          navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
-        } else {
-          await dispatch(fetchCart({ userId: user._id })).unwrap();
-          navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
         }
+        await dispatch(fetchCart({ userId: user._id })).unwrap();
+        navigate(isCheckoutRedirect ? "/checkout" : `/${redirect}`);
+        // eslint-disable-next-line no-unused-vars
+      } catch (error) {
+        hasMerged.current = true; // allow retry on failure
       }
     };
 
     userCart();
-  }, [
-    user,
-    guestId,
-    cart,
-    navigate,
-    isCheckoutRedirect,
-    dispatch,
-    redirect,
-    userId,
-  ]);
+  }, [user, guestId, navigate, isCheckoutRedirect, dispatch, redirect, userId]);
 
   const submitForm = async (data) => {
     const email = DOMPurify.sanitize(data.email);
