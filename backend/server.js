@@ -65,7 +65,7 @@ app.get("/api/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
-// app.use(logMiddleware);
+app.use(logMiddleware);
 app.use(
   makeLimiterMiddleware(
     globalLimiter,

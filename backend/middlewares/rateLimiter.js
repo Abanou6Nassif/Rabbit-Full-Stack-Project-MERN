@@ -153,7 +153,7 @@ export const resetPasswordLimiterMiddleware = createRequestLimiterMiddleware(
 
 export const globalLimiter = createLimiter({
   keyPrefix: "global",
-  points: 200,
+  points: 300,
   duration: 60,
 });
 
