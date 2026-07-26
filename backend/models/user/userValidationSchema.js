@@ -35,6 +35,25 @@ export const userValidationSchema = Joi.object({
   role: Joi.string().trim().valid("admin", "customer").default("customer"),
 });
 
+/**
+ * SECURITY: schema used by the PUBLIC /register endpoint. Derived from
+ * userValidationSchema but explicitly forbids `role` - registration should
+ * never be able to set a role at all, even to the "customer" default.
+ *
+ * This exists as a safety net independent of what the register controller
+ * currently does with the field: today the controller only destructures
+ * `{ name, email, password }` and ignores `value.role`, but relying on that
+ * alone is fragile - a future refactor to something like
+ * `userModel.create(value)` would silently reopen a privilege-escalation
+ * path. Rejecting `role` at the validation layer closes that off for good.
+ * Only admin-only endpoints (addNewUser / updateUser) should ever accept a
+ * `role` field, via userValidationSchema/userUpdateValidation below.
+ */
+export const publicUserValidationSchema = userValidationSchema.fork(
+  ["role"],
+  (schema) => schema.forbidden(),
+);
+
 export const forgotPasswordValidationSchema = Joi.object({
   email: Joi.string()
     .trim()

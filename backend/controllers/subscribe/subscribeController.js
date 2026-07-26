@@ -1,11 +1,18 @@
 import AppError from "../../utils/appError.js";
 import catchError from "../../utils/catchError.js";
 import subscriberModel from "../../models/subscriber/Subscriber.js";
+import { subscribeValidationSchema } from "../../models/subscriber/subscriberValidationSchema.js";
 
 export const subscribe = catchError(async (req, res) => {
-  const { email } = req.body ?? {};
+  const { error, value } = subscribeValidationSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({
+      message: "Validation failed",
+      errors: error.details.map((detail) => detail.message),
+    });
+  }
 
-  if (!email) throw new AppError("Email is required", 400);
+  const { email } = value;
 
   //Check if the email is already subscribed
   let subscriber = await subscriberModel.findOne({ email });

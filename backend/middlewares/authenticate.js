@@ -23,7 +23,15 @@ export const authenticate = catchError(async (req, res, next) => {
   if (!decoded) throw new AppError("Not authenticated", 401);
   //Excluding the password to be not sended to the next middleware
   req.user = await userModel.findById(decoded.user.id).select("-password");
-  
+
+  // SECURITY/STABILITY: the token can still be cryptographically valid
+  // after the account it belongs to has been deleted (e.g. by an admin,
+  // or the user themself). Without this check, req.user would be `null`
+  // here and any downstream middleware/controller that reads req.user.role
+  // or req.user._id (e.g. `authorize`) would throw an unhandled
+  // TypeError instead of a clean 401.
+  if (!req.user) throw new AppError("Your account no longer exists", 401);
+
   next();
 });
 

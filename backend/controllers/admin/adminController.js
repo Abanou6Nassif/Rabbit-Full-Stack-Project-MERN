@@ -63,6 +63,18 @@ export const updateUser = catchError(async (req, res) => {
   }
   const { name, email, role } = value;
 
+  // SAFETY: never allow the last remaining admin to be demoted - that
+  // would lock everyone out of the admin panel with no way back in.
+  if (user.role === "admin" && role && role !== "admin") {
+    const adminCount = await userModel.countDocuments({ role: "admin" });
+    if (adminCount <= 1) {
+      throw new AppError(
+        "Cannot demote the last remaining admin account",
+        400,
+      );
+    }
+  }
+
   user = await userModel
     .findByIdAndUpdate(
       req.params.id,
@@ -85,8 +97,31 @@ export const updateUser = catchError(async (req, res) => {
  * Delete a user
  */
 export const deleteUser = catchError(async (req, res) => {
-  const user = await userModel.findByIdAndDelete(req.params.id);
+  const user = await userModel.findById(req.params.id);
   if (!user) throw new AppError("User not found", 404);
+
+  // SAFETY: don't let an admin delete their own account through this
+  // endpoint - that's an easy way to accidentally lock yourself out.
+  if (user._id.toString() === req.user._id.toString()) {
+    throw new AppError(
+      "You cannot delete your own account. Ask another admin to do it.",
+      400,
+    );
+  }
+
+  // SAFETY: never allow the last remaining admin to be deleted - that
+  // would lock everyone out of the admin panel with no way back in.
+  if (user.role === "admin") {
+    const adminCount = await userModel.countDocuments({ role: "admin" });
+    if (adminCount <= 1) {
+      throw new AppError(
+        "Cannot delete the last remaining admin account",
+        400,
+      );
+    }
+  }
+
+  await userModel.findByIdAndDelete(req.params.id);
   res.status(200).json({
     message: "User deleted successflly",
   });

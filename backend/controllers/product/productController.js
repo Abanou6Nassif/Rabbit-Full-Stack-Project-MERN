@@ -1,6 +1,7 @@
 import catchError from "../../utils/catchError.js";
 import AppError from "../../utils/appError.js";
 import productModel from "../../models/product/Product.js";
+import { escapeRegex } from "../../utils/commonValidators.js";
 import {
   productValidationSchema,
   updateProductSchema,
@@ -209,17 +210,22 @@ const getAllProducts = catchError(async (req, res) => {
   }
 
   if (search) {
+    // SECURITY: escape regex metacharacters so `search` is always treated
+    // as a literal substring match, never as an arbitrary (and possibly
+    // catastrophic-backtracking) regular expression supplied by the client.
+    const safeSearch = escapeRegex(search);
+
     Object.assign(query, {
       $or: [
-        { name: { $regex: search, $options: "i" } },
-        { description: { $regex: search, $options: "i" } },
-        { category: { $regex: search, $options: "i" } },
-        { collection: { $regex: search, $options: "i" } },
-        { size: { $regex: search, $options: "i" } },
-        { color: { $regex: search, $options: "i" } },
-        { gender: { $regex: search, $options: "i" } },
-        { material: { $regex: search, $options: "i" } },
-        { brand: { $regex: search, $options: "i" } },
+        { name: { $regex: safeSearch, $options: "i" } },
+        { description: { $regex: safeSearch, $options: "i" } },
+        { category: { $regex: safeSearch, $options: "i" } },
+        { collection: { $regex: safeSearch, $options: "i" } },
+        { size: { $regex: safeSearch, $options: "i" } },
+        { color: { $regex: safeSearch, $options: "i" } },
+        { gender: { $regex: safeSearch, $options: "i" } },
+        { material: { $regex: safeSearch, $options: "i" } },
+        { brand: { $regex: safeSearch, $options: "i" } },
       ],
     });
   }
