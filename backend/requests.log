@@ -84625,3 +84625,11 @@
 [2026-07-26T16:41:21.759Z] <= END [6ba76393-7a67-44c6-b6f5-0b55b6b5e086] GET /?collection=all&gender=Men | Status: 304 | 231ms
 [2026-07-26T16:41:21.760Z] => START [8d58d05d-cc38-46aa-9ec3-3c637ae76115] GET /api/products?collection=all&gender=Men
 [2026-07-26T16:41:21.893Z] <= END [8d58d05d-cc38-46aa-9ec3-3c637ae76115] GET /?collection=all&gender=Men | Status: 304 | 133ms
+[2026-07-26T16:55:02.847Z] => START [d0f94822-5d41-46c7-9959-e7476cfe0dee] GET /api/products/6a18c14fca00924bf4a41395
+[2026-07-26T16:55:02.849Z] => START [f712d1ed-7795-47f5-a7f8-75513ff5d37f] GET /api/products/similar/6a18c14fca00924bf4a41395
+[2026-07-26T16:55:03.429Z] <= END [f712d1ed-7795-47f5-a7f8-75513ff5d37f] GET /similar/6a18c14fca00924bf4a41395 | Status: 200 | 580ms
+[2026-07-26T16:55:03.431Z] => START [38977a06-9adb-4d63-86a0-20b9cb7ae350] GET /api/products/similar/6a18c14fca00924bf4a41395
+[2026-07-26T16:55:03.587Z] <= END [38977a06-9adb-4d63-86a0-20b9cb7ae350] GET /similar/6a18c14fca00924bf4a41395 | Status: 304 | 157ms
+[2026-07-26T16:55:03.756Z] <= END [d0f94822-5d41-46c7-9959-e7476cfe0dee] GET /6a18c14fca00924bf4a41395 | Status: 200 | 909ms
+[2026-07-26T16:55:03.757Z] => START [8723a8cd-b667-44e6-b928-dbff9f1d9239] GET /api/products/6a18c14fca00924bf4a41395
+[2026-07-26T16:55:03.829Z] <= END [8723a8cd-b667-44e6-b928-dbff9f1d9239] GET /6a18c14fca00924bf4a41395 | Status: 304 | 72ms
