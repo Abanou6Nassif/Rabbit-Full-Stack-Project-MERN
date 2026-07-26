@@ -10,7 +10,7 @@ import {
  * Get all users
  */
 export const getAllUsers = catchError(async (req, res) => {
-  const users = await userModel.find();
+  const users = await userModel.find().select("-password");
 
   if (!users || users.length === 0) throw new AppError("No users found");
   res.status(200).json(users);
@@ -36,9 +36,14 @@ export const addNewUser = catchError(async (req, res) => {
 
   user = await userModel.create({ name, email, password, role });
 
+  // Re-fetch without the password hash rather than returning the
+  // just-created document directly (which still carries the bcrypt hash
+  // in memory since User schema doesn't mark `password` as select:false).
+  const safeUser = await userModel.findById(user._id).select("-password");
+
   res.status(201).json({
     message: "User created successfully",
-    user,
+    user: safeUser,
   });
 });
 
@@ -58,15 +63,17 @@ export const updateUser = catchError(async (req, res) => {
   }
   const { name, email, role } = value;
 
-  user = await userModel.findByIdAndUpdate(
-    req.params.id,
-    {
-      name,
-      email,
-      role,
-    },
-    { returnDocument: "after" },
-  );
+  user = await userModel
+    .findByIdAndUpdate(
+      req.params.id,
+      {
+        name,
+        email,
+        role,
+      },
+      { returnDocument: "after" },
+    )
+    .select("-password");
 
   res.status(200).json({
     message: "The user updated sccessfully",
