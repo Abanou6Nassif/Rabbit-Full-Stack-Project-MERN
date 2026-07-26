@@ -2,11 +2,17 @@ import AppError from "./appError.js";
 
 // Uses PayPal's REST API directly (no SDK dependency needed - just fetch,
 // available globally in Node 18+).
+/**
+ * 
 const PAYPAL_API_BASE =
   process.env.PAYPAL_API_BASE ||
   (process.env.NODE_ENV === "production"
     ? "https://api-m.paypal.com"
     : "https://api-m.sandbox.paypal.com");
+ */
+
+const PAYPAL_API_BASE =
+  process.env.PAYPAL_API_BASE || "https://api-m.sandbox.paypal.com";
 
 let cachedToken = null;
 let cachedTokenExpiry = 0;
