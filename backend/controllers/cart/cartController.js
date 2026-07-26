@@ -31,7 +31,12 @@ export const addToCart = catchError(async (req, res) => {
     });
   }
 
-  const { productId, size, color, quantity, guestId, userId } = value;
+  const { productId, size, color, quantity, guestId } = value;
+
+  // SECURITY: identity comes from the authenticated session
+  // (optionalAuthenticate), never from a client-supplied field - otherwise
+  // anyone could add items to another user's cart by passing their id.
+  const userId = req.user?._id;
 
   const product = await productModel.findById(productId);
   if (!product) throw new AppError("Product not found", 404);
@@ -113,7 +118,11 @@ export const updateCartProductQty = catchError(async (req, res) => {
       errors: error.details.map((detail) => detail.message),
     });
   }
-  const { productId, size, color, quantity, guestId, userId } = value;
+  const { productId, size, color, quantity, guestId } = value;
+
+  // SECURITY: identity comes from the authenticated session, never from a
+  // client-supplied field.
+  const userId = req.user?._id;
 
   let cart = await getCart(userId, guestId);
 
@@ -161,7 +170,11 @@ export const deleteCartProduct = catchError(async (req, res) => {
     });
   }
 
-  const { productId, size, color, quantity, guestId, userId } = value;
+  const { productId, size, color, quantity, guestId } = value;
+
+  // SECURITY: identity comes from the authenticated session, never from a
+  // client-supplied field.
+  const userId = req.user?._id;
 
   let cart = await getCart(userId, guestId);
 
@@ -205,7 +218,12 @@ export const getCartDetails = catchError(async (req, res) => {
     });
   }
 
-  const { guestId, userId } = value;
+  const { guestId } = value;
+
+  // SECURITY: identity comes from the authenticated session, never from a
+  // client-supplied query param - otherwise anyone could read another
+  // user's cart just by passing their id in ?userId=....
+  const userId = req.user?._id;
 
   let cart = await getCart(userId, guestId);
   if (!cart) throw new AppError("Cart not found", 404);
